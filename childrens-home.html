@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Children's Home & Residential Care | Tumaini Children's Home & School</title>
+  <meta name="description" content="Tumaini Children's Home provides a loving, safe, and nurturing residential environment for orphans and vulnerable children in Kenya, complete with healthcare, nutrition, and quality education.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              deep: '#0B221D',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              goldLight: '#FDF8ED',
+              goldBorder: '#F3E4CA',
+              mint: '#EAF3EF',
+              mintDark: '#2D6A4F',
+              slate: '#1E293B',
+              muted: '#64748B',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-white text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <!-- HEADER / NAVIGATION (Identical & Reusable across all pages) -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100 transition-all duration-200">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg p-1 flex-shrink-0">
+          <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo" class="w-10 h-10 sm:w-11 sm:h-11 object-contain flex-shrink-0">
+          <span class="text-base sm:text-lg xl:text-xl font-bold text-slate-900 tracking-tight font-sans whitespace-nowrap">Tumaini Children's Home &amp; School</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center space-x-3.5 xl:space-x-6 text-[13px] xl:text-[15px] font-medium text-slate-600 whitespace-nowrap" aria-label="Main Navigation">
+          <a href="index.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Home</a>
+          <a href="about.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">About Us</a>
+          <a href="admissions.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Admissions</a>
+          <a href="childrens-home.html" class="text-brand-dark font-semibold transition-colors hover:text-brand-gold whitespace-nowrap">Children's Home</a>
+          <a href="news.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">News</a>
+          <a href="gallery.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Gallery</a>
+          <a href="get-involved.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Get Involved</a>
+          <a href="contact.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Contact</a>
+        </nav>
+
+        <!-- CTA & Mobile Menu Button -->
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <a href="get-involved.html" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-dark whitespace-nowrap flex-shrink-0">
+            Donate Now
+          </a>
+
+          <!-- Mobile menu hamburger button -->
+          <button id="mobile-menu-btn" type="button" class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3">
+      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700">
+        <a href="index.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Home</a>
+        <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">About Us</a>
+        <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Admissions</a>
+        <a href="childrens-home.html" class="px-3 py-2 rounded-md bg-brand-mint text-brand-dark font-semibold">Children's Home</a>
+        <a href="news.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">News</a>
+        <a href="gallery.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Gallery</a>
+        <a href="get-involved.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Get Involved</a>
+        <a href="contact.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Contact</a>
+      </nav>
+      <div class="pt-2">
+        <a href="get-involved.html" class="w-full flex items-center justify-center px-4 py-3 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors">
+          Donate Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow">
+    
+    <!-- HERO SECTION (Split Layout matching Visily Mockup) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Image Card -->
+        <div class="lg:col-span-6 relative">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] sm:aspect-[16/11]">
+            <img 
+              src="assets/images/enviroment.jpg" 
+              alt="Happy children smiling at Tumaini Children's Home" 
+              class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-500"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <!-- Floating Badge on Image -->
+            <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/40 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-mint flex items-center justify-center text-brand-dark">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-900">Safe Family Environment</div>
+                  <div class="text-[11px] text-slate-500">Loving caregivers &amp; 24/7 dedicated supervision</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-brand-mint text-brand-dark font-bold text-[11px]">
+                100% Safe
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Emerald Card -->
+        <div class="lg:col-span-6 bg-brand-dark rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden flex flex-col justify-between">
+          <!-- Subtle decorative background circle -->
+          <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-brand-mint/10 pointer-events-none blur-2xl"></div>
+
+          <div class="space-y-6 relative z-10">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-gold text-slate-900 text-xs font-bold uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-slate-900 animate-pulse"></span>
+              Residential Care
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+              A Nurturing Home for <span class="text-brand-gold">Every Child</span>
+            </h1>
+
+            <!-- Lead Description -->
+            <p class="text-gray-200 text-base sm:text-lg leading-relaxed font-normal opacity-95">
+              Providing a safe, loving, and supportive residential community for orphans and vulnerable children in Kenya since 2010. We empower each child with family warmth, nutrition, medical care, and quality education.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+              <a href="#referral" class="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-brand-gold text-slate-950 font-bold text-sm sm:text-base hover:bg-brand-goldHover transition-colors shadow-md">
+                Apply for Residency
+              </a>
+              <a href="#support" class="inline-flex items-center justify-center px-6 py-3.5 rounded-lg border border-white/30 text-white font-medium text-sm sm:text-base hover:bg-white/10 transition-colors">
+                Sponsor a Child
+              </a>
+            </div>
+
+            <!-- Social Proof Avatar Group -->
+            <div class="pt-6 border-t border-white/15 flex items-center gap-3">
+              <div class="flex -space-x-2">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ring-2 ring-brand-dark bg-brand-mint text-brand-dark text-xs font-bold">TC</span>
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ring-2 ring-brand-dark bg-brand-gold text-slate-900 text-xs font-bold">120</span>
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ring-2 ring-brand-dark bg-slate-700 text-white text-xs font-bold">+</span>
+              </div>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Joined by <strong class="text-white font-semibold">70+ happy children</strong> under our holistic residential care program.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- KEY STATS SECTION (4 Grid Cards) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        
+        <!-- Stat Card 1 -->
+        <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-brand-mint flex items-center justify-center text-brand-dark">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">70+</div>
+          <div class="text-sm font-semibold text-brand-dark mt-1">Resident Children</div>
+          <p class="text-xs text-slate-500 mt-1">Safe housing and family-style dormitories</p>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-brand-goldLight text-brand-gold flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">1,500+</div>
+          <div class="text-sm font-semibold text-brand-dark mt-1">Daily Meals Served</div>
+          <p class="text-xs text-slate-500 mt-1">Nutritious, chef-prepared balanced diet</p>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-brand-mint flex items-center justify-center text-brand-dark">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">100%</div>
+          <div class="text-sm font-semibold text-brand-dark mt-1">School Enrollment</div>
+          <p class="text-xs text-slate-500 mt-1">Full CBC primary &amp; junior school access</p>
+        </div>
+
+        <!-- Stat Card 4 -->
+        <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-brand-goldLight text-brand-gold flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">24/7</div>
+          <div class="text-sm font-semibold text-brand-dark mt-1">Professional Care</div>
+          <p class="text-xs text-slate-500 mt-1">Resident parents, nurses &amp; counselors</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HOLISTIC SUPPORT & CARE (3 Card Grid matching Mockup) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Our Holistic Model</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+          Comprehensive Care &amp; Development
+        </h2>
+        <p class="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
+          We believe every child deserves comprehensive care that fosters emotional security, physical vitality, academic growth, and spiritual strength.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Care Pillar 1: Academic -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col group">
+          <div class="h-52 overflow-hidden relative">
+            <img 
+              src="assets/images/care-academic.jpg" 
+              alt="Children participating in classroom academic lessons" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+            <div class="absolute top-4 left-4">
+              <span class="px-3 py-1 rounded-full bg-brand-dark/90 text-white text-xs font-semibold backdrop-blur-sm">
+                Education
+              </span>
+            </div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-dark transition-colors">
+                Academic &amp; Skills Training
+              </h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                Full integration into our on-school CBC school, modern computer labs, well-stocked library, and tailored vocational apprenticeships for senior youth.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-600 border-t border-gray-100 pt-4">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Full CBC Primary &amp; Junior School curriculum</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>After-school tutoring &amp; homework support</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>ICT literacy &amp; practical arts programs</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Care Pillar 2: Nutrition -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col group">
+          <div class="h-52 overflow-hidden relative">
+            <img 
+              src="assets/images/food.jfif" 
+              alt="Fresh nutritious dining and meals" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+            <div class="absolute top-4 left-4">
+              <span class="px-3 py-1 rounded-full bg-brand-gold text-slate-900 text-xs font-semibold backdrop-blur-sm">
+                Nutrition
+              </span>
+            </div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-dark transition-colors">
+                Nutritious Dining &amp; Wellness
+              </h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                Fresh, balanced meals prepared daily by our dietary staff using organic produce from our school farm to fuel growing bodies and active minds.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-600 border-t border-gray-100 pt-4">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Three hot balanced meals + fruit snacks daily</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Clean drinking water &amp; hygienic food prep</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Sustainable on-site vegetable agriculture</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Care Pillar 3: Healthcare -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col group">
+          <div class="h-52 overflow-hidden relative">
+            <img 
+              src="assets/images/care-health.jpg" 
+              alt="Pediatric healthcare and counseling session" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+            <div class="absolute top-4 left-4">
+              <span class="px-3 py-1 rounded-full bg-brand-mint text-brand-dark text-xs font-semibold backdrop-blur-sm">
+                Health &amp; Therapy
+              </span>
+            </div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-dark transition-colors">
+                Healthcare &amp; Counseling
+              </h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                On-school medical clinic, routine pediatric checkups, immunization, and professional trauma-informed psychosocial support.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-600 border-t border-gray-100 pt-4">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>24/7 resident nurse &amp; pediatric emergency care</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Licensed child psychologists &amp; group therapy</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Annual dental, vision &amp; wellness screenings</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SAFEGUARDING COMMITMENT SECTION (matching Mockup) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-brand-surface border border-brand-border rounded-3xl p-8 lg:p-12 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Image Artwork -->
+          <div class="lg:col-span-5">
+            <div class="relative rounded-2xl overflow-hidden shadow-md aspect-[4/3]">
+              <img 
+                src="assets/images/safeguarding-art.jpg" 
+                alt="Child protection and safeguarding illustration" 
+                class="w-full h-full object-cover"
+              >
+              <div class="absolute inset-0 bg-brand-dark/10"></div>
+            </div>
+          </div>
+
+          <!-- Content & Checklist -->
+          <div class="lg:col-span-7 space-y-5">
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-brand-mint text-brand-dark font-bold text-xs uppercase tracking-wider">
+              Child Protection Standards
+            </span>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Our Zero-Tolerance Safeguarding Policy
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+              At Tumaini Children's Home, the safety, dignity, and mental well-being of every child is our utmost priority. We strictly comply with the Kenya Directorate of Children's Services regulations and global safeguarding frameworks.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-mint flex items-center justify-center text-brand-dark flex-shrink-0 mt-0.5">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700">
+                  <strong class="text-slate-900 font-semibold">Strict Staff Vetting:</strong> Comprehensive police clearance certificates and mandatory child-protection background checks for all workers and volunteers.
+                </p>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-mint flex items-center justify-center text-brand-dark flex-shrink-0 mt-0.5">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700">
+                  <strong class="text-slate-900 font-semibold">Secure Gated Facility:</strong> 24-hour perimeter security, biometric visitor logging, and strict parental/guardian verification protocol.
+                </p>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-mint flex items-center justify-center text-brand-dark flex-shrink-0 mt-0.5">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700">
+                  <strong class="text-slate-900 font-semibold">Individual Care Plans:</strong> Customized psycho-social support, academic tracking, and case management for every resident child.
+                </p>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-mint flex items-center justify-center text-brand-dark flex-shrink-0 mt-0.5">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700">
+                  <strong class="text-slate-900 font-semibold">Whistleblowing &amp; Advocacy:</strong> Direct reporting mechanisms and unannounced oversight visits by certified child welfare officers.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT OUR MISSION / SPONSORSHIP TIERS SECTION (id="support") -->
+    <section id="support" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Sponsorship &amp; Giving</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+          Make a Lasting Impact Today
+        </h2>
+        <p class="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
+          Your direct contribution funds essential meals, medical care, school books, and boarding necessities for children in need.
+        </p>
+      </div>
+
+      <!-- 3 Tier Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-12">
+        
+        <!-- Tier 1: Supporter -->
+        <div class="bg-white border border-gray-200 rounded-3xl p-8 flex flex-col justify-between hover:shadow-lg transition-shadow">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-slate-900">Supporter</h3>
+              <span class="px-3 py-1 rounded-full bg-gray-100 text-slate-700 text-xs font-semibold">Basic Care</span>
+            </div>
+            <div class="mb-6">
+              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">KES 2,500</span>
+              <span class="text-slate-500 text-sm font-medium">/ month</span>
+              <p class="text-xs text-slate-400 mt-1">Approx. $20 USD / month</p>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+              Provides daily nutritious meals, essential hygiene supplies, and routine medical checkups for one child.
+            </p>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-600 mb-8 border-t border-gray-100 pt-6">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>3 daily hot balanced meals</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Personal hygiene &amp; care pack</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Quarterly impact progress newsletter</span>
+              </li>
+            </ul>
+          </div>
+          <a href="contact.html?tier=supporter" class="w-full inline-flex items-center justify-center px-5 py-3 rounded-xl border border-brand-dark text-brand-dark font-semibold text-sm hover:bg-brand-mint transition-colors">
+            Sponsor as Supporter
+          </a>
+        </div>
+
+        <!-- Tier 2: Guardian (Featured) -->
+        <div class="bg-brand-dark text-white rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative border-2 border-brand-gold transform lg:-translate-y-2">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-gold text-slate-950 px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
+            Most Impactful
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-4 mt-2">
+              <h3 class="text-xl font-bold text-white">Guardian</h3>
+              <span class="px-3 py-1 rounded-full bg-brand-mint/20 text-brand-gold text-xs font-semibold">Full Sponsor</span>
+            </div>
+            <div class="mb-6">
+              <span class="text-3xl sm:text-4xl font-extrabold text-white">KES 7,500</span>
+              <span class="text-gray-300 text-sm font-medium">/ month</span>
+              <p class="text-xs text-gray-300 mt-1">Approx. $60 USD / month</p>
+            </div>
+            <p class="text-xs sm:text-sm text-gray-200 mb-6 leading-relaxed">
+              Covers full school tuition, learning materials, uniform, residential housing, full nutrition, and healthcare.
+            </p>
+            <ul class="space-y-3 text-xs sm:text-sm text-gray-200 mb-8 border-t border-white/20 pt-6">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Full CBC school tuition &amp; stationery</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Full residential boarding &amp; meals</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Uniforms &amp; sports equipment</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Direct child progress letter &amp; photo updates</span>
+              </li>
+            </ul>
+          </div>
+          <a href="contact.html?tier=guardian" class="w-full inline-flex items-center justify-center px-5 py-3 rounded-xl bg-brand-gold text-slate-950 font-bold text-sm hover:bg-brand-goldHover transition-colors shadow-md">
+            Sponsor as Guardian
+          </a>
+        </div>
+
+        <!-- Tier 3: Champion -->
+        <div class="bg-white border border-gray-200 rounded-3xl p-8 flex flex-col justify-between hover:shadow-lg transition-shadow">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-slate-900">Champion</h3>
+              <span class="px-3 py-1 rounded-full bg-brand-mint text-brand-dark text-xs font-semibold">Twin Sponsorship</span>
+            </div>
+            <div class="mb-6">
+              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">KES 15,000</span>
+              <span class="text-slate-500 text-sm font-medium">/ month</span>
+              <p class="text-xs text-slate-400 mt-1">Approx. $120 USD / month</p>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+              Comprehensive support for two children plus contributions to our school clinic, library, and vocational workshop.
+            </p>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-600 mb-8 border-t border-gray-100 pt-6">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Complete sponsorship for 2 children</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>ICT &amp; Science lab materials fund</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>VIP Invitation to Annual School Day</span>
+              </li>
+            </ul>
+          </div>
+          <a href="contact.html?tier=champion" class="w-full inline-flex items-center justify-center px-5 py-3 rounded-xl border border-brand-dark text-brand-dark font-semibold text-sm hover:bg-brand-mint transition-colors">
+            Sponsor as Champion
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Direct Giving / M-Pesa Details Box -->
+      <div class="bg-brand-goldLight border border-brand-goldBorder rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto shadow-sm">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-2 text-center md:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-dark text-xs font-bold uppercase tracking-wider">
+              <svg class="w-4 h-4 text-brand-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+              Direct Kenyan &amp; Mobile Giving
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Make an Immediate Contribution via M-Pesa</h3>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Paybill Number: <strong class="text-slate-900 font-bold">522522</strong> &nbsp;|&nbsp; Account: <strong class="text-slate-900 font-bold">TUMAINI-CARE</strong>
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+            <a href="contact.html#bank-details" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-dark text-white font-medium text-xs sm:text-sm hover:bg-brand-darker transition-colors">
+              Wire / Bank Details
+            </a>
+            <a href="tel:+254723889396" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg border border-brand-dark text-brand-dark font-medium text-xs sm:text-sm hover:bg-brand-mint transition-colors">
+              Call Accounts: +254 723 889 396
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESIDENCY REFERRAL & ADMISSION INFO (id="referral") -->
+    <section id="referral" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-20">
+      <div class="bg-white border border-gray-200 rounded-3xl p-8 sm:p-12 shadow-sm">
+        <div class="max-w-3xl mx-auto text-center space-y-4">
+          <span class="text-brand-dark font-bold text-xs uppercase tracking-widest bg-brand-mint px-3.5 py-1 rounded-full">
+            Admissions &amp; Placement
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+            How Children Join Our Residential Family
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Placements at Tumaini Children's Home are conducted in strict partnership with the Kenya Directorate of Children's Services, local administrative chiefs, and certified social workers to ensure vulnerable children receive urgent sanctuary.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+          <div class="p-5 rounded-2xl bg-brand-surface border border-brand-border">
+            <div class="w-8 h-8 rounded-lg bg-brand-dark text-white font-bold flex items-center justify-center text-sm mb-3">
+              1
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-1">Referral &amp; Reporting</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Cases are referred by children's officers, community elders, or legal guardians detailing the child's vulnerability status.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-surface border border-brand-border">
+            <div class="w-8 h-8 rounded-lg bg-brand-dark text-white font-bold flex items-center justify-center text-sm mb-3">
+              2
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-1">Social Assessment</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Our resident social work team conducts a home visit, trauma assessment, and medical clearance to formulate an individual care plan.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-surface border border-brand-border">
+            <div class="w-8 h-8 rounded-lg bg-brand-dark text-white font-bold flex items-center justify-center text-sm mb-3">
+              3
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-1">Warm Integration</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              The child is welcomed into a family dormitory unit, enrolled in school, and assigned a caring house parent and peer mentor.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="contact.html" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors">
+            Contact Social Work Department
+          </a>
+          <a href="tel:+254723889396" class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 text-slate-700 font-medium text-sm hover:bg-slate-50 transition-colors">
+            Hotline: +254 723 889 396
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM CTA BANNER -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-gradient-to-r from-brand-dark via-brand-darker to-brand-dark text-white rounded-3xl p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden shadow-xl">
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-brand-mint/10 pointer-events-none blur-3xl"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Seeking a Safe Haven for a Child?
+          </h2>
+          <p class="text-gray-200 text-sm sm:text-base leading-relaxed opacity-95">
+            If you know a child requiring immediate residential care, academic support, or protection, reach out to our admissions and child welfare committee today.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <a href="contact.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-brand-gold text-slate-950 font-bold text-sm sm:text-base hover:bg-brand-goldHover transition-colors shadow-md">
+              Speak with Our Team
+            </a>
+            <a href="about.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-lg border border-white/40 text-white font-medium text-sm sm:text-base hover:bg-white/10 transition-colors">
+              Learn More About Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (Identical & Reusable across all pages) -->
+  <footer class="bg-white border-t border-gray-100 pt-16 pb-12 text-slate-600">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- 4 Column Footer Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-gray-100">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo" class="w-9 h-9 object-contain flex-shrink-0">
+            <span class="text-base font-bold text-slate-900 whitespace-nowrap">Tumaini Children's Home &amp; School</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm">
+            Providing quality education and a nurturing residential environment for children in Kenya. Committed to academic excellence and community development.
+          </p>
+          <!-- Social Icons -->
+          <div class="flex items-center space-x-3 pt-2 text-slate-500">
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors" aria-label="Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors" aria-label="Twitter">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors" aria-label="Website">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="lg:col-span-2 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Quick Links</h4>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-500">
+            <li><a href="about.html" class="hover:text-brand-dark transition-colors">About Us</a></li>
+            <li><a href="about.html#academics" class="hover:text-brand-dark transition-colors">Academics</a></li>
+            <li><a href="admissions.html" class="hover:text-brand-dark transition-colors">Admissions</a></li>
+            <li><a href="childrens-home.html" class="hover:text-brand-dark transition-colors">Children's Home</a></li>
+            <li><a href="get-involved.html" class="hover:text-brand-dark transition-colors">Get Involved</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Resources -->
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Resources</h4>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-500">
+            <li><a href="news.html" class="hover:text-brand-dark transition-colors">Latest News</a></li>
+            <li><a href="gallery.html" class="hover:text-brand-dark transition-colors">Gallery</a></li>
+            <li><a href="contact.html" class="hover:text-brand-dark transition-colors">Contact Support</a></li>
+            <li><a href="#" class="hover:text-brand-dark transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Get in Touch -->
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Get in Touch</h4>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-500">
+            <li class="flex items-start gap-2.5">
+              <svg class="w-4 h-4 text-brand-dark flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Nairobi, Kenya<br>Tumaini Road, District 5</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>+254 723 889 396</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:info@tumainischool.org" class="hover:text-brand-dark transition-colors">info@tumainischool.org</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>© 2026 Tumaini Comprehensive School. All rights reserved.</p>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
+          <a href="#" class="hover:text-slate-600 transition-colors">Accessibility</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+  
+  <!-- CMS Integration Script -->
+  <script src="assets/js/childrens-home-cms.js"></script>
+</body>
+</html>>

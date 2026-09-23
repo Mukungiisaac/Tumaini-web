@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us Editor | Tumaini CMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              deep: '#0B221D',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+    .tab-button {
+      position: relative;
+      padding: 12px 20px;
+      font-weight: 600;
+      color: #64748B;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-button:hover {
+      color: #153E35;
+      background: #F8FAF9;
+    }
+    .tab-button.active {
+      color: #153E35;
+      border-bottom-color: #D4973B;
+      background: #FDF8ED;
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+  
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">About Us Editor</h1>
+        <p class="text-slate-600 mt-1">Manage all About Us page content sections</p>
+      </div>
+      <button onclick="saveAbout()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold shadow-sm">
+        Save All Changes
+      </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="bg-white rounded-t-xl border border-brand-border border-b-0 overflow-x-auto">
+      <div class="flex">
+        <button class="tab-button active" onclick="switchTab('hero')">Hero</button>
+        <button class="tab-button" onclick="switchTab('mission')">Mission, Vision & Values</button>
+        <button class="tab-button" onclick="switchTab('timeline')">Timeline & Growth</button>
+        <button class="tab-button" onclick="switchTab('leadership')">Leadership Team</button>
+        <button class="tab-button" onclick="switchTab('certifications')">Certifications</button>
+        <button class="tab-button" onclick="switchTab('cta')">Call to Action</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="aboutForm" class="bg-white rounded-b-xl border border-brand-border p-8">
+      
+      <!-- TAB 1: Hero Section -->
+      <div id="hero-tab" class="tab-content active">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Hero Section</h2>
+        
+        <div class="space-y-6">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Text 1</label>
+              <input type="text" id="heroBadgeText1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Established 2010">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Text 2</label>
+              <input type="text" id="heroBadgeText2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Motto: Knowledge is Power">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Title Line 1</label>
+            <input type="text" id="heroTitleLine1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Nurturing Minds,">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Title Line 2 (Gold Highlight)</label>
+            <input type="text" id="heroTitleLine2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Transforming Futures">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Description</label>
+            <textarea id="heroDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Lead paragraph describing the institution..."></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Background Image</label>
+            
+            <!-- Image Preview -->
+            <div id="heroImagePreview" class="mb-3 hidden">
+              <img id="heroImagePreviewImg" src="" alt="Preview" class="w-full max-w-2xl h-64 object-cover rounded-xl border-2 border-brand-border shadow-sm">
+            </div>
+
+            <!-- Upload Button -->
+            <div class="flex gap-3">
+              <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Upload Image
+                <input type="file" id="heroImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'heroImage')">
+              </label>
+              <input type="text" id="heroImage" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/about-hero.jpg" readonly>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Upload an image or use existing path. Max 5MB. Formats: JPG, PNG, GIF, WebP</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Mission, Vision & Values -->
+      <div id="mission-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Mission, Vision & Values</h2>
+        
+        <div class="space-y-8">
+          <!-- Mission Card -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Mission Card</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Mission Title</label>
+              <input type="text" id="missionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our Mission">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Mission Description</label>
+              <textarea id="missionDescription" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="To provide and advance holistic quality education..."></textarea>
+            </div>
+          </div>
+
+          <!-- Vision Card -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Vision Card</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Vision Title</label>
+              <input type="text" id="visionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our Vision">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Vision Description</label>
+              <textarea id="visionDescription" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="To be a leading Centre of excellence in learning..."></textarea>
+            </div>
+          </div>
+
+          <!-- Values Card -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Values & Motto Card</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Values Title</label>
+              <input type="text" id="valuesTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our Motto & Values">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">School Motto</label>
+              <input type="text" id="valuesMotto" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Knowledge is power">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Item 1</label>
+              <input type="text" id="valuesItem1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Moral Virtues & Truth">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Item 2</label>
+              <input type="text" id="valuesItem2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Holistic Excellence">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Item 3</label>
+              <input type="text" id="valuesItem3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Service to God & Humanity">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Item 4</label>
+              <input type="text" id="valuesItem4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Compassion & Community">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Timeline & Growth -->
+      <div id="timeline-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">A Legacy of Growth - Timeline</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="timelineSectionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="A Legacy of Growth">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Timeline Introduction</label>
+            <textarea id="timelineIntro" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our journey began with a simple belief..."></textarea>
+          </div>
+
+          <!-- Milestone 1 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Milestone 1</h3>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Year</label>
+                <input type="text" id="timelineYear1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="2010">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+                <input type="text" id="timelineTitle1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="The Beginning">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="timelineDesc1" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Tumaini was founded as a small community center..."></textarea>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Milestone 2</h3>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Year</label>
+                <input type="text" id="timelineYear2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="2012">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+                <input type="text" id="timelineTitle2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Residential Wing">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="timelineDesc2" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="The Children's Home was established..."></textarea>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Milestone 3</h3>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Year</label>
+                <input type="text" id="timelineYear3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="2016">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+                <input type="text" id="timelineTitle3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="School Expansion">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="timelineDesc3" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Completion of the junior secondary wing..."></textarea>
+            </div>
+          </div>
+
+          <!-- Milestone 4 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Milestone 4</h3>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Year</label>
+                <input type="text" id="timelineYear4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="2021">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+                <input type="text" id="timelineTitle4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="National Recognition">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="timelineDesc4" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Awarded 'Most Improved Educational Institution'..."></textarea>
+            </div>
+          </div>
+
+          <!-- Campus Image & Badge -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Campus Photo & Badge</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Campus Image</label>
+              
+              <!-- Image Preview -->
+              <div id="campusImagePreview" class="mb-3 hidden">
+                <img id="campusImagePreviewImg" src="" alt="Preview" class="w-full max-w-2xl h-64 object-cover rounded-xl border-2 border-brand-border shadow-sm">
+              </div>
+
+              <!-- Upload Button -->
+              <div class="flex gap-3">
+                <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Image
+                  <input type="file" id="campusImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'campusImage')">
+                </label>
+                <input type="text" id="campusImage" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/about-campus.jpg" readonly>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">Upload an image or use existing path. Max 5MB</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Number</label>
+                <input type="text" id="campusBadgeNumber" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="500+">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Text</label>
+                <input type="text" id="campusBadgeText" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Happy students currently enrolled and thriving...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: Leadership Team -->
+      <div id="leadership-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Leadership Team</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="leadershipSectionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our Dedicated Leadership">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Introduction</label>
+            <textarea id="leadershipIntro" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Meet the passionate educators and administrators..."></textarea>
+          </div>
+
+          <!-- Leader 1 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Leader 1</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Leader Photo</label>
+              
+              <!-- Image Preview -->
+              <div id="leader1ImagePreview" class="mb-3 hidden">
+                <img id="leader1ImagePreviewImg" src="" alt="Preview" class="w-36 h-36 object-cover rounded-full border-2 border-brand-gold shadow-md">
+              </div>
+
+              <!-- Upload Button -->
+              <div class="flex gap-3">
+                <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Photo
+                  <input type="file" id="leader1ImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'leader1Image')">
+                </label>
+                <input type="text" id="leader1Image" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/leader-sarah.jpg" readonly>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Name</label>
+                <input type="text" id="leader1Name" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Dr. Sarah Mbeki">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Position/Title</label>
+                <input type="text" id="leader1Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Principal & Founder">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Biography</label>
+              <textarea id="leader1Bio" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="With over 20 years in education..."></textarea>
+            </div>
+          </div>
+
+          <!-- Leader 2 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Leader 2</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Leader Photo</label>
+              
+              <!-- Image Preview -->
+              <div id="leader2ImagePreview" class="mb-3 hidden">
+                <img id="leader2ImagePreviewImg" src="" alt="Preview" class="w-36 h-36 object-cover rounded-full border-2 border-brand-gold shadow-md">
+              </div>
+
+              <!-- Upload Button -->
+              <div class="flex gap-3">
+                <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Photo
+                  <input type="file" id="leader2ImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'leader2Image')">
+                </label>
+                <input type="text" id="leader2Image" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/leader-james.jpg" readonly>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Name</label>
+                <input type="text" id="leader2Name" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Mr. James Ochieng">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Position/Title</label>
+                <input type="text" id="leader2Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Head Administrator">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Biography</label>
+              <textarea id="leader2Bio" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="James oversees operations..."></textarea>
+            </div>
+          </div>
+
+          <!-- Leader 3 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Leader 3</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Leader Photo</label>
+              
+              <!-- Image Preview -->
+              <div id="leader3ImagePreview" class="mb-3 hidden">
+                <img id="leader3ImagePreviewImg" src="" alt="Preview" class="w-36 h-36 object-cover rounded-full border-2 border-brand-gold shadow-md">
+              </div>
+
+              <!-- Upload Button -->
+              <div class="flex gap-3">
+                <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Photo
+                  <input type="file" id="leader3ImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'leader3Image')">
+                </label>
+                <input type="text" id="leader3Image" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/leader-amina.jpg" readonly>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Name</label>
+                <input type="text" id="leader3Name" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Ms. Amina Yusuf">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Position/Title</label>
+                <input type="text" id="leader3Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Director of Academics">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Biography</label>
+              <textarea id="leader3Bio" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Amina leads our curriculum development..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: Certifications -->
+      <div id="certifications-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Certified Excellence</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="certificationTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Certified Excellence">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Description</label>
+            <textarea id="certificationDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Tumaini Comprehensive is fully accredited by..."></textarea>
+          </div>
+
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Top Badges (2 items)</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Badge 1</label>
+                <input type="text" id="certBadge1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="KICD APPROVED">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Badge 2</label>
+                <input type="text" id="certBadge2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="CERTIFIED SAFE HAVEN">
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Certification Grid (4 items)</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Certification 1</label>
+                <input type="text" id="certItem1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="K-12 Education Licensing">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Certification 2</label>
+                <input type="text" id="certItem2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Child Safety Certification">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Certification 3</label>
+                <input type="text" id="certItem3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Modern Lab Safety Cert">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Certification 4</label>
+                <input type="text" id="certItem4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Nutrition & Health Award">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: Call to Action -->
+      <div id="cta-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Ready to Join CTA</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Title</label>
+            <input type="text" id="ctaTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Ready to join the Tumaini Family?">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Description</label>
+            <textarea id="ctaDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Whether you are looking to enroll your child or want to support our mission..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Button Text</label>
+              <input type="text" id="ctaButton1Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Apply Now">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Button Text</label>
+              <input type="text" id="ctaButton2Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Visit Our Campus">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    let authToken = null;
+    
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Debug logging - check localStorage
+      console.log('=== About Admin Page Loading ===');
+      console.log('All localStorage keys:', Object.keys(localStorage));
+      console.log('localStorage contents:', JSON.stringify(localStorage));
+      
+      authToken = localStorage.getItem('authToken');
+      console.log('authToken value:', authToken);
+
+      // Check authentication
+      if (!authToken) {
+        console.error('❌ No authToken found in localStorage!');
+        alert('No authentication token found. You will be redirected to login.\nCheck console for details.');
+        setTimeout(() => {
+          window.location.href = '../login.html';
+        }, 2000);
+      } else {
+        console.log('✅ Authentication successful! Token found:', authToken.substring(0, 20) + '...');
+        // Load data after authentication is confirmed
+        loadAboutData();
+      }
+    });
+
+    // Tab switching
+    function switchTab(tabName) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab
+      document.getElementById(tabName + '-tab').classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Load about data
+    async function loadAboutData() {
+      try {
+        const response = await fetch(`${apiUrl}/api/about`);
+        const data = await response.json();
+
+        if (data) {
+          // Hero Section
+          document.getElementById('heroBadgeText1').value = data.hero_badge_text1 || '';
+          document.getElementById('heroBadgeText2').value = data.hero_badge_text2 || '';
+          document.getElementById('heroTitleLine1').value = data.hero_title_line1 || '';
+          document.getElementById('heroTitleLine2').value = data.hero_title_line2 || '';
+          document.getElementById('heroDescription').value = data.hero_description || '';
+          document.getElementById('heroImage').value = data.hero_image || '';
+          if (data.hero_image) showImagePreview('heroImage', data.hero_image);
+
+          // Mission, Vision, Values
+          document.getElementById('missionTitle').value = data.mission_title || '';
+          document.getElementById('missionDescription').value = data.mission_description || '';
+          document.getElementById('visionTitle').value = data.vision_title || '';
+          document.getElementById('visionDescription').value = data.vision_description || '';
+          document.getElementById('valuesTitle').value = data.values_title || '';
+          document.getElementById('valuesMotto').value = data.values_motto || '';
+          document.getElementById('valuesItem1').value = data.values_item1 || '';
+          document.getElementById('valuesItem2').value = data.values_item2 || '';
+          document.getElementById('valuesItem3').value = data.values_item3 || '';
+          document.getElementById('valuesItem4').value = data.values_item4 || '';
+
+          // Timeline
+          document.getElementById('timelineSectionTitle').value = data.timeline_section_title || '';
+          document.getElementById('timelineIntro').value = data.timeline_intro || '';
+          document.getElementById('timelineYear1').value = data.timeline_year1 || '';
+          document.getElementById('timelineTitle1').value = data.timeline_title1 || '';
+          document.getElementById('timelineDesc1').value = data.timeline_desc1 || '';
+          document.getElementById('timelineYear2').value = data.timeline_year2 || '';
+          document.getElementById('timelineTitle2').value = data.timeline_title2 || '';
+          document.getElementById('timelineDesc2').value = data.timeline_desc2 || '';
+          document.getElementById('timelineYear3').value = data.timeline_year3 || '';
+          document.getElementById('timelineTitle3').value = data.timeline_title3 || '';
+          document.getElementById('timelineDesc3').value = data.timeline_desc3 || '';
+          document.getElementById('timelineYear4').value = data.timeline_year4 || '';
+          document.getElementById('timelineTitle4').value = data.timeline_title4 || '';
+          document.getElementById('timelineDesc4').value = data.timeline_desc4 || '';
+          document.getElementById('campusImage').value = data.campus_image || '';
+          if (data.campus_image) showImagePreview('campusImage', data.campus_image);
+          document.getElementById('campusBadgeNumber').value = data.campus_badge_number || '';
+          document.getElementById('campusBadgeText').value = data.campus_badge_text || '';
+
+          // Leadership
+          document.getElementById('leadershipSectionTitle').value = data.leadership_section_title || '';
+          document.getElementById('leadershipIntro').value = data.leadership_intro || '';
+          document.getElementById('leader1Image').value = data.leader1_image || '';
+          if (data.leader1_image) showImagePreview('leader1Image', data.leader1_image);
+          document.getElementById('leader1Name').value = data.leader1_name || '';
+          document.getElementById('leader1Title').value = data.leader1_title || '';
+          document.getElementById('leader1Bio').value = data.leader1_bio || '';
+          document.getElementById('leader2Image').value = data.leader2_image || '';
+          if (data.leader2_image) showImagePreview('leader2Image', data.leader2_image);
+          document.getElementById('leader2Name').value = data.leader2_name || '';
+          document.getElementById('leader2Title').value = data.leader2_title || '';
+          document.getElementById('leader2Bio').value = data.leader2_bio || '';
+          document.getElementById('leader3Image').value = data.leader3_image || '';
+          if (data.leader3_image) showImagePreview('leader3Image', data.leader3_image);
+          document.getElementById('leader3Name').value = data.leader3_name || '';
+          document.getElementById('leader3Title').value = data.leader3_title || '';
+          document.getElementById('leader3Bio').value = data.leader3_bio || '';
+
+          // Certifications
+          document.getElementById('certificationTitle').value = data.certification_title || '';
+          document.getElementById('certificationDescription').value = data.certification_description || '';
+          document.getElementById('certBadge1').value = data.cert_badge1 || '';
+          document.getElementById('certBadge2').value = data.cert_badge2 || '';
+          document.getElementById('certItem1').value = data.cert_item1 || '';
+          document.getElementById('certItem2').value = data.cert_item2 || '';
+          document.getElementById('certItem3').value = data.cert_item3 || '';
+          document.getElementById('certItem4').value = data.cert_item4 || '';
+
+          // CTA
+          document.getElementById('ctaTitle').value = data.cta_title || '';
+          document.getElementById('ctaDescription').value = data.cta_description || '';
+          document.getElementById('ctaButton1Text').value = data.cta_button1_text || '';
+          document.getElementById('ctaButton2Text').value = data.cta_button2_text || '';
+        }
+      } catch (error) {
+        console.error('Error loading about data:', error);
+        showError('Failed to load about data');
+      }
+    }
+
+    // Save about data
+    async function saveAbout() {
+      try {
+        const aboutData = {
+          // Hero Section
+          hero_badge_text1: document.getElementById('heroBadgeText1').value,
+          hero_badge_text2: document.getElementById('heroBadgeText2').value,
+          hero_title_line1: document.getElementById('heroTitleLine1').value,
+          hero_title_line2: document.getElementById('heroTitleLine2').value,
+          hero_description: document.getElementById('heroDescription').value,
+          hero_image: document.getElementById('heroImage').value,
+
+          // Mission, Vision, Values
+          mission_title: document.getElementById('missionTitle').value,
+          mission_description: document.getElementById('missionDescription').value,
+          vision_title: document.getElementById('visionTitle').value,
+          vision_description: document.getElementById('visionDescription').value,
+          values_title: document.getElementById('valuesTitle').value,
+          values_motto: document.getElementById('valuesMotto').value,
+          values_item1: document.getElementById('valuesItem1').value,
+          values_item2: document.getElementById('valuesItem2').value,
+          values_item3: document.getElementById('valuesItem3').value,
+          values_item4: document.getElementById('valuesItem4').value,
+
+          // Timeline
+          timeline_section_title: document.getElementById('timelineSectionTitle').value,
+          timeline_intro: document.getElementById('timelineIntro').value,
+          timeline_year1: document.getElementById('timelineYear1').value,
+          timeline_title1: document.getElementById('timelineTitle1').value,
+          timeline_desc1: document.getElementById('timelineDesc1').value,
+          timeline_year2: document.getElementById('timelineYear2').value,
+          timeline_title2: document.getElementById('timelineTitle2').value,
+          timeline_desc2: document.getElementById('timelineDesc2').value,
+          timeline_year3: document.getElementById('timelineYear3').value,
+          timeline_title3: document.getElementById('timelineTitle3').value,
+          timeline_desc3: document.getElementById('timelineDesc3').value,
+          timeline_year4: document.getElementById('timelineYear4').value,
+          timeline_title4: document.getElementById('timelineTitle4').value,
+          timeline_desc4: document.getElementById('timelineDesc4').value,
+          campus_image: document.getElementById('campusImage').value,
+          campus_badge_number: document.getElementById('campusBadgeNumber').value,
+          campus_badge_text: document.getElementById('campusBadgeText').value,
+
+          // Leadership
+          leadership_section_title: document.getElementById('leadershipSectionTitle').value,
+          leadership_intro: document.getElementById('leadershipIntro').value,
+          leader1_image: document.getElementById('leader1Image').value,
+          leader1_name: document.getElementById('leader1Name').value,
+          leader1_title: document.getElementById('leader1Title').value,
+          leader1_bio: document.getElementById('leader1Bio').value,
+          leader2_image: document.getElementById('leader2Image').value,
+          leader2_name: document.getElementById('leader2Name').value,
+          leader2_title: document.getElementById('leader2Title').value,
+          leader2_bio: document.getElementById('leader2Bio').value,
+          leader3_image: document.getElementById('leader3Image').value,
+          leader3_name: document.getElementById('leader3Name').value,
+          leader3_title: document.getElementById('leader3Title').value,
+          leader3_bio: document.getElementById('leader3Bio').value,
+
+          // Certifications
+          certification_title: document.getElementById('certificationTitle').value,
+          certification_description: document.getElementById('certificationDescription').value,
+          cert_badge1: document.getElementById('certBadge1').value,
+          cert_badge2: document.getElementById('certBadge2').value,
+          cert_item1: document.getElementById('certItem1').value,
+          cert_item2: document.getElementById('certItem2').value,
+          cert_item3: document.getElementById('certItem3').value,
+          cert_item4: document.getElementById('certItem4').value,
+
+          // CTA
+          cta_title: document.getElementById('ctaTitle').value,
+          cta_description: document.getElementById('ctaDescription').value,
+          cta_button1_text: document.getElementById('ctaButton1Text').value,
+          cta_button2_text: document.getElementById('ctaButton2Text').value
+        };
+
+        const response = await fetch(`${apiUrl}/api/about`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(aboutData)
+        });
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          throw new Error('Failed to save');
+        }
+      } catch (error) {
+        console.error('Error saving about:', error);
+        showError('Failed to save changes');
+      }
+    }
+
+    // Image upload function
+    async function uploadImage(input, targetFieldId) {
+      const file = input.files[0];
+      if (!file) return;
+
+      // Validate file size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showError('Image must be less than 5MB');
+        return;
+      }
+
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        showError('Only JPG, PNG, GIF, and WebP images are allowed');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const response = await fetch(`${apiUrl}/api/upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const imagePath = data.path;
+          
+          // Update the text input with the path
+          document.getElementById(targetFieldId).value = imagePath;
+          
+          // Show preview
+          showImagePreview(targetFieldId, imagePath);
+          
+          showSuccess();
+        } else {
+          throw new Error('Upload failed');
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        showError('Failed to upload image');
+      }
+    }
+
+    // Show image preview
+    function showImagePreview(fieldId, imagePath) {
+      const previewContainer = document.getElementById(fieldId + 'Preview');
+      const previewImg = document.getElementById(fieldId + 'PreviewImg');
+      
+      if (previewContainer && previewImg) {
+        previewImg.src = '../../' + imagePath;
+        previewContainer.classList.remove('hidden');
+      }
+    }
+
+    // Toast notifications
+    function showSuccess() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    function showError(message) {
+      const toast = document.getElementById('errorToast');
+      document.getElementById('errorMessage').textContent = message || '✗ Failed to save changes';
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+  </script>
+
+</body>
+</html>

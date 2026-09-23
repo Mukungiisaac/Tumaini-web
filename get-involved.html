@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Involved &amp; Donate | Tumaini Comprehensive School &amp; Children's Home</title>
+  <meta name="description"
+    content="Support Tumaini Comprehensive School & Children's Home in Kenya through child sponsorship, volunteering, in-kind donations, and corporate partnerships. Transform young lives today.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              deep: '#0B221D',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              goldLight: '#FDF8ED',
+              goldBorder: '#F3E4CA',
+              mint: '#EAF3EF',
+              mintDark: '#2D6A4F',
+              slate: '#1E293B',
+              muted: '#64748B',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-white text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100 transition-all duration-200">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+
+        <!-- Logo -->
+        <a href="index.html"
+          class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg p-1 flex-shrink-0">
+          <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo"
+            class="w-10 h-10 sm:w-11 sm:h-11 object-contain flex-shrink-0">
+          <span
+            class="text-base sm:text-lg xl:text-xl font-bold text-slate-900 tracking-tight font-sans whitespace-nowrap">Tumaini
+            Children's Home &amp; School</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav
+          class="hidden lg:flex items-center space-x-3.5 xl:space-x-6 text-[13px] xl:text-[15px] font-medium text-slate-600 whitespace-nowrap"
+          aria-label="Main Navigation">
+          <a href="index.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Home</a>
+          <a href="about.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">About Us</a>
+          <a href="admissions.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Admissions</a>
+          <a href="childrens-home.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Children's
+            Home</a>
+          <a href="news.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">News</a>
+          <a href="gallery.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Gallery</a>
+          <a href="get-involved.html"
+            class="text-brand-dark font-semibold transition-colors hover:text-brand-gold whitespace-nowrap">Get Involved</a>
+          <a href="contact.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Contact</a>
+        </nav>
+
+        <!-- CTA & Mobile Menu Button -->
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <a href="#sponsor-tiers"
+            class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-dark whitespace-nowrap flex-shrink-0">
+            Donate Now
+          </a>
+
+          <!-- Mobile menu hamburger button -->
+          <button id="mobile-menu-btn" type="button"
+            class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3">
+      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700">
+        <a href="index.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Home</a>
+        <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">About Us</a>
+        <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Admissions</a>
+        <a href="childrens-home.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Children's
+          Home</a>
+        <a href="news.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">News</a>
+        <a href="gallery.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Gallery</a>
+        <a href="get-involved.html" class="px-3 py-2 rounded-md bg-brand-mint text-brand-dark font-semibold">Get
+          Involved</a>
+        <a href="contact.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Contact</a>
+        <div class="pt-3">
+          <a href="#sponsor-tiers"
+            class="flex items-center justify-center w-full px-4 py-2.5 rounded-lg bg-brand-dark text-white font-medium text-center">
+            Donate Now
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+
+    <!-- PAGE HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-brand-mint/40 via-brand-surface to-white border-b border-gray-100 py-12 lg:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6" aria-label="Breadcrumb">
+          <a href="index.html" class="hover:text-brand-dark transition-colors">Home</a>
+          <span>/</span>
+          <span class="text-brand-dark font-semibold">Get Involved</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-7 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-goldLight border border-brand-goldBorder text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              Partnership, Giving &amp; Community
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+              Partner With Us to Transform Lives &amp; Build Futures
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+              Whether through sponsoring a child, volunteering your unique skills, donating learning supplies, or corporate CSR partnership, your involvement provides unconditional love, quality education, and safe shelter.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3">
+              <a href="#sponsor-tiers"
+                class="px-6 py-3.5 rounded-xl bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors shadow-sm inline-flex items-center gap-2">
+                <span>Explore Sponsorship Tiers</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </a>
+              <a href="#volunteer-form"
+                class="px-6 py-3.5 rounded-xl border border-slate-300 text-slate-700 font-medium text-sm hover:bg-slate-50 transition-colors inline-flex items-center gap-2">
+                <span>Volunteer With Us</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Highlight Stats Card -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-card space-y-5">
+            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Our Accountability Promise
+            </h3>
+            
+            <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+              <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-surface border border-brand-border">
+                <div class="w-8 h-8 rounded-lg bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">100%</div>
+                <div>
+                  <div class="font-bold text-slate-900">Direct Allocation</div>
+                  <p class="text-slate-500 text-xs mt-0.5">Every shilling of your child sponsorship directly funds meals, healthcare, tuition, and shelter.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-surface border border-brand-border">
+                <div class="w-8 h-8 rounded-lg bg-amber-50 text-brand-gold flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                </div>
+                <div>
+                  <div class="font-bold text-slate-900">Quarterly Progress Reports</div>
+                  <p class="text-slate-500 text-xs mt-0.5">Sponsors receive personalized letters, academic report cards, and photo updates.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-surface border border-brand-border">
+                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <div>
+                  <div class="font-bold text-slate-900">Registered &amp; Certified</div>
+                  <p class="text-slate-500 text-xs mt-0.5">Fully certified by Kenya Department of Children's Services and Ministry of Education.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4 PILLARS OF GETTING INVOLVED -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Ways to Participate</span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          Four Impactful Ways You Can Help
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          From financial sponsorship to on-ground mentoring and supply drives, choose how you want to stand with our children.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Pillar 1: Child Sponsorship -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-card hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-brand-mint flex items-center justify-center text-brand-dark flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Child Sponsorship</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Support an orphan or vulnerable student with tuition, 3 daily nutritious meals, healthcare, and boarding support.
+            </p>
+          </div>
+          <div class="pt-6 mt-4 border-t border-gray-100">
+            <a href="#sponsor-tiers" class="text-xs font-bold text-brand-dark hover:text-brand-gold transition-colors flex items-center gap-1">
+              <span>View Tiers</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Volunteer & Mentorship -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-card hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-brand-gold flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Volunteer Your Skills</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Share your talent in teaching, sports coaching, music, arts, ICT, healthcare, or psychological counselling.
+            </p>
+          </div>
+          <div class="pt-6 mt-4 border-t border-gray-100">
+            <a href="#volunteer-form" class="text-xs font-bold text-brand-dark hover:text-brand-gold transition-colors flex items-center gap-1">
+              <span>Apply to Volunteer</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pillar 3: In-Kind Donations -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-card hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">In-Kind Supplies</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Donate non-perishable food, library books, stationery, sports gear, clothing, medical supplies, and bedding.
+            </p>
+          </div>
+          <div class="pt-6 mt-4 border-t border-gray-100">
+            <a href="#in-kind-wishlist" class="text-xs font-bold text-brand-dark hover:text-brand-gold transition-colors flex items-center gap-1">
+              <span>View Needs Wishlist</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pillar 4: Corporate CSR & Projects -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-card hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Corporate &amp; CSR</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Partner with us on campus infrastructure, solar water heating, science lab expansion, or farm development.
+            </p>
+          </div>
+          <div class="pt-6 mt-4 border-t border-gray-100">
+            <a href="contact.html" class="text-xs font-bold text-brand-dark hover:text-brand-gold transition-colors flex items-center gap-1">
+              <span>Partner With Us</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SPONSORSHIP TIERS SECTION (id="sponsor-tiers") -->
+    <section id="sponsor-tiers" class="bg-brand-surface border-t border-b border-gray-200/70 py-16 lg:py-24 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Child Sponsorship Plans</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Monthly Child Sponsorship
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
+            Choose a sponsorship level that matches your heart and capacity. Every tier directly supports a child in residential care.
+          </p>
+        </div>
+
+        <!-- 3 Tier Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-12">
+          
+          <!-- Tier 1: Supporter -->
+          <div class="bg-white border border-gray-200 rounded-3xl p-8 flex flex-col justify-between hover:shadow-xl transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-slate-900">Supporter</h3>
+                <span class="px-3 py-1 rounded-full bg-gray-100 text-slate-700 text-xs font-semibold">Basic Care</span>
+              </div>
+              <div class="mb-6">
+                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">KES 2,500</span>
+                <span class="text-slate-500 text-sm font-medium">/ month</span>
+                <p class="text-xs text-slate-400 mt-1">Approx. $20 USD / month</p>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+                Provides daily nutritious meals, essential hygiene supplies, and routine medical checkups for one child.
+              </p>
+              <ul class="space-y-3 text-xs sm:text-sm text-slate-600 mb-8 border-t border-gray-100 pt-6">
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>3 daily hot balanced meals</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Personal hygiene &amp; care pack</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Quarterly impact progress newsletter</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#payment-methods" onclick="selectDonationAmount(2500, 'Supporter')"
+              class="w-full inline-flex items-center justify-center px-5 py-3 rounded-xl border border-brand-dark text-brand-dark font-semibold text-sm hover:bg-brand-mint transition-colors text-center">
+              Sponsor as Supporter
+            </a>
+          </div>
+
+          <!-- Tier 2: Guardian (Featured) -->
+          <div class="bg-brand-dark text-white rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative border-2 border-brand-gold transform lg:-translate-y-2">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-gold text-slate-950 px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              Most Impactful
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-4 mt-2">
+                <h3 class="text-xl font-bold text-white">Guardian</h3>
+                <span class="px-3 py-1 rounded-full bg-brand-mint/20 text-brand-gold text-xs font-semibold">Full Sponsor</span>
+              </div>
+              <div class="mb-6">
+                <span class="text-3xl sm:text-4xl font-extrabold text-white">KES 7,500</span>
+                <span class="text-gray-300 text-sm font-medium">/ month</span>
+                <p class="text-xs text-gray-300 mt-1">Approx. $60 USD / month</p>
+              </div>
+              <p class="text-xs sm:text-sm text-gray-200 mb-6 leading-relaxed">
+                Covers full school tuition, learning materials, uniform, residential housing, full nutrition, and healthcare.
+              </p>
+              <ul class="space-y-3 text-xs sm:text-sm text-gray-200 mb-8 border-t border-white/20 pt-6">
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Full CBC school tuition &amp; stationery</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Full residential boarding &amp; meals</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Uniforms &amp; sports equipment</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Direct child progress letter &amp; photo updates</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#payment-methods" onclick="selectDonationAmount(7500, 'Guardian')"
+              class="w-full inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-brand-gold text-slate-950 font-bold text-sm hover:bg-brand-goldHover transition-colors shadow-md text-center">
+              Sponsor as Guardian
+            </a>
+          </div>
+
+          <!-- Tier 3: Champion -->
+          <div class="bg-white border border-gray-200 rounded-3xl p-8 flex flex-col justify-between hover:shadow-xl transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-slate-900">Champion</h3>
+                <span class="px-3 py-1 rounded-full bg-brand-mint text-brand-dark text-xs font-semibold">Twin Sponsorship</span>
+              </div>
+              <div class="mb-6">
+                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">KES 15,000</span>
+                <span class="text-slate-500 text-sm font-medium">/ month</span>
+                <p class="text-xs text-slate-400 mt-1">Approx. $120 USD / month</p>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+                Comprehensive support for two children plus contributions to our campus clinic, library, and vocational workshop.
+              </p>
+              <ul class="space-y-3 text-xs sm:text-sm text-slate-600 mb-8 border-t border-gray-100 pt-6">
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Complete sponsorship for 2 children</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>ICT &amp; Science lab materials fund</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Annual recognition on our Benefactor Wall</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#payment-methods" onclick="selectDonationAmount(15000, 'Champion')"
+              class="w-full inline-flex items-center justify-center px-5 py-3 rounded-xl border border-brand-dark text-brand-dark font-semibold text-sm hover:bg-brand-mint transition-colors text-center">
+              Sponsor as Champion
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PAYMENT & DIRECT DONATION CHANNELS (M-PESA / BANK / CARD) -->
+    <section id="payment-methods" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Ways to Give</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+          Official Payment &amp; Donation Details
+        </h2>
+        <p class="text-slate-600 text-sm mt-2">
+          Make direct, secure transfers locally via M-Pesa or internationally via Bank Wire Transfer.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- M-Pesa Paybill Card -->
+        <div class="bg-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-2xl"></div>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-white/20 text-emerald-100 text-xs font-bold uppercase tracking-wider">
+                M-PESA (Kenya)
+              </span>
+              <span class="text-xs text-emerald-200">Instant</span>
+            </div>
+            
+            <h3 class="text-xl font-bold">Lipa na M-Pesa Paybill</h3>
+            
+            <div class="space-y-3 bg-black/20 p-4 rounded-xl border border-white/10 text-xs sm:text-sm">
+              <div class="flex items-center justify-between">
+                <span class="text-emerald-200">Business No (Paybill):</span>
+                <span class="font-extrabold text-base text-white tracking-wider">522522</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-emerald-200">Account No:</span>
+                <span class="font-bold text-brand-gold">12894567#Tumaini</span>
+              </div>
+              <div class="flex items-center justify-between pt-1 border-t border-white/10">
+                <span class="text-emerald-200">Account Name:</span>
+                <span class="font-medium text-white">Tumaini Children's Home</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-emerald-100 leading-relaxed">
+              1. Go to M-Pesa > Lipa na M-Pesa > Paybill.<br>
+              2. Enter Business Number <strong>522522</strong>.<br>
+              3. Enter Account <strong>12894567#YourName</strong> &amp; Amount.
+            </p>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-white/15">
+            <button type="button" onclick="copyToClipboard('522522', 'M-Pesa Paybill 522522 copied to clipboard!')"
+              class="w-full py-2.5 rounded-xl bg-white text-emerald-950 font-bold text-xs hover:bg-emerald-50 transition-colors flex items-center justify-center gap-1.5 shadow">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Paybill Number</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bank Wire Card (KES / USD) -->
+        <div class="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-brand-mint text-brand-dark text-xs font-bold uppercase tracking-wider">
+                Bank Wire Transfer
+              </span>
+              <span class="text-xs text-slate-400">Local &amp; Global</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-900">KCB Bank Kenya</h3>
+            
+            <div class="space-y-2.5 text-xs text-slate-700 bg-brand-surface p-4 rounded-xl border border-brand-border">
+              <div class="flex justify-between">
+                <span class="text-slate-500">Bank Name:</span>
+                <span class="font-bold">Kenya Commercial Bank (KCB)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Branch:</span>
+                <span class="font-semibold">Nairobi West Branch</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Account (KES):</span>
+                <span class="font-mono font-bold text-brand-dark">1145 8902 4431</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Account (USD):</span>
+                <span class="font-mono font-bold text-brand-dark">1145 8902 4440</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Swift Code:</span>
+                <span class="font-mono font-semibold">KCBLKENX</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Please include your name or email as payment reference so we can issue your official donation receipt.
+            </p>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-gray-100">
+            <button type="button" onclick="copyToClipboard('114589024431', 'Bank Account 114589024431 copied to clipboard!')"
+              class="w-full py-2.5 rounded-xl border border-brand-dark text-brand-dark font-bold text-xs hover:bg-brand-mint transition-colors flex items-center justify-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy KCB Account</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- In-Kind Delivery Address Card (Wishlist) -->
+        <div id="in-kind-wishlist" class="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 shadow-card flex flex-col justify-between scroll-mt-20">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wider">
+                In-Kind Supplies
+              </span>
+              <span class="text-xs text-slate-400">Physical Drop-Off</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-900">Current Needs Wishlist</h3>
+            
+            <ul class="space-y-2 text-xs text-slate-600 bg-brand-surface p-4 rounded-xl border border-brand-border">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-dark"></span>
+                <span><strong>Dry Food:</strong> Maize flour, beans, rice, cooking oil, sugar.</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-dark"></span>
+                <span><strong>School:</strong> Exercise books, pens, geometry sets, storybooks.</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-dark"></span>
+                <span><strong>Hygiene:</strong> Bath soap, toothpaste, sanitary towels, detergent.</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-dark"></span>
+                <span><strong>Clothing:</strong> Clean school shoes, socks, blankets, bedsheets.</span>
+              </li>
+            </ul>
+
+            <p class="text-[11px] text-slate-500">
+              📍 <strong>Drop-off Location:</strong> Tumaini Children's Home, Tumaini Road, District 5, Nairobi (Monday - Saturday 8am - 5pm).
+            </p>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-gray-100">
+            <a href="contact.html" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-brand-dark text-white font-bold text-xs hover:bg-brand-darker transition-colors text-center">
+              Coordinate Delivery
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- VOLUNTEER & PARTNER APPLICATION FORM SECTION -->
+    <section id="volunteer-form" class="bg-brand-surface border-t border-b border-gray-200/70 py-16 lg:py-24 scroll-mt-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden p-6 sm:p-10 lg:p-12">
+          
+          <div class="max-w-2xl mx-auto text-center mb-10">
+            <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Get in Touch</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+              Join Our Mission as a Volunteer or Partner
+            </h2>
+            <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+              Fill out the form below and our partnerships &amp; volunteer coordination team will get in touch within 24 hours.
+            </p>
+          </div>
+
+          <!-- Volunteer / Partner Form -->
+          <form id="volunteer-application-form" class="space-y-6 max-w-3xl mx-auto">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="vol-name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Full Name *
+                </label>
+                <input type="text" id="vol-name" required placeholder="e.g. Sarah Mwangi"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all">
+              </div>
+              <div>
+                <label for="vol-email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Email Address *
+                </label>
+                <input type="email" id="vol-email" required placeholder="e.g. sarah@example.com"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="vol-phone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Phone / WhatsApp *
+                </label>
+                <input type="tel" id="vol-phone" required placeholder="e.g. +254 700 000 000"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all">
+              </div>
+              <div>
+                <label for="vol-country" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Country / City
+                </label>
+                <input type="text" id="vol-country" placeholder="e.g. Nairobi, Kenya or London, UK"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="vol-interest" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  How Would You Like to Help? *
+                </label>
+                <select id="vol-interest" required
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all">
+                  <option value="" disabled selected>Select an area of involvement</option>
+                  <option value="sponsor">Child Sponsorship (Monthly / Annual)</option>
+                  <option value="volunteer-local">Local Volunteer (Teaching / Mentorship)</option>
+                  <option value="volunteer-intl">International Volunteer (Immersion / Placement)</option>
+                  <option value="in-kind">In-Kind Donations (Food, Books, Equipment)</option>
+                  <option value="corporate">Corporate CSR / Foundation Partnership</option>
+                </select>
+              </div>
+              <div>
+                <label for="vol-skills" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Area of Expertise / Skills
+                </label>
+                <input type="text" id="vol-skills" placeholder="e.g. Teaching, Sports, IT, Medicine, Art"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all">
+              </div>
+            </div>
+
+            <div>
+              <label for="vol-message" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                Your Message / Availability
+              </label>
+              <textarea id="vol-message" rows="4" placeholder="Tell us more about your interest, preferred dates, or specific ideas..."
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all"></textarea>
+            </div>
+
+            <!-- Success Alert -->
+            <div id="volunteer-form-success" class="hidden p-4 rounded-xl bg-brand-mint border border-brand-mintDark/30 text-brand-dark text-sm flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-mintDark flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Thank you! Your inquiry has been submitted successfully. A representative will contact you within 24 hours.</span>
+            </div>
+
+            <div class="pt-2">
+              <button type="submit"
+                class="w-full py-4 rounded-xl bg-brand-dark text-white font-bold text-sm sm:text-base hover:bg-brand-darker transition-colors shadow-lg flex items-center justify-center gap-2">
+                <span>Submit Involvement Request</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div class="text-center mb-10">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest">Questions &amp; Answers</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+          <button type="button" class="faq-accordion-btn w-full p-5 text-left flex items-center justify-between font-bold text-slate-900 text-sm sm:text-base focus:outline-none" aria-expanded="false">
+            <span>How do I know my donation directly helps the children?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-500 transition-transform duration-200 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-gray-100 pt-3">
+            Tumaini is registered and supervised under the Kenyan Department of Children's Services. We maintain strictly audited financial ledgers. Sponsors receive quarterly detailed impact reports, student academic report cards, and handwritten letters from their sponsored child.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+          <button type="button" class="faq-accordion-btn w-full p-5 text-left flex items-center justify-between font-bold text-slate-900 text-sm sm:text-base focus:outline-none" aria-expanded="false">
+            <span>Can I visit or write letters to my sponsored child?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-500 transition-transform duration-200 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-gray-100 pt-3">
+            Yes! We encourage healthy, supervised communication. Sponsors can exchange physical letters or digital emails facilitated by our social workers. Campus visits are also welcomed with prior scheduling under our Child Safeguarding Policy.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+          <button type="button" class="faq-accordion-btn w-full p-5 text-left flex items-center justify-between font-bold text-slate-900 text-sm sm:text-base focus:outline-none" aria-expanded="false">
+            <span>What are the requirements for international volunteers?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-500 transition-transform duration-200 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-gray-100 pt-3">
+            International volunteers must be at least 18 years of age, provide a valid Police Clearance / Background Check certificate from their home country, two professional references, and complete a virtual orientation with our director. We offer safe on-campus guest accommodation and meal arrangements.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+          <button type="button" class="faq-accordion-btn w-full p-5 text-left flex items-center justify-between font-bold text-slate-900 text-sm sm:text-base focus:outline-none" aria-expanded="false">
+            <span>Can companies and organizations partner on infrastructure projects?</span>
+            <svg class="faq-icon w-4 h-4 text-slate-500 transition-transform duration-200 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-gray-100 pt-3">
+            Absolutely. Corporate partners have funded our solar water pumps, science laboratory, and library renovations. We provide customized CSR project tracking, milestone updates, media recognition, and official compliance documentation.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="get-involved-toast" class="fixed bottom-6 right-6 z-50 hidden px-4 py-3 bg-brand-dark text-white text-xs font-semibold rounded-xl shadow-2xl border border-brand-mintDark/30 items-center gap-2">
+    <span id="get-involved-toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-surface border-t border-gray-200 mt-auto">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-gray-200">
+
+        <!-- Col 1: About & Info -->
+        <div class="lg:col-span-4 space-y-4">
+          <a href="index.html" class="flex items-center gap-3">
+            <img src="assets/images/logo.png" alt="Tumaini Logo" class="w-8 h-8 object-contain">
+            <span class="text-base font-bold text-slate-900 tracking-tight font-sans">Tumaini Children's Home &amp;
+              School</span>
+          </a>
+          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm">
+            A sanctuary of hope, education, and holistic development for orphans, vulnerable children, and learners in
+            our community.
+          </p>
+          <div class="flex items-center space-x-3 pt-2 text-slate-500">
+            <a href="#"
+              class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors"
+              aria-label="Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors"
+              aria-label="Twitter">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors"
+              aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:text-brand-dark hover:border-brand-dark transition-colors"
+              aria-label="Website">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="lg:col-span-2 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Quick Links</h4>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-500">
+            <li><a href="about.html" class="hover:text-brand-dark transition-colors">About Us</a></li>
+            <li><a href="about.html#academics" class="hover:text-brand-dark transition-colors">Academics</a></li>
+            <li><a href="admissions.html" class="hover:text-brand-dark transition-colors">Admissions</a></li>
+            <li><a href="childrens-home.html" class="hover:text-brand-dark transition-colors">Children's Home</a></li>
+            <li><a href="get-involved.html" class="text-brand-dark font-medium hover:text-brand-gold transition-colors">Get Involved</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Resources -->
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Resources</h4>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-500">
+            <li><a href="news.html" class="hover:text-brand-dark transition-colors">Latest News</a></li>
+            <li><a href="gallery.html" class="hover:text-brand-dark transition-colors">Campus Gallery</a></li>
+            <li><a href="contact.html" class="hover:text-brand-dark transition-colors">Contact Support</a></li>
+            <li><a href="#" class="hover:text-brand-dark transition-colors">Child Safeguarding Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Get in Touch -->
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Get in Touch</h4>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-500">
+            <li class="flex items-start gap-2.5">
+              <svg class="w-4 h-4 text-brand-dark flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Nairobi, Kenya<br>Tumaini Road, District 5</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>+254 723 889 396</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-brand-dark flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:info@tumainischool.org"
+                class="hover:text-brand-dark transition-colors">info@tumainischool.org</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>© 2026 Tumaini Comprehensive School &amp; Children's Home. All rights reserved.</p>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="hover:text-slate-600 transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
+          <a href="#" class="hover:text-slate-600 transition-colors">Accessibility</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

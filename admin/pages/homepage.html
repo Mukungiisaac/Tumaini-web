@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage Editor | Tumaini CMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              deep: '#0B221D',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+    .tab-button {
+      position: relative;
+      padding: 12px 20px;
+      font-weight: 600;
+      color: #64748B;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-button:hover {
+      color: #153E35;
+      background: #F8FAF9;
+    }
+    .tab-button.active {
+      color: #153E35;
+      border-bottom-color: #D4973B;
+      background: #FDF8ED;
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Homepage Editor</h1>
+        <p class="text-slate-600 mt-1">Manage all homepage content sections from one place</p>
+      </div>
+      <button onclick="saveHomepage()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold shadow-sm">
+        Save All Changes
+      </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="bg-white rounded-t-xl border border-brand-border border-b-0 overflow-x-auto">
+      <div class="flex">
+        <button class="tab-button active" onclick="switchTab('hero')">Hero & Stats</button>
+        <button class="tab-button" onclick="switchTab('holistic')">Holistic Approach</button>
+        <button class="tab-button" onclick="switchTab('pillars')">Pillars</button>
+        <button class="tab-button" onclick="switchTab('news')">News Section</button>
+        <button class="tab-button" onclick="switchTab('testimonial')">Testimonial</button>
+        <button class="tab-button" onclick="switchTab('cta')">Bottom CTA</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="homepageForm" class="bg-white rounded-b-xl border border-brand-border p-8">
+      
+      <!-- TAB 1: Hero & Statistics -->
+      <div id="hero-tab" class="tab-content active">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Hero Section & Statistics</h2>
+        
+        <!-- Hero Section -->
+        <div class="space-y-6 mb-8 p-6 bg-brand-surface rounded-xl">
+          <h3 class="text-lg font-bold text-slate-900">Hero Section</h3>
+          
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Badge</label>
+            <input type="text" id="heroBadge" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Excellence in Education & Care">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Title</label>
+            <input type="text" id="heroTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Nurturing Potential, Building Futures">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Description</label>
+            <textarea id="heroDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Brief description..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Button Text</label>
+              <input type="text" id="heroBtnPrimary" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Button Link</label>
+              <input type="text" id="heroBtnPrimaryLink" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Button Text</label>
+              <input type="text" id="heroBtnSecondary" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Button Link</label>
+              <input type="text" id="heroBtnSecondaryLink" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Social Proof Text</label>
+            <input type="text" id="heroSocialProof" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Join 450+ students on their journey to excellence">
+            <p class="text-xs text-slate-500 mt-1">Text shown at bottom of hero card</p>
+          </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="space-y-6 p-6 bg-brand-surface rounded-xl">
+          <h3 class="text-lg font-bold text-slate-900">Statistics Cards</h3>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Total Students (Number)</label>
+              <input type="text" id="statStudents" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="450+">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Total Students (Label)</label>
+              <input type="text" id="statStudentsLabel" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Empowered Students">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Pass Rate (Number)</label>
+              <input type="text" id="statPassRate" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="98%">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Pass Rate (Label)</label>
+              <input type="text" id="statPassRateLabel" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Examination Pass Rate">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Children in Residence (Number)</label>
+              <input type="text" id="statChildrenResidence" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="120+">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Children in Residence (Label)</label>
+              <input type="text" id="statChildrenLabel" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Children in Residence">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Awards (Number)</label>
+              <input type="text" id="statAwards" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="15+">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Awards (Label)</label>
+              <input type="text" id="statAwardsLabel" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Co-Curricular Awards">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Holistic Approach -->
+      <div id="holistic-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Holistic Approach Section</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Badge</label>
+            <input type="text" id="holisticBadge" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our Foundation">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="holisticTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="A Holistic Approach to Learning and Living">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Description</label>
+            <textarea id="holisticDescription" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent"></textarea>
+          </div>
+
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-sm font-bold text-slate-900">Features (Checkmark List)</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Feature 1</label>
+              <input type="text" id="holisticFeature1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Nationally recognized academic curriculum">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Feature 2</label>
+              <input type="text" id="holisticFeature2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Safe and modern residential housing facilities">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Feature 3</label>
+              <input type="text" id="holisticFeature3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Holistic character development and mentorship">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Feature 4</label>
+              <input type="text" id="holisticFeature4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Thriving sports and arts programs">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Button Text</label>
+              <input type="text" id="holisticButtonText" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Explore Our Programs">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Button Link</label>
+              <input type="text" id="holisticButtonLink" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="/about.html">
+            </div>
+          </div>
+
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-sm font-bold text-slate-900">Floating Badge (Optional)</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Top Text</label>
+              <input type="text" id="holisticBadgeTop" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Quality Education">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Bottom Text</label>
+              <input type="text" id="holisticBadgeBottom" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Since 2010">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Section Image</label>
+              
+              <!-- Image Preview -->
+              <div id="holisticImagePreview" class="mb-3 hidden">
+                <img id="holisticImagePreviewImg" src="" alt="Preview" class="w-full max-w-md h-48 object-cover rounded-xl border-2 border-brand-border shadow-sm">
+              </div>
+
+              <!-- Upload Button -->
+              <div class="flex gap-3">
+                <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Image
+                  <input type="file" id="holisticImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'holistic')">
+                </label>
+                <input type="text" id="holisticImage" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/in-class.png" readonly>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">Upload an image or use existing path. Max 5MB. Formats: JPG, PNG, GIF, WebP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Pillars -->
+      <div id="pillars-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Pillars of Excellence Section</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="pillarsTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Pillars of Our Excellence">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Subtitle</label>
+            <textarea id="pillarsSubtitle" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="We provide a comprehensive ecosystem..."></textarea>
+          </div>
+
+          <!-- Pillar 1 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-sm font-bold text-brand-dark">Pillar 1</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="pillar1Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Academic Rigor">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="pillar1Description" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent"></textarea>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-sm font-bold text-brand-dark">Pillar 2</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="pillar2Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Residential Care">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="pillar2Description" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent"></textarea>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-sm font-bold text-brand-dark">Pillar 3</h3>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="pillar3Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Community Impact">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="pillar3Description" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: News Section -->
+      <div id="news-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">News Section Headers</h2>
+        
+        <div class="p-6 bg-yellow-50 border border-yellow-200 rounded-xl mb-6">
+          <p class="text-sm text-yellow-900"><strong>Note:</strong> The actual news articles are managed in the <a href="news.html" class="underline font-semibold">News section</a>. These fields only control the section title and headers.</p>
+        </div>
+
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="newsSectionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Latest from Our School">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Subtitle</label>
+            <textarea id="newsSectionSubtitle" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Stay updated with the vibrant life at Tumaini..."></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Button Text</label>
+            <input type="text" id="newsSectionButtonText" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="View All News">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: Testimonial -->
+      <div id="testimonial-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Testimonial Section</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Testimonial Quote</label>
+            <textarea id="testimonialQuote" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Tumaini didn't just give my daughter an education..."></textarea>
+            <p class="text-xs text-slate-500 mt-1">The main testimonial text</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Author Name</label>
+              <input type="text" id="testimonialAuthor" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Sarah Mwikali">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Author Title</label>
+              <input type="text" id="testimonialAuthorTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Parent of Class 8 Graduate">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Author Image</label>
+            
+            <!-- Image Preview -->
+            <div id="testimonialImagePreview" class="mb-3 hidden">
+              <img id="testimonialImagePreviewImg" src="" alt="Preview" class="w-32 h-32 object-cover rounded-full border-4 border-brand-gold shadow-lg mx-auto">
+            </div>
+
+            <!-- Upload Button -->
+            <div class="flex gap-3">
+              <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Upload Photo
+                <input type="file" id="testimonialImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'testimonial')">
+              </label>
+              <input type="text" id="testimonialAuthorImage" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/testimonial-sarah.jpg" readonly>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Upload author photo or use existing path. Recommended: Square image, 400x400px minimum</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: Bottom CTA -->
+      <div id="cta-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Bottom Call-to-Action Section</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Title</label>
+            <input type="text" id="ctaTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Invest in the Leaders of Tomorrow">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Description</label>
+            <textarea id="ctaDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Whether you are a prospective parent..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Button 1 Text</label>
+              <input type="text" id="ctaButton1Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Apply for Admission">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Button 1 Link</label>
+              <input type="text" id="ctaButton1Link" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="/admissions.html">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Button 2 Text</label>
+              <input type="text" id="ctaButton2Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Partner with Us">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Button 2 Link</label>
+              <input type="text" id="ctaButton2Link" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="/contact.html">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-slate-200">
+        <a href="../dashboard.html" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-semibold">
+          Cancel
+        </a>
+        <button type="submit" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold shadow-sm">
+          Save All Changes
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    const authToken = localStorage.getItem('authToken');
+
+    // Check authentication
+    if (!authToken) {
+      window.location.href = '../login.html';
+    }
+
+    // Tab switching
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Show selected tab
+      document.getElementById(tabName + '-tab').classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Load homepage data on page load
+    async function loadHomepage() {
+      try {
+        const response = await fetch(`${apiUrl}/api/homepage`);
+        const data = await response.json();
+
+        if (data) {
+          // Hero Section
+          document.getElementById('heroBadge').value = data.hero_badge || '';
+          document.getElementById('heroTitle').value = data.hero_title || '';
+          document.getElementById('heroDescription').value = data.hero_description || '';
+          document.getElementById('heroBtnPrimary').value = data.hero_button_primary || '';
+          document.getElementById('heroBtnPrimaryLink').value = data.hero_button_primary_link || '';
+          document.getElementById('heroBtnSecondary').value = data.hero_button_secondary || '';
+          document.getElementById('heroBtnSecondaryLink').value = data.hero_button_secondary_link || '';
+          document.getElementById('heroSocialProof').value = data.hero_social_proof_text || '';
+
+          // Statistics
+          document.getElementById('statStudents').value = data.stat_students || '';
+          document.getElementById('statStudentsLabel').value = data.stat_students_label || '';
+          document.getElementById('statPassRate').value = data.stat_pass_rate || '';
+          document.getElementById('statPassRateLabel').value = data.stat_pass_rate_label || '';
+          document.getElementById('statChildrenResidence').value = data.stat_children_residence || '';
+          document.getElementById('statChildrenLabel').value = data.stat_children_label || '';
+          document.getElementById('statAwards').value = data.stat_awards || '';
+          document.getElementById('statAwardsLabel').value = data.stat_awards_label || '';
+
+          // Holistic Approach
+          document.getElementById('holisticBadge').value = data.holistic_badge || '';
+          document.getElementById('holisticTitle').value = data.holistic_title || '';
+          document.getElementById('holisticDescription').value = data.holistic_description || '';
+          document.getElementById('holisticFeature1').value = data.holistic_feature_1 || '';
+          document.getElementById('holisticFeature2').value = data.holistic_feature_2 || '';
+          document.getElementById('holisticFeature3').value = data.holistic_feature_3 || '';
+          document.getElementById('holisticFeature4').value = data.holistic_feature_4 || '';
+          document.getElementById('holisticButtonText').value = data.holistic_button_text || '';
+          document.getElementById('holisticButtonLink').value = data.holistic_button_link || '';
+          document.getElementById('holisticImage').value = data.holistic_image || '';
+          document.getElementById('holisticBadgeTop').value = data.holistic_badge_top || '';
+          document.getElementById('holisticBadgeBottom').value = data.holistic_badge_bottom || '';
+
+          // Pillars
+          document.getElementById('pillarsTitle').value = data.pillars_title || '';
+          document.getElementById('pillarsSubtitle').value = data.pillars_subtitle || '';
+          document.getElementById('pillar1Title').value = data.pillar_1_title || '';
+          document.getElementById('pillar1Description').value = data.pillar_1_description || '';
+          document.getElementById('pillar2Title').value = data.pillar_2_title || '';
+          document.getElementById('pillar2Description').value = data.pillar_2_description || '';
+          document.getElementById('pillar3Title').value = data.pillar_3_title || '';
+          document.getElementById('pillar3Description').value = data.pillar_3_description || '';
+
+          // News Section
+          document.getElementById('newsSectionTitle').value = data.news_section_title || '';
+          document.getElementById('newsSectionSubtitle').value = data.news_section_subtitle || '';
+          document.getElementById('newsSectionButtonText').value = data.news_section_button_text || '';
+
+          // Testimonial
+          document.getElementById('testimonialQuote').value = data.testimonial_quote || '';
+          document.getElementById('testimonialAuthor').value = data.testimonial_author || '';
+          document.getElementById('testimonialAuthorTitle').value = data.testimonial_author_title || '';
+          document.getElementById('testimonialAuthorImage').value = data.testimonial_author_image || '';
+
+          // Bottom CTA
+          document.getElementById('ctaTitle').value = data.cta_title || '';
+          document.getElementById('ctaDescription').value = data.cta_description || '';
+          document.getElementById('ctaButton1Text').value = data.cta_button_1_text || '';
+          document.getElementById('ctaButton1Link').value = data.cta_button_1_link || '';
+          document.getElementById('ctaButton2Text').value = data.cta_button_2_text || '';
+          document.getElementById('ctaButton2Link').value = data.cta_button_2_link || '';
+        }
+      } catch (error) {
+        console.error('Failed to load homepage:', error);
+        showError('Failed to load homepage data');
+      }
+    }
+
+    // Save homepage data
+    async function saveHomepage() {
+      const data = {
+        // Hero Section
+        hero_badge: document.getElementById('heroBadge').value,
+        hero_title: document.getElementById('heroTitle').value,
+        hero_description: document.getElementById('heroDescription').value,
+        hero_button_primary: document.getElementById('heroBtnPrimary').value,
+        hero_button_primary_link: document.getElementById('heroBtnPrimaryLink').value,
+        hero_button_secondary: document.getElementById('heroBtnSecondary').value,
+        hero_button_secondary_link: document.getElementById('heroBtnSecondaryLink').value,
+        hero_social_proof_text: document.getElementById('heroSocialProof').value,
+
+        // Statistics
+        stat_students: document.getElementById('statStudents').value,
+        stat_students_label: document.getElementById('statStudentsLabel').value,
+        stat_pass_rate: document.getElementById('statPassRate').value,
+        stat_pass_rate_label: document.getElementById('statPassRateLabel').value,
+        stat_children_residence: document.getElementById('statChildrenResidence').value,
+        stat_children_label: document.getElementById('statChildrenLabel').value,
+        stat_awards: document.getElementById('statAwards').value,
+        stat_awards_label: document.getElementById('statAwardsLabel').value,
+
+        // Holistic Approach
+        holistic_badge: document.getElementById('holisticBadge').value,
+        holistic_title: document.getElementById('holisticTitle').value,
+        holistic_description: document.getElementById('holisticDescription').value,
+        holistic_feature_1: document.getElementById('holisticFeature1').value,
+        holistic_feature_2: document.getElementById('holisticFeature2').value,
+        holistic_feature_3: document.getElementById('holisticFeature3').value,
+        holistic_feature_4: document.getElementById('holisticFeature4').value,
+        holistic_button_text: document.getElementById('holisticButtonText').value,
+        holistic_button_link: document.getElementById('holisticButtonLink').value,
+        holistic_image: document.getElementById('holisticImage').value,
+        holistic_badge_top: document.getElementById('holisticBadgeTop').value,
+        holistic_badge_bottom: document.getElementById('holisticBadgeBottom').value,
+
+        // Pillars
+        pillars_title: document.getElementById('pillarsTitle').value,
+        pillars_subtitle: document.getElementById('pillarsSubtitle').value,
+        pillar_1_title: document.getElementById('pillar1Title').value,
+        pillar_1_description: document.getElementById('pillar1Description').value,
+        pillar_2_title: document.getElementById('pillar2Title').value,
+        pillar_2_description: document.getElementById('pillar2Description').value,
+        pillar_3_title: document.getElementById('pillar3Title').value,
+        pillar_3_description: document.getElementById('pillar3Description').value,
+
+        // News Section
+        news_section_title: document.getElementById('newsSectionTitle').value,
+        news_section_subtitle: document.getElementById('newsSectionSubtitle').value,
+        news_section_button_text: document.getElementById('newsSectionButtonText').value,
+
+        // Testimonial
+        testimonial_quote: document.getElementById('testimonialQuote').value,
+        testimonial_author: document.getElementById('testimonialAuthor').value,
+        testimonial_author_title: document.getElementById('testimonialAuthorTitle').value,
+        testimonial_author_image: document.getElementById('testimonialAuthorImage').value,
+
+        // Bottom CTA
+        cta_title: document.getElementById('ctaTitle').value,
+        cta_description: document.getElementById('ctaDescription').value,
+        cta_button_1_text: document.getElementById('ctaButton1Text').value,
+        cta_button_1_link: document.getElementById('ctaButton1Link').value,
+        cta_button_2_text: document.getElementById('ctaButton2Text').value,
+        cta_button_2_link: document.getElementById('ctaButton2Link').value
+      };
+
+      try {
+        const response = await fetch(`${apiUrl}/api/homepage`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          showError(result.error || 'Failed to save changes');
+        }
+      } catch (error) {
+        console.error('Save error:', error);
+        showError('Failed to save changes');
+      }
+    }
+
+    // Form submit handler
+    document.getElementById('homepageForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      saveHomepage();
+    });
+
+    // Show success toast
+    function showSuccess() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    // Show error toast
+    function showError(message) {
+      const toast = document.getElementById('errorToast');
+      document.getElementById('errorMessage').textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Load data on page load
+    window.addEventListener('load', loadHomepage);
+
+    // Image Upload Function
+    async function uploadImage(input, section) {
+      const file = input.files[0];
+      if (!file) return;
+
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        showError('Please upload a valid image file (JPG, PNG, GIF, or WebP)');
+        input.value = '';
+        return;
+      }
+
+      // Validate file size (5MB max)
+      if (file.size > 5 * 1024 * 1024) {
+        showError('Image size must be less than 5MB');
+        input.value = '';
+        return;
+      }
+
+      // Show loading state
+      const originalButton = input.parentElement;
+      originalButton.classList.add('opacity-50', 'cursor-wait');
+      originalButton.querySelector('svg').classList.add('animate-spin');
+
+      try {
+        // Create form data
+        const formData = new FormData();
+        formData.append('image', file);
+
+        // Upload to server
+        const response = await fetch(`${apiUrl}/api/upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Update the input field with the new path
+          const pathInput = document.getElementById(section === 'holistic' ? 'holisticImage' : 'testimonialAuthorImage');
+          pathInput.value = result.path;
+
+          // Show preview
+          const preview = document.getElementById(section + 'ImagePreview');
+          const previewImg = document.getElementById(section + 'ImagePreviewImg');
+          
+          if (preview && previewImg) {
+            previewImg.src = '../../' + result.path;
+            preview.classList.remove('hidden');
+          }
+
+          // Show success message
+          const successToast = document.getElementById('successToast');
+          successToast.querySelector('p').textContent = '✓ Image uploaded successfully!';
+          successToast.classList.remove('hidden');
+          setTimeout(() => {
+            successToast.classList.add('hidden');
+          }, 3000);
+        } else {
+          showError(result.error || 'Failed to upload image');
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        showError('Failed to upload image. Please try again.');
+      } finally {
+        // Remove loading state
+        originalButton.classList.remove('opacity-50', 'cursor-wait');
+        originalButton.querySelector('svg').classList.remove('animate-spin');
+        input.value = ''; // Reset file input
+      }
+    }
+
+    // Show image preview on page load if image exists
+    function showImagePreview(section, imagePath) {
+      if (!imagePath) return;
+      
+      const preview = document.getElementById(section + 'ImagePreview');
+      const previewImg = document.getElementById(section + 'ImagePreviewImg');
+      
+      if (preview && previewImg) {
+        previewImg.src = '../../' + imagePath;
+        preview.classList.remove('hidden');
+      }
+    }
+
+    // Update loadHomepage function to show image previews
+    const originalLoadHomepage = loadHomepage;
+    loadHomepage = async function() {
+      await originalLoadHomepage();
+      
+      // Show existing image previews
+      const holisticImage = document.getElementById('holisticImage').value;
+      const testimonialImage = document.getElementById('testimonialAuthorImage').value;
+      
+      if (holisticImage) showImagePreview('holistic', holisticImage);
+      if (testimonialImage) showImagePreview('testimonial', testimonialImage);
+    };
+  </script>
+</body>
+</html>

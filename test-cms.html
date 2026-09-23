@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #153E35;
+        }
+        .data-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border-left: 4px solid #D4973B;
+        }
+        .label {
+            font-weight: bold;
+            color: #153E35;
+        }
+        .value {
+            color: #333;
+            margin-left: 10px;
+        }
+        #loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 CMS Homepage Data Test</h1>
+    
+    <div class="section">
+        <h2>API Endpoint Test</h2>
+        <p>Fetching from: <code>http://localhost:3001/api/homepage</code></p>
+        <div id="loading">Loading...</div>
+        <div id="result" style="display:none;"></div>
+    </div>
+
+    <div class="section">
+        <h2>What This Should Show</h2>
+        <p>If the CMS is working correctly, you should see:</p>
+        <ul>
+            <li><strong>Badge:</strong> "Tumaini Comprehensive university"</li>
+            <li><strong>Title:</strong> "Empowering Young Minds"</li>
+            <li><strong>Description:</strong> "Education and residential care for vulnerable children"</li>
+            <li><strong>Primary Button:</strong> "Learn More" → /about</li>
+            <li><strong>Statistics:</strong> 450+, 98%, 120+, 15+</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Test Instructions</h2>
+        <ol>
+            <li>Make sure backend is running: <code>cd backend && npm start</code></li>
+            <li>Open this page via http-server: <code>http://10.136.135.211:8080/test-cms.html</code></li>
+            <li>Check the data shown below matches what you entered in admin</li>
+            <li>Open browser console (F12) to see detailed logs</li>
+        </ol>
+    </div>
+
+    <script>
+        async function testCMS() {
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+
+            try {
+                console.log('🔍 Fetching homepage data from API...');
+                const response = await fetch('http://localhost:3001/api/homepage');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ Data received:', data);
+
+                loadingDiv.style.display = 'none';
+                resultDiv.style.display = 'block';
+
+                resultDiv.innerHTML = `
+                    <h3 class="success">✅ Successfully Connected to CMS API</h3>
+                    
+                    <div class="data-item">
+                        <span class="label">Hero Badge:</span>
+                        <span class="value">${data.hero_badge || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Hero Title:</span>
+                        <span class="value">${data.hero_title || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Hero Description:</span>
+                        <span class="value">${data.hero_description || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Primary Button Text:</span>
+                        <span class="value">${data.hero_button_primary || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Primary Button Link:</span>
+                        <span class="value">${data.hero_button_primary_link || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Secondary Button Text:</span>
+                        <span class="value">${data.hero_button_secondary || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Secondary Button Link:</span>
+                        <span class="value">${data.hero_button_secondary_link || '(empty)'}</span>
+                    </div>
+                    
+                    <hr style="margin: 20px 0;">
+                    
+                    <h4>Statistics:</h4>
+                    
+                    <div class="data-item">
+                        <span class="label">Total Students:</span>
+                        <span class="value">${data.stat_students || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Pass Rate:</span>
+                        <span class="value">${data.stat_pass_rate || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Children in Residence:</span>
+                        <span class="value">${data.stat_children_residence || '(empty)'}</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="label">Co-curricular Awards:</span>
+                        <span class="value">${data.stat_awards || '(empty)'}</span>
+                    </div>
+                    
+                    <hr style="margin: 20px 0;">
+                    
+                    <p><strong>Last Updated:</strong> ${data.updated_at || 'Never'}</p>
+                    
+                    <hr style="margin: 20px 0;">
+                    
+                    <h4>✅ Verification</h4>
+                    <p>If these values match what you see in the admin editor, then the CMS API is working correctly!</p>
+                    <p>If the public homepage (index.html) shows different values, then the issue is with the JavaScript selectors in the CMS integration script.</p>
+                `;
+
+            } catch (error) {
+                console.error('❌ Error:', error);
+                loadingDiv.style.display = 'none';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3 class="error">❌ Failed to Connect to CMS API</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p><strong>Possible causes:</strong></p>
+                    <ul>
+                        <li>Backend server is not running (run: <code>cd backend && npm start</code>)</li>
+                        <li>Backend is running on a different port</li>
+                        <li>CORS is blocking the request</li>
+                    </ul>
+                    <p><strong>Check browser console (F12) for more details.</strong></p>
+                `;
+            }
+        }
+
+        // Run test when page loads
+        testCMS();
+    </script>
+</body>
+</html>

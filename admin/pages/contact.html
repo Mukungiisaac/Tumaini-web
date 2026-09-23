@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Editor | Tumaini CMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-5xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Contact Information Editor</h1>
+        <p class="text-slate-600 mt-1">Manage contact details, location, and social media</p>
+      </div>
+      <button onclick="saveContact()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+        Save Changes
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form id="contactForm" class="space-y-6">
+      
+      <!-- Phone Numbers -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Phone Numbers</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Phone</label>
+            <input type="tel" id="phonePrimary" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="+254 723 889 396">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Phone (Optional)</label>
+            <input type="tel" id="phoneSecondary" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="+254 XXX XXX XXX">
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Addresses -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Email Addresses</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Email</label>
+            <input type="email" id="emailPrimary" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="info@tumainischool.org">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Email (Optional)</label>
+            <input type="email" id="emailSecondary" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="admissions@tumainischool.org">
+          </div>
+        </div>
+      </div>
+
+      <!-- Physical Address -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Physical Address</h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Full Address</label>
+          <textarea id="physicalAddress" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Likuyani Ward, Kakamega County, Kenya"></textarea>
+        </div>
+      </div>
+
+      <!-- Office Hours -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Office Hours</h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Operating Hours</label>
+          <textarea id="officeHours" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Monday - Friday: 8:00 AM - 5:00 PM&#10;Saturday: 9:00 AM - 1:00 PM&#10;Sunday: Closed"></textarea>
+        </div>
+      </div>
+
+      <!-- Social Media Links -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Social Media Links</h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Social Media URLs (JSON Format)</label>
+          <textarea id="socialMedia" rows="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent font-mono text-sm" placeholder='{"facebook": "https://facebook.com/tumainischool", "twitter": "https://twitter.com/tumainischool", "instagram": "https://instagram.com/tumainischool"}'></textarea>
+          <p class="text-xs text-slate-500 mt-1">Use valid JSON format with social media platform names as keys</p>
+        </div>
+      </div>
+
+      <!-- Google Maps Link -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Google Maps</h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Google Maps Embed Link</label>
+          <input type="url" id="googleMapsLink" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="https://www.google.com/maps/embed?pb=...">
+          <p class="text-xs text-slate-500 mt-1">Get the embed link from Google Maps (Share → Embed a map)</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end gap-4">
+        <a href="../dashboard.html" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-semibold">
+          Cancel
+        </a>
+        <button type="submit" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    const authToken = localStorage.getItem('authToken');
+
+    // Check authentication
+    if (!authToken) {
+      window.location.href = '../login.html';
+    }
+
+    // Load contact data
+    async function loadContact() {
+      try {
+        const response = await fetch(`${apiUrl}/api/contact`);
+        const data = await response.json();
+
+        if (data) {
+          document.getElementById('phonePrimary').value = data.phone_primary || '';
+          document.getElementById('phoneSecondary').value = data.phone_secondary || '';
+          document.getElementById('emailPrimary').value = data.email_primary || '';
+          document.getElementById('emailSecondary').value = data.email_secondary || '';
+          document.getElementById('physicalAddress').value = data.physical_address || '';
+          document.getElementById('officeHours').value = data.office_hours || '';
+          document.getElementById('socialMedia').value = data.social_media || '';
+          document.getElementById('googleMapsLink').value = data.google_maps_link || '';
+        }
+      } catch (error) {
+        console.error('Failed to load data:', error);
+        showError('Failed to load data');
+      }
+    }
+
+    // Save contact data
+    async function saveContact() {
+      // Validate social media JSON
+      const socialMediaValue = document.getElementById('socialMedia').value;
+      if (socialMediaValue) {
+        try {
+          JSON.parse(socialMediaValue);
+        } catch (e) {
+          showError('Invalid JSON format in Social Media field');
+          return;
+        }
+      }
+
+      const data = {
+        phone_primary: document.getElementById('phonePrimary').value,
+        phone_secondary: document.getElementById('phoneSecondary').value,
+        email_primary: document.getElementById('emailPrimary').value,
+        email_secondary: document.getElementById('emailSecondary').value,
+        physical_address: document.getElementById('physicalAddress').value,
+        office_hours: document.getElementById('officeHours').value,
+        social_media: socialMediaValue,
+        google_maps_link: document.getElementById('googleMapsLink').value
+      };
+
+      try {
+        const response = await fetch(`${apiUrl}/api/contact`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          showError(result.error || 'Failed to save changes');
+        }
+      } catch (error) {
+        console.error('Save error:', error);
+        showError('Failed to save changes');
+      }
+    }
+
+    // Form submit handler
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      saveContact();
+    });
+
+    // Toast functions
+    function showSuccess() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    function showError(message) {
+      const toast = document.getElementById('errorToast');
+      document.getElementById('errorMessage').textContent = '✗ ' + message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Load data on page load
+    window.addEventListener('load', loadContact);
+  </script>
+</body>
+</html>

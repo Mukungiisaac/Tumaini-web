@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Children's Home Editor | Tumaini CMS</title>
+  <!-- Version: CHILDRENS-HOME-CMS-v1 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              deep: '#0B221D',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+    .tab-button {
+      position: relative;
+      padding: 12px 20px;
+      font-weight: 600;
+      color: #64748B;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-button:hover {
+      color: #153E35;
+      background: #F8FAF9;
+    }
+    .tab-button.active {
+      color: #153E35;
+      border-bottom-color: #D4973B;
+      background: #FDF8ED;
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Children's Home Editor</h1>
+        <p class="text-slate-600 mt-1">Manage all Children's Home page content sections</p>
+      </div>
+      <button onclick="saveAllChanges()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold shadow-sm">
+        Save All Changes
+      </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="bg-white rounded-t-xl border border-brand-border border-b-0 overflow-x-auto">
+      <div class="flex">
+        <button class="tab-button active" onclick="switchTab('hero')">Hero & Welcome</button>
+        <button class="tab-button" onclick="switchTab('stats')">Key Statistics</button>
+        <button class="tab-button" onclick="switchTab('care')">Care Pillars</button>
+        <button class="tab-button" onclick="switchTab('safeguarding')">Safeguarding</button>
+        <button class="tab-button" onclick="switchTab('sponsorship')">Sponsorship</button>
+      </div>
+    </div>
+
+    <!-- Tabs Content Container -->
+    <div class="bg-white rounded-b-xl border border-brand-border p-8">
+
+      <!-- TAB 1: Hero & Welcome (12 fields + 1 image) -->
+      <div id="tab-hero" class="tab-content active">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Hero Section</h2>
+        
+        <!-- Hero Image Upload -->
+        <div class="mb-6 p-4 border-2 border-dashed border-brand-border rounded-lg">
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Image</label>
+          <input type="file" id="hero_image_file" accept="image/*" class="mb-2" onchange="handleImageUpload(this, 'hero_image')">
+          <img id="hero_image_preview" src="" alt="Hero preview" class="mt-2 max-h-48 rounded-lg hidden">
+          <input type="hidden" id="hero_image">
+          <p class="text-xs text-slate-500 mt-2">Current: <span id="hero_image_current"></span></p>
+        </div>
+
+        <!-- Floating Badge Fields -->
+        <div class="mb-6 p-4 bg-brand-surface rounded-lg">
+          <h3 class="font-semibold text-slate-900 mb-3">Floating Badge (on image)</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Badge Title</label>
+              <input type="text" id="hero_badge_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Badge Subtitle</label>
+              <input type="text" id="hero_badge_subtitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Badge Tag</label>
+              <input type="text" id="hero_badge_tag" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Hero Card Fields -->
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Card Badge</label>
+            <input type="text" id="hero_card_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Main Heading Line 1</label>
+              <input type="text" id="hero_heading_line1" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Main Heading Line 2 (Gold)</label>
+              <input type="text" id="hero_heading_line2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <textarea id="hero_description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Button 1 Text</label>
+              <input type="text" id="hero_button1_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Button 2 Text</label>
+              <input type="text" id="hero_button2_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Social Proof Number</label>
+              <input type="text" id="hero_social_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Social Proof Text</label>
+              <input type="text" id="hero_social_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Key Statistics (16 fields) -->
+      <div id="tab-stats" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Key Statistics (4 Cards)</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Stat Card 1 -->
+          <div class="p-4 border-2 border-brand-border rounded-lg">
+            <h3 class="font-semibold text-brand-dark mb-3">Stat Card 1</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Number</label>
+                <input type="text" id="stat1_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                <input type="text" id="stat1_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea id="stat1_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat Card 2 -->
+          <div class="p-4 border-2 border-brand-border rounded-lg">
+            <h3 class="font-semibold text-brand-dark mb-3">Stat Card 2</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Number</label>
+                <input type="text" id="stat2_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                <input type="text" id="stat2_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea id="stat2_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat Card 3 -->
+          <div class="p-4 border-2 border-brand-border rounded-lg">
+            <h3 class="font-semibold text-brand-dark mb-3">Stat Card 3</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Number</label>
+                <input type="text" id="stat3_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                <input type="text" id="stat3_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea id="stat3_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat Card 4 -->
+          <div class="p-4 border-2 border-brand-border rounded-lg">
+            <h3 class="font-semibold text-brand-dark mb-3">Stat Card 4</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Number</label>
+                <input type="text" id="stat4_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                <input type="text" id="stat4_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea id="stat4_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Care Pillars (15 fields + 3 images) -->
+      <div id="tab-care" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Holistic Care Section</h2>
+        
+        <!-- Section Header -->
+        <div class="mb-6 p-4 bg-brand-surface rounded-lg">
+          <h3 class="font-semibold text-slate-900 mb-3">Section Header</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Section Badge</label>
+              <input type="text" id="care_section_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Section Title</label>
+              <input type="text" id="care_section_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Section Description</label>
+              <textarea id="care_section_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Care Card 1: Academic -->
+        <div class="mb-6 p-4 border-2 border-brand-border rounded-lg">
+          <h3 class="font-semibold text-brand-dark mb-3">Care Pillar 1: Academic</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Card Image</label>
+              <input type="file" id="care1_image_file" accept="image/*" class="mb-2" onchange="handleImageUpload(this, 'care1_image')">
+              <img id="care1_image_preview" src="" alt="Care 1 preview" class="mt-2 max-h-32 rounded-lg hidden">
+              <input type="hidden" id="care1_image">
+              <p class="text-xs text-slate-500 mt-1">Current: <span id="care1_image_current"></span></p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Badge</label>
+              <input type="text" id="care1_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+              <input type="text" id="care1_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="care1_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Care Card 2: Nutrition -->
+        <div class="mb-6 p-4 border-2 border-brand-border rounded-lg">
+          <h3 class="font-semibold text-brand-dark mb-3">Care Pillar 2: Nutrition</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Card Image</label>
+              <input type="file" id="care2_image_file" accept="image/*" class="mb-2" onchange="handleImageUpload(this, 'care2_image')">
+              <img id="care2_image_preview" src="" alt="Care 2 preview" class="mt-2 max-h-32 rounded-lg hidden">
+              <input type="hidden" id="care2_image">
+              <p class="text-xs text-slate-500 mt-1">Current: <span id="care2_image_current"></span></p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Badge</label>
+              <input type="text" id="care2_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+              <input type="text" id="care2_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="care2_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Care Card 3: Healthcare -->
+        <div class="mb-6 p-4 border-2 border-brand-border rounded-lg">
+          <h3 class="font-semibold text-brand-dark mb-3">Care Pillar 3: Healthcare</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Card Image</label>
+              <input type="file" id="care3_image_file" accept="image/*" class="mb-2" onchange="handleImageUpload(this, 'care3_image')">
+              <img id="care3_image_preview" src="" alt="Care 3 preview" class="mt-2 max-h-32 rounded-lg hidden">
+              <input type="hidden" id="care3_image">
+              <p class="text-xs text-slate-500 mt-1">Current: <span id="care3_image_current"></span></p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Badge</label>
+              <input type="text" id="care3_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+              <input type="text" id="care3_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="care3_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: Safeguarding (9 fields + 1 image) -->
+      <div id="tab-safeguarding" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Safeguarding Section</h2>
+        
+        <!-- Safeguarding Image -->
+        <div class="mb-6 p-4 border-2 border-dashed border-brand-border rounded-lg">
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Safeguarding Image</label>
+          <input type="file" id="safeguarding_image_file" accept="image/*" class="mb-2" onchange="handleImageUpload(this, 'safeguarding_image')">
+          <img id="safeguarding_image_preview" src="" alt="Safeguarding preview" class="mt-2 max-h-48 rounded-lg hidden">
+          <input type="hidden" id="safeguarding_image">
+          <p class="text-xs text-slate-500 mt-2">Current: <span id="safeguarding_image_current"></span></p>
+        </div>
+
+        <!-- Section Header -->
+        <div class="space-y-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Section Badge</label>
+            <input type="text" id="safeguarding_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Section Title</label>
+            <input type="text" id="safeguarding_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Section Description</label>
+            <textarea id="safeguarding_description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+          </div>
+        </div>
+
+        <!-- Safeguarding Points -->
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Safeguarding Point 1</label>
+            <textarea id="safeguarding_point1" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()" placeholder="Include bold title followed by description"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Safeguarding Point 2</label>
+            <textarea id="safeguarding_point2" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()" placeholder="Include bold title followed by description"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Safeguarding Point 3</label>
+            <textarea id="safeguarding_point3" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()" placeholder="Include bold title followed by description"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Safeguarding Point 4</label>
+            <textarea id="safeguarding_point4" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()" placeholder="Include bold title followed by description"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: Sponsorship Tiers (18 fields) -->
+      <div id="tab-sponsorship" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Sponsorship Section</h2>
+        
+        <!-- Section Header -->
+        <div class="mb-6 p-4 bg-brand-surface rounded-lg">
+          <h3 class="font-semibold text-slate-900 mb-3">Section Header</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Section Badge</label>
+              <input type="text" id="sponsor_badge" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Section Title</label>
+              <input type="text" id="sponsor_title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Section Description</label>
+              <textarea id="sponsor_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier 1: Supporter -->
+        <div class="mb-6 p-4 border-2 border-brand-border rounded-lg">
+          <h3 class="font-semibold text-brand-dark mb-3">Tier 1: Supporter</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Tier Name</label>
+              <input type="text" id="tier1_name" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Price</label>
+                <input type="text" id="tier1_price" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Period</label>
+                <input type="text" id="tier1_period" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="tier1_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Button Text</label>
+              <input type="text" id="tier1_button_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier 2: Guardian -->
+        <div class="mb-6 p-4 border-2 border-brand-border rounded-lg bg-brand-goldLight">
+          <h3 class="font-semibold text-brand-dark mb-3">Tier 2: Guardian (Featured)</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Tier Name</label>
+              <input type="text" id="tier2_name" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Price</label>
+                <input type="text" id="tier2_price" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Period</label>
+                <input type="text" id="tier2_period" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="tier2_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Button Text</label>
+              <input type="text" id="tier2_button_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier 3: Champion -->
+        <div class="mb-6 p-4 border-2 border-brand-border rounded-lg">
+          <h3 class="font-semibold text-brand-dark mb-3">Tier 3: Champion</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Tier Name</label>
+              <input type="text" id="tier3_name" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Price</label>
+                <input type="text" id="tier3_price" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Period</label>
+                <input type="text" id="tier3_period" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea id="tier3_description" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Button Text</label>
+              <input type="text" id="tier3_button_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onblur="autoSave()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    let authToken = null;
+
+    // Check authentication
+    document.addEventListener('DOMContentLoaded', () => {
+      authToken = localStorage.getItem('authToken');
+      
+      if (!authToken) {
+        window.location.href = '../login.html';
+        return;
+      }
+
+      loadChildrensHomeData();
+    });
+
+    // Switch tabs
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+      
+      // Add active class to clicked button
+      event.target.classList.add('active');
+    }
+
+    // Load data from API
+    async function loadChildrensHomeData() {
+      try {
+        console.log('Loading data from:', `${apiUrl}/api/children-home`);
+        
+        const response = await fetch(`${apiUrl}/api/children-home`, {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Response error:', errorText);
+          throw new Error(`Failed to load data: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Loaded data:', data);
+        console.log('Total fields loaded:', Object.keys(data).length);
+
+        // Populate all form fields
+        Object.keys(data).forEach(key => {
+          const element = document.getElementById(key);
+          if (element && data[key] !== null && data[key] !== undefined) {
+            element.value = data[key];
+            
+            // Update image previews
+            if (key.includes('_image') && !key.includes('_file') && !key.includes('_preview') && !key.includes('_current')) {
+              const previewElement = document.getElementById(`${key}_preview`);
+              const currentElement = document.getElementById(`${key}_current`);
+              if (previewElement && data[key]) {
+                previewElement.src = `${apiUrl}/${data[key].replace(/^\/+/, '')}`;
+                previewElement.classList.remove('hidden');
+              }
+              if (currentElement) {
+                currentElement.textContent = data[key];
+              }
+            }
+          }
+        });
+
+        showToast('successToast');
+      } catch (error) {
+        console.error('Error loading data:', error);
+        document.getElementById('errorMessage').textContent = 'Failed to load data';
+        showToast('errorToast');
+      }
+    }
+
+    // Auto-save on blur
+    async function autoSave() {
+      await saveAllChanges();
+    }
+
+    // Save all changes
+    async function saveAllChanges() {
+      const data = {};
+      
+      // Collect all form field values
+      const fieldIds = [
+        // Hero section
+        'hero_image', 'hero_badge_title', 'hero_badge_subtitle', 'hero_badge_tag',
+        'hero_card_badge', 'hero_heading_line1', 'hero_heading_line2', 'hero_description',
+        'hero_button1_text', 'hero_button2_text', 'hero_social_number', 'hero_social_text',
+        
+        // Stats section
+        'stat1_number', 'stat1_title', 'stat1_description',
+        'stat2_number', 'stat2_title', 'stat2_description',
+        'stat3_number', 'stat3_title', 'stat3_description',
+        'stat4_number', 'stat4_title', 'stat4_description',
+        
+        // Care section
+        'care_section_badge', 'care_section_title', 'care_section_description',
+        'care1_image', 'care1_badge', 'care1_title', 'care1_description',
+        'care2_image', 'care2_badge', 'care2_title', 'care2_description',
+        'care3_image', 'care3_badge', 'care3_title', 'care3_description',
+        
+        // Safeguarding section
+        'safeguarding_image', 'safeguarding_badge', 'safeguarding_title', 'safeguarding_description',
+        'safeguarding_point1', 'safeguarding_point2', 'safeguarding_point3', 'safeguarding_point4',
+        
+        // Sponsorship section
+        'sponsor_badge', 'sponsor_title', 'sponsor_description',
+        'tier1_name', 'tier1_price', 'tier1_period', 'tier1_description', 'tier1_button_text',
+        'tier2_name', 'tier2_price', 'tier2_period', 'tier2_description', 'tier2_button_text',
+        'tier3_name', 'tier3_price', 'tier3_period', 'tier3_description', 'tier3_button_text'
+      ];
+
+      fieldIds.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          data[id] = element.value || '';
+        }
+      });
+
+      try {
+        const response = await fetch(`${apiUrl}/api/children-home`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save');
+        }
+
+        const result = await response.json();
+        console.log('Saved successfully:', result);
+        showToast('successToast');
+        
+      } catch (error) {
+        console.error('Error saving:', error);
+        document.getElementById('errorMessage').textContent = 'Failed to save changes';
+        showToast('errorToast');
+      }
+    }
+
+    // Handle image upload
+    async function handleImageUpload(input, fieldId) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('image', file);
+      const currentImage = document.getElementById(fieldId).value;
+      if (currentImage) {
+        formData.append('oldImage', currentImage);
+      }
+
+      try {
+        const response = await fetch(`${apiUrl}/api/upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: formData
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(result.error || `Upload failed (${response.status})`);
+        }
+
+        const imageUrl = result.path;
+
+        // Update hidden field
+        document.getElementById(fieldId).value = imageUrl;
+        
+        // Update preview
+        const previewElement = document.getElementById(`${fieldId}_preview`);
+        if (previewElement) {
+          previewElement.src = `${apiUrl}/${imageUrl.replace(/^\/+/, '')}`;
+          previewElement.classList.remove('hidden');
+        }
+
+        // Update current text
+        const currentElement = document.getElementById(`${fieldId}_current`);
+        if (currentElement) {
+          currentElement.textContent = imageUrl;
+        }
+
+        // Auto-save after image upload
+        await autoSave();
+        
+        showToast('successToast');
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        document.getElementById('errorMessage').textContent = error.message;
+        showToast('errorToast');
+      }
+    }
+
+    // Show toast notification
+    function showToast(toastId) {
+      const toast = document.getElementById(toastId);
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

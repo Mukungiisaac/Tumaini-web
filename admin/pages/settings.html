@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Tumaini CMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-5xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Settings</h1>
+        <p class="text-slate-600 mt-1">Manage site-wide settings and configurations</p>
+      </div>
+      <button onclick="saveSettings()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+        Save Changes
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="bg-white rounded-xl shadow-sm border border-brand-border mb-6">
+      <div class="border-b border-brand-border px-6">
+        <nav class="flex space-x-6">
+          <button onclick="showTab('general')" id="tab-general" class="py-4 px-2 border-b-2 border-brand-dark text-brand-dark font-semibold text-sm">
+            General
+          </button>
+          <button onclick="showTab('account')" id="tab-account" class="py-4 px-2 border-b-2 border-transparent text-slate-600 hover:text-slate-900 font-medium text-sm">
+            Account
+          </button>
+          <button onclick="showTab('appearance')" id="tab-appearance" class="py-4 px-2 border-b-2 border-transparent text-slate-600 hover:text-slate-900 font-medium text-sm">
+            Appearance
+          </button>
+        </nav>
+      </div>
+
+      <!-- General Settings Tab -->
+      <div id="content-general" class="p-6 space-y-6">
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Site Name</label>
+          <input type="text" id="siteName" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Tumaini Comprehensive School & Children's Home">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Site Tagline</label>
+          <input type="text" id="siteTagline" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Nurturing Potential, Building Futures">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">School Motto</label>
+          <input type="text" id="schoolMotto" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Knowledge is Power">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Established Year</label>
+          <input type="number" id="establishedYear" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="2010">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Copyright Text</label>
+          <input type="text" id="copyrightText" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="© 2026 Tumaini Comprehensive School. All rights reserved.">
+        </div>
+      </div>
+
+      <!-- Account Settings Tab -->
+      <div id="content-account" class="hidden p-6 space-y-6">
+        <div class="bg-brand-mint border border-blue-200 rounded-lg p-4 mb-6">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <h3 class="font-semibold text-slate-900 text-sm">Change Password</h3>
+              <p class="text-xs text-slate-600 mt-1">For security reasons, use a strong password that you don't use elsewhere</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Current Password</label>
+          <input type="password" id="currentPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Enter current password">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">New Password</label>
+          <input type="password" id="newPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Enter new password">
+          <p class="text-xs text-slate-500 mt-1">Minimum 8 characters</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Confirm New Password</label>
+          <input type="password" id="confirmPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Confirm new password">
+        </div>
+
+        <div class="pt-4">
+          <button onclick="changePassword()" class="px-6 py-2.5 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+            Update Password
+          </button>
+        </div>
+      </div>
+
+      <!-- Appearance Settings Tab -->
+      <div id="content-appearance" class="hidden p-6 space-y-6">
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Logo URL</label>
+          <input type="text" id="logoUrl" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/logo.png">
+          <p class="text-xs text-slate-500 mt-1">Relative path to site logo</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Favicon URL</label>
+          <input type="text" id="faviconUrl" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/favicon.ico">
+          <p class="text-xs text-slate-500 mt-1">Relative path to favicon</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Brand Color</label>
+          <div class="flex gap-3">
+            <input type="color" id="primaryColor" class="h-10 w-20 border border-slate-300 rounded cursor-pointer" value="#153E35">
+            <input type="text" id="primaryColorHex" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" value="#153E35" readonly>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Accent Color</label>
+          <div class="flex gap-3">
+            <input type="color" id="accentColor" class="h-10 w-20 border border-slate-300 rounded cursor-pointer" value="#D4973B">
+            <input type="text" id="accentColorHex" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" value="#D4973B" readonly>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="maintenanceMode" class="w-4 h-4 text-brand-dark border-gray-300 rounded focus:ring-brand-gold">
+          <label for="maintenanceMode" class="text-sm font-medium text-slate-700">Enable Maintenance Mode</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end gap-4">
+      <a href="../dashboard.html" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-semibold">
+        Cancel
+      </a>
+      <button onclick="saveSettings()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+        Save Settings
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    const authToken = localStorage.getItem('authToken');
+
+    // Check authentication
+    if (!authToken) {
+      window.location.href = '../login.html';
+    }
+
+    // Tab switching
+    function showTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('[id^="content-"]').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('[id^="tab-"]').forEach(el => {
+        el.classList.remove('border-brand-dark', 'text-brand-dark', 'font-semibold');
+        el.classList.add('border-transparent', 'text-slate-600', 'font-medium');
+      });
+
+      // Show selected tab
+      document.getElementById('content-' + tabName).classList.remove('hidden');
+      const tab = document.getElementById('tab-' + tabName);
+      tab.classList.add('border-brand-dark', 'text-brand-dark', 'font-semibold');
+      tab.classList.remove('border-transparent', 'text-slate-600', 'font-medium');
+    }
+
+    // Color picker sync
+    document.getElementById('primaryColor').addEventListener('input', (e) => {
+      document.getElementById('primaryColorHex').value = e.target.value;
+    });
+
+    document.getElementById('accentColor').addEventListener('input', (e) => {
+      document.getElementById('accentColorHex').value = e.target.value;
+    });
+
+    // Load settings
+    async function loadSettings() {
+      try {
+        const response = await fetch(`${apiUrl}/api/settings`, {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+        const settings = await response.json();
+
+        if (settings) {
+          document.getElementById('siteName').value = settings.site_name || '';
+          document.getElementById('siteTagline').value = settings.site_tagline || '';
+          document.getElementById('schoolMotto').value = settings.school_motto || '';
+          document.getElementById('establishedYear').value = settings.established_year || '';
+          document.getElementById('copyrightText').value = settings.copyright_text || '';
+          document.getElementById('logoUrl').value = settings.logo_url || '';
+          document.getElementById('faviconUrl').value = settings.favicon_url || '';
+          document.getElementById('primaryColor').value = settings.primary_color || '#153E35';
+          document.getElementById('primaryColorHex').value = settings.primary_color || '#153E35';
+          document.getElementById('accentColor').value = settings.accent_color || '#D4973B';
+          document.getElementById('accentColorHex').value = settings.accent_color || '#D4973B';
+          document.getElementById('maintenanceMode').checked = settings.maintenance_mode === 'true' || settings.maintenance_mode === true;
+        }
+      } catch (error) {
+        console.error('Failed to load settings:', error);
+        showError('Failed to load settings');
+      }
+    }
+
+    // Save settings
+    async function saveSettings() {
+      const settings = {
+        site_name: document.getElementById('siteName').value,
+        site_tagline: document.getElementById('siteTagline').value,
+        school_motto: document.getElementById('schoolMotto').value,
+        established_year: document.getElementById('establishedYear').value,
+        copyright_text: document.getElementById('copyrightText').value,
+        logo_url: document.getElementById('logoUrl').value,
+        favicon_url: document.getElementById('faviconUrl').value,
+        primary_color: document.getElementById('primaryColor').value,
+        accent_color: document.getElementById('accentColor').value,
+        maintenance_mode: document.getElementById('maintenanceMode').checked
+      };
+
+      try {
+        const response = await fetch(`${apiUrl}/api/settings`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(settings)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          showError(result.error || 'Failed to save settings');
+        }
+      } catch (error) {
+        console.error('Save error:', error);
+        showError('Failed to save settings');
+      }
+    }
+
+    // Change password
+    async function changePassword() {
+      const current = document.getElementById('currentPassword').value;
+      const newPass = document.getElementById('newPassword').value;
+      const confirm = document.getElementById('confirmPassword').value;
+
+      if (!current || !newPass || !confirm) {
+        showError('All password fields are required');
+        return;
+      }
+
+      if (newPass !== confirm) {
+        showError('New passwords do not match');
+        return;
+      }
+
+      if (newPass.length < 8) {
+        showError('Password must be at least 8 characters');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${apiUrl}/api/auth/change-password`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify({
+            currentPassword: current,
+            newPassword: newPass
+          })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showSuccess();
+          document.getElementById('currentPassword').value = '';
+          document.getElementById('newPassword').value = '';
+          document.getElementById('confirmPassword').value = '';
+        } else {
+          showError(result.error || 'Failed to change password');
+        }
+      } catch (error) {
+        console.error('Password change error:', error);
+        showError('Failed to change password');
+      }
+    }
+
+    // Toast functions
+    function showSuccess() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    function showError(message) {
+      const toast = document.getElementById('errorToast');
+      document.getElementById('errorMessage').textContent = '✗ ' + message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Load settings on page load
+    window.addEventListener('load', loadSettings);
+  </script>
+</body>
+</html>

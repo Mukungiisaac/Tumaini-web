@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admissions Editor | Tumaini CMS</title>
+  <!-- Version: ADMISSIONS-CMS-v1 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              deep: '#0B221D',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+    .tab-button {
+      position: relative;
+      padding: 12px 20px;
+      font-weight: 600;
+      color: #64748B;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-button:hover {
+      color: #153E35;
+      background: #F8FAF9;
+    }
+    .tab-button.active {
+      color: #153E35;
+      border-bottom-color: #D4973B;
+      background: #FDF8ED;
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Admissions Editor</h1>
+        <p class="text-slate-600 mt-1">Manage all Admissions page content sections</p>
+      </div>
+      <button onclick="saveAdmissions()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold shadow-sm">
+        Save All Changes
+      </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="bg-white rounded-t-xl border border-brand-border border-b-0 overflow-x-auto">
+      <div class="flex">
+        <button class="tab-button active" onclick="switchTab('hero')">Hero</button>
+        <button class="tab-button" onclick="switchTab('process')">Process Steps</button>
+        <button class="tab-button" onclick="switchTab('fees')">Fee Schedule</button>
+        <button class="tab-button" onclick="switchTab('faq')">FAQs</button>
+        <button class="tab-button" onclick="switchTab('cta')">Call to Action</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="admissionsForm" class="bg-white rounded-b-xl border border-brand-border p-8">
+      
+      <!-- TAB 1: Hero Section -->
+      <div id="hero-tab" class="tab-content active">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Hero Section</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Text</label>
+            <input type="text" id="heroBadge" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Admissions 2024/2025">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Title Line 1</label>
+            <input type="text" id="heroTitleLine1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Your Child's Future">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Title Line 2 (Gold Highlight)</label>
+            <input type="text" id="heroTitleLine2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Starts Here">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Description</label>
+            <textarea id="heroDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Join a community where academic excellence meets nurturing care..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Button Text</label>
+              <input type="text" id="heroButton1Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Apply Now">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Button Text</label>
+              <input type="text" id="heroButton2Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Download Prospectus">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Hero Background Image</label>
+            
+            <!-- Image Preview -->
+            <div id="heroImagePreview" class="mb-3 hidden">
+              <img id="heroImagePreviewImg" src="" alt="Preview" class="w-full max-w-2xl h-64 object-cover rounded-xl border-2 border-brand-border shadow-sm">
+            </div>
+
+            <!-- Upload Button -->
+            <div class="flex gap-3">
+              <label class="px-4 py-2.5 bg-brand-gold text-slate-900 rounded-lg hover:bg-brand-goldHover transition font-semibold cursor-pointer inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Upload Image
+                <input type="file" id="heroImageUpload" accept="image/*" class="hidden" onchange="uploadImage(this, 'heroImage')">
+              </label>
+              <input type="text" id="heroImage" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="assets/images/admissions-hero.jpg" readonly>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Upload an image or use existing path. Max 5MB. Formats: JPG, PNG, GIF, WebP</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Process Steps -->
+      <div id="process-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">4-Step Process</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="processSectionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Simple 4-Step Process">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Subtitle</label>
+            <textarea id="processSectionSubtitle" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="We've streamlined our admission process..."></textarea>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Step 1</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="step1Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Initial Inquiry">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="step1Description" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Submit an online inquiry form..."></textarea>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Step 2</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="step2Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Application Submission">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="step2Description" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Complete the formal application form..."></textarea>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Step 3</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="step3Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Assessment & Interview">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="step3Description" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Prospective students participate..."></textarea>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Step 4</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+              <input type="text" id="step4Title" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Enrollment & Orientation">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="step4Description" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Upon acceptance, secure the spot..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Fee Schedule -->
+      <div id="fees-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Fee Schedule</h2>
+        
+        <div class="space-y-6">
+          <!-- Section Headers -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Section Headers</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Badge Text</label>
+              <input type="text" id="feeSectionBadge" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Investment in Excellence">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+              <input type="text" id="feeSectionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Transparent Fee Schedule">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+              <textarea id="feeSectionDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="We believe in providing world-class education..."></textarea>
+            </div>
+          </div>
+
+          <!-- Value Propositions -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Value Propositions (3 checkmarks)</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Prop 1</label>
+              <input type="text" id="feeValueProp1" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="All-inclusive Tuition">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Prop 2</label>
+              <input type="text" id="feeValueProp2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Flexible Payment Plans">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Value Prop 3</label>
+              <input type="text" id="feeValueProp3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Sibling Discounts Available">
+            </div>
+          </div>
+
+          <!-- Fee Table -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-slate-900">Fee Table</h3>
+              <div class="w-32">
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Year</label>
+                <input type="text" id="feeTableYear" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold" placeholder="2026">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-5 gap-4 text-xs font-semibold text-slate-700">
+              <div>Level / Category</div><div>Term 1</div><div>Term 2</div><div>Term 3</div><div>Annual Total</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+              <div class="font-semibold text-slate-700">ECDC Section</div>
+              <input type="text" id="feeEcdcTerm1" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 11,300">
+              <input type="text" id="feeEcdcTerm2" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 11,000">
+              <input type="text" id="feeEcdcTerm3" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 8,000">
+              <input type="text" id="feeEcdcAnnual" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 30,300">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+              <div class="font-semibold text-slate-700">Lower Primary (Grade 1 - 3)</div>
+              <input type="text" id="feeLowerTerm1" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 14,800">
+              <input type="text" id="feeLowerTerm2" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 14,000">
+              <input type="text" id="feeLowerTerm3" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 9,000">
+              <input type="text" id="feeLowerAnnual" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 37,800">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+              <div class="font-semibold text-slate-700">Upper Primary (Grade 4 - 6)</div>
+              <input type="text" id="feeUpperTerm1" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 16,800">
+              <input type="text" id="feeUpperTerm2" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 16,500">
+              <input type="text" id="feeUpperTerm3" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 10,500">
+              <input type="text" id="feeUpperAnnual" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 43,800">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+              <div class="font-semibold text-slate-700">Boarding (Grade 4 - 9)</div>
+              <input type="text" id="feeBoardingTerm1" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 27,800">
+              <input type="text" id="feeBoardingTerm2" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 27,500">
+              <input type="text" id="feeBoardingTerm3" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 20,000">
+              <input type="text" id="feeBoardingAnnual" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 75,300">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+              <div class="font-semibold text-slate-700">Day School (Junior Secondary)</div>
+              <input type="text" id="feeDayTerm1" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 17,300">
+              <input type="text" id="feeDayTerm2" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 16,500">
+              <input type="text" id="feeDayTerm3" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 15,000">
+              <input type="text" id="feeDayAnnual" class="fee-value w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 48,800">
+            </div>
+
+            <!-- Note -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Table Footer Note</label>
+              <textarea id="feeNoteText" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Enrollment fees are one-time and non-refundable..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Admission Fee</label>
+                <input type="text" id="feeAdmissionFee" class="w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 500 (payable once)">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Development Fee</label>
+                <input type="text" id="feeDevelopmentFee" class="w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 3,000">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Cutlery</label>
+                <input type="text" id="feeCutleryFee" class="w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 300">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Interview Fee</label>
+                <input type="text" id="feeInterviewFee" class="w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="KES 1,000 for day scholars; KES 3,000 for boarders">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Payment Method</label>
+                <input type="text" id="feePaymentMethod" class="w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="Kenya Commercial Bank (KCB)">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Payment Instructions</label>
+                <input type="text" id="feePaymentInstructions" class="w-full px-3 py-2 border border-slate-300 rounded-lg" placeholder="PayBill 522522 | Account 1309917213">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: FAQs -->
+      <div id="faq-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Title</label>
+            <input type="text" id="faqSectionTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Frequently Asked Questions">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Section Subtitle</label>
+            <textarea id="faqSectionSubtitle" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Find quick answers to common questions..."></textarea>
+          </div>
+
+          <!-- FAQ 1 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">FAQ 1</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Question</label>
+              <input type="text" id="faq1Question" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="When does the academic year begin at Tumaini?">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Answer</label>
+              <textarea id="faq1Answer" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Our academic year follows..."></textarea>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">FAQ 2</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Question</label>
+              <input type="text" id="faq2Question" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="What documents are required?">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Answer</label>
+              <textarea id="faq2Answer" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Required documents include..."></textarea>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">FAQ 3</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Question</label>
+              <input type="text" id="faq3Question" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Do you offer scholarships?">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Answer</label>
+              <textarea id="faq3Answer" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Yes, we provide..."></textarea>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">FAQ 4</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Question</label>
+              <input type="text" id="faq4Question" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="What is the teacher-to-student ratio?">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Answer</label>
+              <textarea id="faq4Answer" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="We maintain an optimal ratio..."></textarea>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="p-6 bg-brand-surface rounded-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">FAQ 5</h3>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Question</label>
+              <input type="text" id="faq5Question" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Are there transport services?">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Answer</label>
+              <textarea id="faq5Answer" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Yes, we operate..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: Call to Action -->
+      <div id="cta-tab" class="tab-content">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Call to Action Section</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Title</label>
+            <input type="text" id="ctaTitle" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Ready to Join the Tumaini Family?">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Description</label>
+            <textarea id="ctaDescription" rows="3" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Application for the next academic term..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Primary Button Text</label>
+              <input type="text" id="ctaButton1Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Start Online Application">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Secondary Button Text</label>
+              <input type="text" id="ctaButton2Text" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Book a School Tour">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    let authToken = null;
+    const defaultFeeStructure = {
+      ecdc: { term1: 'KES 11,300', term2: 'KES 11,000', term3: 'KES 8,000', annual: 'KES 30,300' },
+      lower: { term1: 'KES 14,800', term2: 'KES 14,000', term3: 'KES 9,000', annual: 'KES 37,800' },
+      upper: { term1: 'KES 16,800', term2: 'KES 16,500', term3: 'KES 10,500', annual: 'KES 43,800' },
+      boarding: { term1: 'KES 27,800', term2: 'KES 27,500', term3: 'KES 20,000', annual: 'KES 75,300' },
+      day: { term1: 'KES 17,300', term2: 'KES 16,500', term3: 'KES 15,000', annual: 'KES 48,800' },
+      details: {
+        admission: 'KES 500 (payable once)',
+        development: 'KES 3,000',
+        cutlery: 'KES 300',
+        interview: 'KES 1,000 for day scholars; KES 3,000 for boarders',
+        paymentMethod: 'Kenya Commercial Bank (KCB)',
+        paymentInstructions: 'PayBill 522522 | Account 1309917213'
+      }
+    };
+
+    function setFeeFields(feeStructure) {
+      Object.entries(feeStructure).filter(([category]) => category !== 'details').forEach(([category, values]) => {
+        Object.entries(values).forEach(([period, value]) => {
+          const field = document.getElementById(`fee${category.charAt(0).toUpperCase() + category.slice(1)}${period.charAt(0).toUpperCase() + period.slice(1)}`);
+          if (field) field.value = value || '';
+        });
+      });
+      const details = feeStructure.details || defaultFeeStructure.details;
+      const detailFields = {
+        admission: 'feeAdmissionFee', development: 'feeDevelopmentFee', cutlery: 'feeCutleryFee',
+        interview: 'feeInterviewFee', paymentMethod: 'feePaymentMethod', paymentInstructions: 'feePaymentInstructions'
+      };
+      Object.entries(detailFields).forEach(([key, fieldId]) => {
+        document.getElementById(fieldId).value = details[key] || '';
+      });
+    }
+
+    function getFeeStructure() {
+      const feeStructure = {};
+      Object.keys(defaultFeeStructure).forEach(category => {
+        if (category === 'details') return;
+        feeStructure[category] = {};
+        Object.keys(defaultFeeStructure[category]).forEach(period => {
+          const field = document.getElementById(`fee${category.charAt(0).toUpperCase() + category.slice(1)}${period.charAt(0).toUpperCase() + period.slice(1)}`);
+          feeStructure[category][period] = field ? field.value : '';
+        });
+      });
+      feeStructure.details = {
+        admission: document.getElementById('feeAdmissionFee').value,
+        development: document.getElementById('feeDevelopmentFee').value,
+        cutlery: document.getElementById('feeCutleryFee').value,
+        interview: document.getElementById('feeInterviewFee').value,
+        paymentMethod: document.getElementById('feePaymentMethod').value,
+        paymentInstructions: document.getElementById('feePaymentInstructions').value
+      };
+      return feeStructure;
+    }
+    
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      authToken = localStorage.getItem('authToken');
+
+      if (!authToken) {
+        console.error('❌ No authToken found in localStorage!');
+        window.location.href = '../login.html';
+      } else {
+        console.log('✅ Authentication successful!');
+        loadAdmissionsData();
+      }
+    });
+
+    // Tab switching
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById(tabName + '-tab').classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Load admissions data
+    async function loadAdmissionsData() {
+      try {
+        const response = await fetch(`${apiUrl}/api/admissions`);
+        const data = await response.json();
+
+        if (data) {
+          // Hero Section
+          document.getElementById('heroBadge').value = data.hero_badge || '';
+          document.getElementById('heroTitleLine1').value = data.hero_title_line1 || '';
+          document.getElementById('heroTitleLine2').value = data.hero_title_line2 || '';
+          document.getElementById('heroDescription').value = data.hero_description || '';
+          document.getElementById('heroButton1Text').value = data.hero_button1_text || '';
+          document.getElementById('heroButton2Text').value = data.hero_button2_text || '';
+          document.getElementById('heroImage').value = data.hero_image || '';
+          if (data.hero_image) showImagePreview('heroImage', data.hero_image);
+
+          // Process Steps
+          document.getElementById('processSectionTitle').value = data.process_section_title || '';
+          document.getElementById('processSectionSubtitle').value = data.process_section_subtitle || '';
+          document.getElementById('step1Title').value = data.step1_title || '';
+          document.getElementById('step1Description').value = data.step1_description || '';
+          document.getElementById('step2Title').value = data.step2_title || '';
+          document.getElementById('step2Description').value = data.step2_description || '';
+          document.getElementById('step3Title').value = data.step3_title || '';
+          document.getElementById('step3Description').value = data.step3_description || '';
+          document.getElementById('step4Title').value = data.step4_title || '';
+          document.getElementById('step4Description').value = data.step4_description || '';
+
+          // Fee Schedule
+          document.getElementById('feeSectionBadge').value = data.fee_section_badge || '';
+          document.getElementById('feeSectionTitle').value = data.fee_section_title || '';
+          document.getElementById('feeSectionDescription').value = data.fee_section_description || '';
+          document.getElementById('feeValueProp1').value = data.fee_value_prop1 || '';
+          document.getElementById('feeValueProp2').value = data.fee_value_prop2 || '';
+          document.getElementById('feeValueProp3').value = data.fee_value_prop3 || '';
+          document.getElementById('feeTableYear').value = data.fee_table_year || '';
+          let feeStructure = defaultFeeStructure;
+          try {
+            feeStructure = data.fee_structure_json ? { ...defaultFeeStructure, ...JSON.parse(data.fee_structure_json) } : defaultFeeStructure;
+          } catch (error) {
+            console.warn('Invalid fee structure data, using defaults');
+          }
+          setFeeFields(feeStructure);
+          document.getElementById('feeNoteText').value = data.fee_note_text || '';
+
+          // FAQs
+          document.getElementById('faqSectionTitle').value = data.faq_section_title || '';
+          document.getElementById('faqSectionSubtitle').value = data.faq_section_subtitle || '';
+          document.getElementById('faq1Question').value = data.faq1_question || '';
+          document.getElementById('faq1Answer').value = data.faq1_answer || '';
+          document.getElementById('faq2Question').value = data.faq2_question || '';
+          document.getElementById('faq2Answer').value = data.faq2_answer || '';
+          document.getElementById('faq3Question').value = data.faq3_question || '';
+          document.getElementById('faq3Answer').value = data.faq3_answer || '';
+          document.getElementById('faq4Question').value = data.faq4_question || '';
+          document.getElementById('faq4Answer').value = data.faq4_answer || '';
+          document.getElementById('faq5Question').value = data.faq5_question || '';
+          document.getElementById('faq5Answer').value = data.faq5_answer || '';
+
+          // CTA
+          document.getElementById('ctaTitle').value = data.cta_title || '';
+          document.getElementById('ctaDescription').value = data.cta_description || '';
+          document.getElementById('ctaButton1Text').value = data.cta_button1_text || '';
+          document.getElementById('ctaButton2Text').value = data.cta_button2_text || '';
+        }
+      } catch (error) {
+        console.error('Error loading admissions data:', error);
+        showError('Failed to load admissions data');
+      }
+    }
+
+    // Save admissions data
+    async function saveAdmissions() {
+      try {
+        const admissionsData = {
+          // Hero Section
+          hero_badge: document.getElementById('heroBadge').value,
+          hero_title_line1: document.getElementById('heroTitleLine1').value,
+          hero_title_line2: document.getElementById('heroTitleLine2').value,
+          hero_description: document.getElementById('heroDescription').value,
+          hero_button1_text: document.getElementById('heroButton1Text').value,
+          hero_button2_text: document.getElementById('heroButton2Text').value,
+          hero_image: document.getElementById('heroImage').value,
+
+          // Process Steps
+          process_section_title: document.getElementById('processSectionTitle').value,
+          process_section_subtitle: document.getElementById('processSectionSubtitle').value,
+          step1_title: document.getElementById('step1Title').value,
+          step1_description: document.getElementById('step1Description').value,
+          step2_title: document.getElementById('step2Title').value,
+          step2_description: document.getElementById('step2Description').value,
+          step3_title: document.getElementById('step3Title').value,
+          step3_description: document.getElementById('step3Description').value,
+          step4_title: document.getElementById('step4Title').value,
+          step4_description: document.getElementById('step4Description').value,
+
+          // Fee Schedule
+          fee_section_badge: document.getElementById('feeSectionBadge').value,
+          fee_section_title: document.getElementById('feeSectionTitle').value,
+          fee_section_description: document.getElementById('feeSectionDescription').value,
+          fee_value_prop1: document.getElementById('feeValueProp1').value,
+          fee_value_prop2: document.getElementById('feeValueProp2').value,
+          fee_value_prop3: document.getElementById('feeValueProp3').value,
+          fee_table_year: document.getElementById('feeTableYear').value,
+          fee_structure_json: JSON.stringify(getFeeStructure()),
+          fee_early_years_enrollment: '',
+          fee_early_years_tuition: '',
+          fee_lower_primary_enrollment: '',
+          fee_lower_primary_tuition: '',
+          fee_upper_primary_enrollment: '',
+          fee_upper_primary_tuition: '',
+          fee_junior_secondary_enrollment: '',
+          fee_junior_secondary_tuition: '',
+          fee_boarding_enrollment: '',
+          fee_boarding_tuition: '',
+          fee_note_text: document.getElementById('feeNoteText').value,
+
+          // FAQs
+          faq_section_title: document.getElementById('faqSectionTitle').value,
+          faq_section_subtitle: document.getElementById('faqSectionSubtitle').value,
+          faq1_question: document.getElementById('faq1Question').value,
+          faq1_answer: document.getElementById('faq1Answer').value,
+          faq2_question: document.getElementById('faq2Question').value,
+          faq2_answer: document.getElementById('faq2Answer').value,
+          faq3_question: document.getElementById('faq3Question').value,
+          faq3_answer: document.getElementById('faq3Answer').value,
+          faq4_question: document.getElementById('faq4Question').value,
+          faq4_answer: document.getElementById('faq4Answer').value,
+          faq5_question: document.getElementById('faq5Question').value,
+          faq5_answer: document.getElementById('faq5Answer').value,
+
+          // CTA
+          cta_title: document.getElementById('ctaTitle').value,
+          cta_description: document.getElementById('ctaDescription').value,
+          cta_button1_text: document.getElementById('ctaButton1Text').value,
+          cta_button2_text: document.getElementById('ctaButton2Text').value
+        };
+
+        const response = await fetch(`${apiUrl}/api/admissions`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(admissionsData)
+        });
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          throw new Error('Failed to save');
+        }
+      } catch (error) {
+        console.error('Error saving admissions:', error);
+        showError('Failed to save changes');
+      }
+    }
+
+    // Image upload function
+    async function uploadImage(input, targetFieldId) {
+      const file = input.files[0];
+      if (!file) return;
+
+      if (file.size > 5 * 1024 * 1024) {
+        showError('Image must be less than 5MB');
+        return;
+      }
+
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        showError('Only JPG, PNG, GIF, and WebP images are allowed');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const response = await fetch(`${apiUrl}/api/upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const imagePath = data.path;
+          document.getElementById(targetFieldId).value = imagePath;
+          showImagePreview(targetFieldId, imagePath);
+          showSuccess();
+        } else {
+          throw new Error('Upload failed');
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        showError('Failed to upload image');
+      }
+    }
+
+    // Show image preview
+    function showImagePreview(fieldId, imagePath) {
+      const previewContainer = document.getElementById(fieldId + 'Preview');
+      const previewImg = document.getElementById(fieldId + 'PreviewImg');
+      
+      if (previewContainer && previewImg) {
+        previewImg.src = '../../' + imagePath;
+        previewContainer.classList.remove('hidden');
+      }
+    }
+
+    // Toast notifications
+    function showSuccess() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    function showError(message) {
+      const toast = document.getElementById('errorToast');
+      document.getElementById('errorMessage').textContent = message || '✗ Failed to save changes';
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+  </script>
+
+</body>
+</html>

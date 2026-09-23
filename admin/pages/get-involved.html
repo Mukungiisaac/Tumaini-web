@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Involved Editor | Tumaini CMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#153E35',
+              darker: '#0F2D27',
+              gold: '#D4973B',
+              goldHover: '#BF8229',
+              mint: '#EAF3EF',
+              surface: '#F8FAF9',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-brand-surface">
+
+  <!-- Success Toast -->
+  <div id="successToast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold">✓ Changes saved successfully!</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="hidden fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+    <p class="font-semibold" id="errorMessage">✗ Failed to save changes</p>
+  </div>
+
+  <div class="max-w-5xl mx-auto p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Get Involved Editor</h1>
+        <p class="text-slate-600 mt-1">Manage donation, volunteer, and partnership information</p>
+      </div>
+      <button onclick="saveGetInvolved()" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+        Save Changes
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form id="getInvolvedForm" class="space-y-6">
+      
+      <!-- Donation Information -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Donation Information
+        </h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Donation Description</label>
+            <textarea id="donationInfo" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Describe how donations help the school..."></textarea>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Donation Instructions</label>
+            <textarea id="donationInstructions" rows="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Bank details, M-Pesa instructions, PayPal information, etc."></textarea>
+            <p class="text-xs text-slate-500 mt-1">Include all payment methods and account details</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Volunteer Information -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          Volunteer Opportunities
+        </h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Volunteer Information</label>
+          <textarea id="volunteerInfo" rows="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Describe volunteer opportunities, requirements, application process..."></textarea>
+        </div>
+      </div>
+
+      <!-- Partnership Information -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Partnership Opportunities
+        </h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Partnership Information</label>
+          <textarea id="partnershipInfo" rows="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Describe partnership opportunities for organizations and businesses..."></textarea>
+        </div>
+      </div>
+
+      <!-- Sponsorship Information -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          Child Sponsorship
+        </h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Sponsorship Information</label>
+          <textarea id="sponsorshipInfo" rows="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Describe child sponsorship programs, benefits, and how to get started..."></textarea>
+        </div>
+      </div>
+
+      <!-- Other Ways to Support -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Other Ways to Support
+        </h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Additional Support Ways</label>
+          <textarea id="supportWays" rows="5" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="In-kind donations, fundraising events, social media sharing, etc."></textarea>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-brand-border">
+        <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Contact for Support Inquiries
+        </h2>
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Contact Information</label>
+          <textarea id="contactInfo" rows="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Email, phone numbers, contact person names for support inquiries..."></textarea>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end gap-4">
+        <a href="../dashboard.html" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-semibold">
+          Cancel
+        </a>
+        <button type="submit" class="px-6 py-3 bg-brand-dark text-white rounded-lg hover:bg-brand-darker transition font-semibold">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const apiUrl = 'http://192.168.0.110:3001';
+    const authToken = localStorage.getItem('authToken');
+
+    // Check authentication
+    if (!authToken) {
+      window.location.href = '../login.html';
+    }
+
+    // Load get involved data
+    async function loadGetInvolved() {
+      try {
+        const response = await fetch(`${apiUrl}/api/get-involved`);
+        const data = await response.json();
+
+        if (data) {
+          document.getElementById('donationInfo').value = data.donation_info || '';
+          document.getElementById('donationInstructions').value = data.donation_instructions || '';
+          document.getElementById('volunteerInfo').value = data.volunteer_info || '';
+          document.getElementById('partnershipInfo').value = data.partnership_info || '';
+          document.getElementById('sponsorshipInfo').value = data.sponsorship_info || '';
+          document.getElementById('supportWays').value = data.support_ways || '';
+          document.getElementById('contactInfo').value = data.contact_info || '';
+        }
+      } catch (error) {
+        console.error('Failed to load data:', error);
+        showError('Failed to load data');
+      }
+    }
+
+    // Save get involved data
+    async function saveGetInvolved() {
+      const data = {
+        donation_info: document.getElementById('donationInfo').value,
+        donation_instructions: document.getElementById('donationInstructions').value,
+        volunteer_info: document.getElementById('volunteerInfo').value,
+        partnership_info: document.getElementById('partnershipInfo').value,
+        sponsorship_info: document.getElementById('sponsorshipInfo').value,
+        support_ways: document.getElementById('supportWays').value,
+        contact_info: document.getElementById('contactInfo').value
+      };
+
+      try {
+        const response = await fetch(`${apiUrl}/api/get-involved`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          showError(result.error || 'Failed to save changes');
+        }
+      } catch (error) {
+        console.error('Save error:', error);
+        showError('Failed to save changes');
+      }
+    }
+
+    // Form submit handler
+    document.getElementById('getInvolvedForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      saveGetInvolved();
+    });
+
+    // Toast functions
+    function showSuccess() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    function showError(message) {
+      const toast = document.getElementById('errorToast');
+      document.getElementById('errorMessage').textContent = '✗ ' + message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Load data on page load
+    window.addEventListener('load', loadGetInvolved);
+  </script>
+</body>
+</html>
