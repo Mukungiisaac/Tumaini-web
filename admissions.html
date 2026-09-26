@@ -720,7 +720,7 @@
   <script src="assets/js/admissions-cms.js"></script>
   <script>
     // Admissions Page CMS Integration
-    const apiUrl = 'http://192.168.0.110:3001';
+    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
 
     (async function loadAdmissionsData() {
       try {

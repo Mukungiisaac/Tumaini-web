@@ -1,5 +1,5 @@
 // Children's Home CMS Integration Script
-const API_BASE_URL = 'http://192.168.0.110:3001';
+const API_BASE_URL = localStorage.getItem('apiUrl') || 'http://localhost:3001';
 
 // Fetch and populate children's home content from CMS
 async function loadChildrensHomeContent() {

@@ -1,4 +1,4 @@
-const NEWS_API_URL = 'http://192.168.0.110:3001';
+const NEWS_API_URL = localStorage.getItem('apiUrl') || 'http://localhost:3001';
 
 function escapeNewsHtml(value) {
   const element = document.createElement('div');

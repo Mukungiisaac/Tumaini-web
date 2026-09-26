@@ -576,7 +576,8 @@
     // About Page CMS Integration
     (async function loadAboutFromCMS() {
       try {
-        const response = await fetch('http://192.168.0.110:3001/api/about');
+        const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
+        const response = await fetch(`${apiUrl}/api/about`);
         if (!response.ok) {
           console.warn('⚠️ About API not available, using default content');
           return;
@@ -660,8 +661,8 @@
             if (valuesMotto) valuesMotto.textContent = `"${data.values_motto}"`;
           }
           
-          // Values list items
-          const valuesItems = missionVisionCards[2].querySelectorAll('li span');
+          // Values list items: select only the text spans, not the decorative bullet markers
+          const valuesItems = missionVisionCards[2].querySelectorAll('.about-values-list li > span:last-child');
           if (valuesItems.length >= 4) {
             if (data.values_item1) valuesItems[0].textContent = data.values_item1;
             if (data.values_item2) valuesItems[1].textContent = data.values_item2;

@@ -2,7 +2,7 @@
 const http = require('http');
 
 const options = {
-  hostname: '192.168.0.110',
+  hostname: 'localhost',
   port: 3001,
   path: '/api/children-home',
   method: 'GET'

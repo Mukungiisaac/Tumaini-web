@@ -166,7 +166,7 @@
   </div>
 
   <script>
-    const apiUrl = 'http://192.168.0.110:3001';
+    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
     const authToken = localStorage.getItem('authToken');
 
     // Check authentication

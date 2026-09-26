@@ -470,7 +470,7 @@
   </div>
 
   <script>
-    const apiUrl = 'http://192.168.0.110:3001';
+    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
     let authToken = null;
     const defaultFeeStructure = {
       ecdc: { term1: 'KES 11,300', term2: 'KES 11,000', term3: 'KES 8,000', annual: 'KES 30,300' },
