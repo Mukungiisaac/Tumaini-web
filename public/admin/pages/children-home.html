@@ -560,9 +560,9 @@
     // Load data from API
     async function loadChildrensHomeData() {
       try {
-        console.log('Loading data from:', `${apiUrl}/api/children-home`);
+        console.log('Loading data from:', `${apiUrl}/api/content?type=children-home`);
         
-        const response = await fetch(`${apiUrl}/api/children-home`, {
+        const response = await fetch(`${apiUrl}/api/content?type=children-home`, {
           headers: {
             'Authorization': `Bearer ${authToken}`
           }
@@ -656,7 +656,7 @@
       });
 
       try {
-        const response = await fetch(`${apiUrl}/api/children-home`, {
+        const response = await fetch(`${apiUrl}/api/content?type=children-home`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

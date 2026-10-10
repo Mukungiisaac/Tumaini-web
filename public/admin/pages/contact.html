@@ -148,7 +148,7 @@
     // Load contact data
     async function loadContact() {
       try {
-        const response = await fetch(`${apiUrl}/api/contact`);
+        const response = await fetch(`${apiUrl}/api/content?type=contact`);
         const data = await response.json();
 
         if (data) {
@@ -192,7 +192,7 @@
       };
 
       try {
-        const response = await fetch(`${apiUrl}/api/contact`, {
+        const response = await fetch(`${apiUrl}/api/content?type=contact`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

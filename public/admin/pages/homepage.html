@@ -507,7 +507,7 @@
     // Load homepage data on page load
     async function loadHomepage() {
       try {
-        const response = await fetch(`${apiUrl}/api/homepage`);
+        const response = await fetch(`${apiUrl}/api/content?type=homepage`);
         const data = await response.json();
 
         if (data) {
@@ -648,7 +648,7 @@
       };
 
       try {
-        const response = await fetch(`${apiUrl}/api/homepage`, {
+        const response = await fetch(`${apiUrl}/api/content?type=homepage`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

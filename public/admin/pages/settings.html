@@ -219,7 +219,7 @@
     // Load settings
     async function loadSettings() {
       try {
-        const response = await fetch(`${apiUrl}/api/settings`, {
+        const response = await fetch(`${apiUrl}/api/content?type=settings`, {
           headers: {
             'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
@@ -262,7 +262,7 @@
       };
 
       try {
-        const response = await fetch(`${apiUrl}/api/settings`, {
+        const response = await fetch(`${apiUrl}/api/content?type=settings`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -194,7 +194,7 @@
     // Load categories
     async function loadCategories() {
       try {
-        const response = await fetch(`${apiUrl}/api/gallery/categories/all`);
+        const response = await fetch(`${apiUrl}/api/gallery?type=categories/all`);
         const categories = await response.json();
 
         const selectEl = document.getElementById('imageCategory');
@@ -224,7 +224,7 @@
       }
 
       try {
-        const response = await fetch(`${apiUrl}/api/gallery/categories`, {
+        const response = await fetch(`${apiUrl}/api/gallery?type=categories`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -251,7 +251,7 @@
     // Load all images
     async function loadImages() {
       try {
-        const response = await fetch(`${apiUrl}/api/gallery/all`, {
+        const response = await fetch(`${apiUrl}/api/gallery?type=images&all=true`, {
           headers: {
             'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }

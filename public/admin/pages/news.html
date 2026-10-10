@@ -339,7 +339,7 @@
     async function loadArticles() {
       try {
         // Get all articles including drafts
-        const response = await fetch(`${apiUrl}/api/news/all`, {
+        const response = await fetch(`${apiUrl}/api/news?all=true`, {
           headers: {
             'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }

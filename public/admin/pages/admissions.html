@@ -551,7 +551,7 @@
     // Load admissions data
     async function loadAdmissionsData() {
       try {
-        const response = await fetch(`${apiUrl}/api/admissions`);
+        const response = await fetch(`${apiUrl}/api/content?type=admissions`);
         const data = await response.json();
 
         if (data) {
@@ -687,7 +687,7 @@
           cta_button2_text: document.getElementById('ctaButton2Text').value
         };
 
-        const response = await fetch(`${apiUrl}/api/admissions`, {
+        const response = await fetch(`${apiUrl}/api/content?type=admissions`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

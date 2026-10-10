@@ -610,7 +610,7 @@
     // Load about data
     async function loadAboutData() {
       try {
-        const response = await fetch(`${apiUrl}/api/about`);
+        const response = await fetch(`${apiUrl}/api/content?type=about`);
         const data = await response.json();
 
         if (data) {
@@ -772,7 +772,7 @@
           cta_button2_text: document.getElementById('ctaButton2Text').value
         };
 
-        const response = await Auth.apiRequest('/api/about', {
+        const response = await Auth.apiRequest('/api/content?type=about', {
           method: 'PUT',
           body: JSON.stringify(aboutData)
         });
