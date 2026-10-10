@@ -189,12 +189,7 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    const authToken = localStorage.getItem('authToken');
-
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '../login.html';
-    }
+        // Auth handled by editor-init.js
 
     // Tab switching
     function showTab(tabName) {
@@ -226,7 +221,7 @@
       try {
         const response = await fetch(`${apiUrl}/api/settings`, {
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
         const settings = await response.json();
@@ -271,7 +266,7 @@
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify(settings)
         });
@@ -315,7 +310,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify({
             currentPassword: current,

@@ -186,14 +186,10 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    const authToken = localStorage.getItem('authToken');
-    let currentEditId = null;
+        let currentEditId = null;
     let deleteImageId = null;
 
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '../login.html';
-    }
+    // Auth handled by editor-init.js
 
     // Load categories
     async function loadCategories() {
@@ -232,7 +228,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify({ name })
         });
@@ -257,7 +253,7 @@
       try {
         const response = await fetch(`${apiUrl}/api/gallery/all`, {
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
 
@@ -335,7 +331,7 @@
       try {
         const response = await fetch(`${apiUrl}/api/gallery/${id}`, {
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
 
@@ -385,7 +381,7 @@
           method: method,
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify(data)
         });
@@ -423,7 +419,7 @@
         const response = await fetch(`${apiUrl}/api/gallery/${deleteImageId}`, {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
 

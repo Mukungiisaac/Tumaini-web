@@ -487,12 +487,7 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    const authToken = localStorage.getItem('authToken');
-
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '../login.html';
-    }
+        // Auth handled by editor-init.js
 
     // Tab switching
     function switchTab(tabName) {
@@ -657,7 +652,7 @@
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify(data)
         });
@@ -733,11 +728,14 @@
         const formData = new FormData();
         formData.append('image', file);
 
+        // Get auth token first
+        const token = await Auth.getAuthToken();
+        
         // Upload to server
         const response = await fetch(`${apiUrl}/api/upload`, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${token}`
           },
           body: formData
         });
