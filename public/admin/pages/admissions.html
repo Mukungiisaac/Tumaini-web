@@ -471,8 +471,7 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    let authToken = null;
-    const defaultFeeStructure = {
+        const defaultFeeStructure = {
       ecdc: { term1: 'KES 11,300', term2: 'KES 11,000', term3: 'KES 8,000', annual: 'KES 30,300' },
       lower: { term1: 'KES 14,800', term2: 'KES 14,000', term3: 'KES 9,000', annual: 'KES 37,800' },
       upper: { term1: 'KES 16,800', term2: 'KES 16,500', term3: 'KES 10,500', annual: 'KES 43,800' },
@@ -528,9 +527,7 @@
     
     // Wait for DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function() {
-      authToken = localStorage.getItem('authToken');
-
-      if (!authToken) {
+            if (!authToken) {
         console.error('❌ No authToken found in localStorage!');
         window.location.href = '../login.html';
       } else {
@@ -783,5 +780,6 @@
   <!-- Supabase Auth Helper -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/admin/js/auth-helper.js"></script>
+  <script src="/admin/js/editor-init.js"></script>
 </body>
 </html>

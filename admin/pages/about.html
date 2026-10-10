@@ -579,31 +579,15 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
-    let authToken = null;
-    
-    // Wait for DOM to be fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      // Debug logging - check localStorage
-      console.log('=== About Admin Page Loading ===');
-      console.log('All localStorage keys:', Object.keys(localStorage));
-      console.log('localStorage contents:', JSON.stringify(localStorage));
-      
-      authToken = localStorage.getItem('authToken');
-      console.log('authToken value:', authToken);
+    const authToken = localStorage.getItem('authToken');
 
-      // Check authentication
-      if (!authToken) {
-        console.error('❌ No authToken found in localStorage!');
-        alert('No authentication token found. You will be redirected to login.\nCheck console for details.');
-        setTimeout(() => {
-          window.location.href = '../login.html';
-        }, 2000);
-      } else {
-        console.log('✅ Authentication successful! Token found:', authToken.substring(0, 20) + '...');
-        // Load data after authentication is confirmed
-        loadAboutData();
-      }
-    });
+    // Check authentication
+    if (!authToken) {
+      window.location.href = '../login.html';
+    }
+
+    // Load data after authentication check
+    loadAboutData();
 
     // Tab switching
     function switchTab(tabName) {
@@ -622,10 +606,14 @@
       event.target.classList.add('active');
     }
 
-    // Load about data
+    // Load about data on page load
     async function loadAboutData() {
       try {
-        const response = await fetch(`${apiUrl}/api/about`);
+        const response = await fetch(`${apiUrl}/api/about`, {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
         const data = await response.json();
 
         if (data) {
@@ -881,7 +869,6 @@
       toast.classList.remove('hidden');
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
-
   </script>
 
 </body>

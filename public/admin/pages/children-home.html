@@ -528,13 +528,9 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    let authToken = null;
-
-    // Check authentication
+        // Check authentication
     document.addEventListener('DOMContentLoaded', () => {
-      authToken = localStorage.getItem('authToken');
-
-      if (!authToken) {
+            if (!authToken) {
         window.location.href = '../login.html';
         return;
       }
@@ -752,5 +748,6 @@
   <!-- Supabase Auth Helper -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/admin/js/auth-helper.js"></script>
+  <script src="/admin/js/editor-init.js"></script>
 </body>
 </html>
