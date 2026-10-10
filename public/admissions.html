@@ -767,5 +767,23 @@
       }
     })();
   </script>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', mobileMenuBtn.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+        if (menuIconOpen && menuIconClose) {
+          menuIconOpen.classList.toggle('hidden');
+          menuIconClose.classList.toggle('hidden');
+        }
+      });
+    }
+  </script>
 </body>
 </html>>
