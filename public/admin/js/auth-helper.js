@@ -143,6 +143,12 @@ window.Auth = {
 
 // Auto-check auth on page load
 window.addEventListener('DOMContentLoaded', async () => {
+  // Skip auth check if we're in an iframe (loaded by dashboard)
+  if (window.self !== window.top) {
+    console.log('Running in iframe, skipping auth check (parent handles auth)');
+    return;
+  }
+  
   // Only check auth on admin pages (not login/reset-password)
   const currentPath = window.location.pathname;
   const publicPages = ['/admin/login.html', '/admin/reset-password.html'];
