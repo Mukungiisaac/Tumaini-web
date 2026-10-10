@@ -361,13 +361,16 @@
     // Load dashboard data
     async function loadDashboard() {
       try {
+        // Get auth token from Supabase session
+        const token = await Auth.getAuthToken();
+        
         // Fetch all data including drafts
         const [newsRes, galleryRes] = await Promise.all([
           fetch(`${apiUrl}/api/news/all`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
+            headers: { 'Authorization': `Bearer ${token}` }
           }),
           fetch(`${apiUrl}/api/gallery/all`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
+            headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);
 
