@@ -272,25 +272,20 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    const authToken = localStorage.getItem('authToken');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '/admin/login.html';
-    }
+    // Auth check is handled by auth-helper.js (auto-loaded at bottom of page)
 
     // Display user info
-    document.getElementById('userName').textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username;
-    if (user.first_name) {
-      document.getElementById('userInitial').textContent = user.first_name[0].toUpperCase();
+    document.getElementById('userName').textContent = user.email || 'Admin';
+    if (user.email) {
+      document.getElementById('userInitial').textContent = user.email[0].toUpperCase();
     }
 
-    // Logout
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
-      window.location.href = '/admin/login.html';
+    // Logout - Updated to use Supabase Auth
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      // Auth.signOut() is provided by auth-helper.js
+      await Auth.signOut();
     });
 
     // Sidebar navigation
@@ -431,5 +426,9 @@
     // Refresh dashboard every 30 seconds
     setInterval(loadDashboard, 30000);
   </script>
+
+  <!-- Supabase Auth Helper -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/js/auth-helper.js"></script>
 </body>
 </html>
