@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Tumaini Comprehensive School & Children's Home CMS - Supabase + Vercel",
   "scripts": {
-    "dev": "vercel dev",
+    "serve": "http-server public -p 8080 -c-1",
     "build": "echo 'Building for Vercel...'",
     "deploy": "vercel --prod",
     "update-urls": "node update-api-urls.js"
