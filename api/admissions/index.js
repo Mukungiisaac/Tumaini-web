@@ -1,6 +1,6 @@
 const { getQuery, runQuery } = require('../../lib/supabase');
 const { createHandler, parseBody } = require('../../lib/api-helper');
-const { authenticateToken, authorizeAdmin } = require('../../lib/middleware/auth');
+const { withAuth } = require('../../lib/supabase-auth-middleware');
 
 // GET - Fetch admissions content (public)
 async function handleGet(req, res) {
@@ -14,14 +14,7 @@ async function handleGet(req, res) {
 }
 
 // PUT - Update admissions content (admin only)
-async function handlePut(req, res) {
-  // Authenticate and authorize
-  const isAuth = await authenticateToken(req, res);
-  if (!isAuth) return;
-  
-  const isAdmin = await authorizeAdmin(req, res);
-  if (!isAdmin) return;
-
+const handlePut = withAuth(async (req, res) => {
   await parseBody(req);
   const updates = req.body;
 
@@ -40,8 +33,8 @@ async function handlePut(req, res) {
   
   // Fetch and return updated data
   const updated = await getQuery('SELECT * FROM admissions WHERE id = 1');
-  res.json({ success: true, data: updated });
-}
+  res.json({ success: true, data: updated, updatedBy: req.user.email });
+});
 
 module.exports = createHandler({
   get: handleGet,

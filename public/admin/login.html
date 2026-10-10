@@ -179,7 +179,17 @@
     </div>
   </div>
 
+  <!-- Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <script>
+    // Initialize Supabase
+    const SUPABASE_URL = 'https://sdqlyzfcffhmmwmxuhrc.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkcWx5emZjZmZobW13bXh1aHJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM0MTIzNzAsImV4cCI6MjA0ODk4ODM3MH0.lOwSwPVxEEaT1Vu9eXLO4JmXiKgWWlGGkLJjH3kYi4E';
+    
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
 
     // Forgot Password Modal
@@ -211,7 +221,7 @@
       }
     });
 
-    // Handle forgot password form
+    // Handle forgot password form with Supabase
     forgotPasswordForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -233,16 +243,13 @@
       resetSpinner.classList.remove('hidden');
 
       try {
-        const response = await fetch(`${apiUrl}/api/auth/forgot-password`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
+        // Use Supabase password reset
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/admin/reset-password.html`,
         });
 
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to send reset email');
+        if (error) {
+          throw error;
         }
 
         // Show success
@@ -256,7 +263,7 @@
 
       } catch (error) {
         console.error('Password reset error:', error);
-        resetErrorMessage.textContent = error.message;
+        resetErrorMessage.textContent = error.message || 'Failed to send reset email';
         resetError.classList.remove('hidden');
       } finally {
         resetBtn.disabled = false;
@@ -304,31 +311,29 @@
       loadingSpinner.classList.remove('hidden');
 
       try {
-        console.log('Attempting login to:', `${apiUrl}/api/auth/login`);
-        
-        const response = await fetch(`${apiUrl}/api/auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email, password })
+        // Sign in with Supabase
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password,
         });
 
-        console.log('Response status:', response.status);
-        const data = await response.json();
-        console.log('Response data:', data);
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Login failed');
+        if (error) {
+          throw error;
         }
 
-        // Store token
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        // Store Supabase session
+        localStorage.setItem('supabaseSession', JSON.stringify(data.session));
+        localStorage.setItem('user', JSON.stringify({
+          id: data.user.id,
+          email: data.user.email,
+          role: data.user.user_metadata?.role || 'admin'
+        }));
 
         if (rememberMe) {
           localStorage.setItem('rememberEmail', email);
         }
+
+        console.log('Login successful!', data.user);
 
         // Redirect to dashboard
         window.location.href = '/admin/dashboard.html';
@@ -338,10 +343,10 @@
         
         // Better error messages
         let errorMsg = error.message;
-        if (error.message.includes('fetch')) {
-          errorMsg = 'Cannot connect to server. Please check your connection.';
-        } else if (error.message.includes('NetworkError')) {
-          errorMsg = 'Network error. Please try again.';
+        if (error.message.includes('Invalid login credentials')) {
+          errorMsg = 'Invalid email or password';
+        } else if (error.message.includes('Email not confirmed')) {
+          errorMsg = 'Please verify your email address';
         }
         
         errorMessage.textContent = errorMsg;
