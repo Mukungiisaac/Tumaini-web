@@ -1,57 +1,84 @@
-const { getQuery, runQuery } = require('../../lib/supabase');
-const { createHandler, parseBody } = require('../../lib/api-helper');
-const { withAuth } = require('../../lib/supabase-auth-middleware');
+// api/homepage/index.js - Homepage content API
+const { createClient } = require('@supabase/supabase-js');
+const { withAuth } = require('../lib/supabase-auth-middleware');
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // GET - Fetch homepage content (public)
 async function handleGet(req, res) {
-  const homepage = await getQuery('SELECT * FROM homepage WHERE id = 1');
-  
-  if (!homepage) {
-    // Return default values if no data exists
-    return res.json({
-      id: 1,
-      hero_image: null,
-      hero_badge: 'Tumaini Comprehensive School',
-      hero_title: 'Empowering Young Minds',
-      hero_description: 'Education and residential care for vulnerable children',
-      hero_button_primary: 'Learn More',
-      hero_button_primary_link: '/about',
-      hero_button_secondary: 'Get Involved',
-      hero_button_secondary_link: '/get-involved',
-      // ... add other default values as needed
-    });
-  }
+  try {
+    const { data, error } = await supabase
+      .from('homepage')
+      .select('*')
+      .eq('id', 1)
+      .single();
 
-  res.json(homepage);
+    if (error) {
+      console.error('Supabase error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Homepage content not found' });
+    }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 }
 
 // PUT - Update homepage content (admin only)
-const handlePut = withAuth(async (req, res) => {
-  // User is already authenticated via withAuth middleware
-  // req.user contains { id, email, role, metadata }
-  
-  await parseBody(req);
-  const updates = req.body;
+async function handlePut(req, res) {
+  try {
+    const updates = req.body;
 
-  // Build dynamic UPDATE query based on provided fields
-  const fields = Object.keys(updates).filter(key => key !== 'id');
-  if (fields.length === 0) {
-    return res.status(400).json({ error: 'No fields to update' });
+    const { data, error } = await supabase
+      .from('homepage')
+      .update(updates)
+      .eq('id', 1)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(200).json({ 
+      success: true, 
+      data, 
+      updatedBy: req.user?.email 
+    });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+module.exports = async (req, res) => {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Cache for 1 minute (improves speed)
+  res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=120');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  const setClause = fields.map((field, index) => `${field} = $${index + 1}`).join(', ');
-  const values = fields.map(field => updates[field]);
+  if (req.method === 'GET') {
+    return handleGet(req, res);
+  }
 
-  const query = `UPDATE homepage SET ${setClause} WHERE id = 1`;
-  
-  await runQuery(query, values);
-  
-  // Fetch and return updated data
-  const updated = await getQuery('SELECT * FROM homepage WHERE id = 1');
-  res.json({ success: true, data: updated, updatedBy: req.user.email });
-});
+  if (req.method === 'PUT') {
+    return withAuth(handlePut)(req, res);
+  }
 
-module.exports = createHandler({
-  get: handleGet,
-  put: handlePut
-});
+  return res.status(405).json({ error: 'Method not allowed' });
+};

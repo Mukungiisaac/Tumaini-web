@@ -1,42 +1,81 @@
-const { getQuery, runQuery } = require('../../lib/supabase');
-const { createHandler, parseBody } = require('../../lib/api-helper');
-const { withAuth } = require('../../lib/supabase-auth-middleware');
+// api/admissions/index.js - Admissions content API
+const { createClient } = require('@supabase/supabase-js');
+const { withAuth } = require('../lib/supabase-auth-middleware');
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // GET - Fetch admissions content (public)
 async function handleGet(req, res) {
-  const admissions = await getQuery('SELECT * FROM admissions WHERE id = 1');
-  
-  if (!admissions) {
-    return res.status(404).json({ error: 'Admissions content not found' });
-  }
+  try {
+    const { data, error } = await supabase
+      .from('admissions')
+      .select('*')
+      .eq('id', 1)
+      .single();
 
-  res.json(admissions);
+    if (error) {
+      console.error('Supabase error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Admissions content not found' });
+    }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 }
 
 // PUT - Update admissions content (admin only)
-const handlePut = withAuth(async (req, res) => {
-  await parseBody(req);
-  const updates = req.body;
+async function handlePut(req, res) {
+  try {
+    const updates = req.body;
 
-  // Build dynamic UPDATE query
-  const fields = Object.keys(updates).filter(key => key !== 'id');
-  if (fields.length === 0) {
-    return res.status(400).json({ error: 'No fields to update' });
+    const { data, error } = await supabase
+      .from('admissions')
+      .update(updates)
+      .eq('id', 1)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(200).json({ 
+      success: true, 
+      data, 
+      updatedBy: req.user?.email 
+    });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+module.exports = async (req, res) => {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  const setClause = fields.map((field, index) => `${field} = $${index + 1}`).join(', ');
-  const values = fields.map(field => updates[field]);
+  if (req.method === 'GET') {
+    return handleGet(req, res);
+  }
 
-  const query = `UPDATE admissions SET ${setClause} WHERE id = 1`;
-  
-  await runQuery(query, values);
-  
-  // Fetch and return updated data
-  const updated = await getQuery('SELECT * FROM admissions WHERE id = 1');
-  res.json({ success: true, data: updated, updatedBy: req.user.email });
-});
+  if (req.method === 'PUT') {
+    return withAuth(handlePut)(req, res);
+  }
 
-module.exports = createHandler({
-  get: handleGet,
-  put: handlePut
-});
+  return res.status(405).json({ error: 'Method not allowed' });
+};
