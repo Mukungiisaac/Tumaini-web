@@ -579,30 +579,15 @@
 
   <script>
     const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
-    let authToken = null;
     
     // Wait for DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function() {
-      // Debug logging - check localStorage
       console.log('=== About Admin Page Loading ===');
-      console.log('All localStorage keys:', Object.keys(localStorage));
-      console.log('localStorage contents:', JSON.stringify(localStorage));
+      console.log('Running in iframe:', window.self !== window.top);
       
-      authToken = localStorage.getItem('authToken');
-      console.log('authToken value:', authToken);
-
-      // Check authentication
-      if (!authToken) {
-        console.error('❌ No authToken found in localStorage!');
-        alert('No authentication token found. You will be redirected to login.\nCheck console for details.');
-        setTimeout(() => {
-          window.location.href = '../login.html';
-        }, 2000);
-      } else {
-        console.log('✅ Authentication successful! Token found:', authToken.substring(0, 20) + '...');
-        // Load data after authentication is confirmed
-        loadAboutData();
-      }
+      // Auth is handled by auth-helper.js
+      // Just load the data
+      loadAboutData();
     });
 
     // Tab switching
@@ -787,12 +772,8 @@
           cta_button2_text: document.getElementById('ctaButton2Text').value
         };
 
-        const response = await fetch(`${apiUrl}/api/about`, {
+        const response = await Auth.apiRequest('/api/about', {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-          },
           body: JSON.stringify(aboutData)
         });
 
@@ -829,10 +810,13 @@
       formData.append('image', file);
 
       try {
+        // Get auth token for file upload
+        const token = await Auth.getAuthToken();
+        
         const response = await fetch(`${apiUrl}/api/upload`, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${token}`
           },
           body: formData
         });

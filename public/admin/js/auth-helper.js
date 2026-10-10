@@ -15,15 +15,19 @@ const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === '
 
 /**
  * Check if user is authenticated
- * Redirects to login if not authenticated
+ * Redirects to login if not authenticated (only when not in iframe)
  */
 async function requireAuth() {
   try {
     const { data: { session }, error } = await supabaseClient.auth.getSession();
     
     if (error || !session) {
-      // No valid session - redirect to login
-      window.location.href = '/admin/login.html';
+      // Only redirect if not in iframe
+      if (window.self === window.top) {
+        window.location.href = '/admin/login.html';
+      } else {
+        console.warn('No session in iframe - this is expected, parent handles auth');
+      }
       return null;
     }
 
@@ -37,7 +41,9 @@ async function requireAuth() {
     return session;
   } catch (error) {
     console.error('Auth check error:', error);
-    window.location.href = '/admin/login.html';
+    if (window.self === window.top) {
+      window.location.href = '/admin/login.html';
+    }
     return null;
   }
 }
