@@ -54,9 +54,9 @@
   <!-- HEADER / NAVIGATION (Identical & Reusable across all pages) -->
   <header class="sticky top-0 z-50 bg-white border-b border-gray-100 transition-all duration-200">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20 gap-4">
+      <div class="relative flex items-center justify-center lg:justify-between h-20 gap-4">
 
-        <!-- Logo -->
+        <!-- Logo - centered on mobile via parent, left on desktop -->
         <a href="index.html"
           class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg p-1 flex-shrink-0">
           <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo"
@@ -89,9 +89,9 @@
             Donate Now
           </a>
 
-          <!-- Mobile menu hamburger button -->
+          <!-- Mobile menu hamburger button - positioned absolutely on mobile -->
           <button id="mobile-menu-btn" type="button"
-            class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            class="lg:hidden absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold z-10"
             aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
             <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor">
