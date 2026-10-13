@@ -956,17 +956,34 @@
   <!-- Mobile Menu Toggle Script -->
   <script>
     // Mobile menu toggle functionality
+    console.log('🔍 Mobile menu script loading...');
+    
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIconOpen = document.getElementById('menu-icon-open');
     const menuIconClose = document.getElementById('menu-icon-close');
 
+    console.log('Mobile menu elements:', {
+      button: mobileMenuBtn,
+      menu: mobileMenu,
+      iconOpen: menuIconOpen,
+      iconClose: menuIconClose
+    });
+
     if (mobileMenuBtn && mobileMenu) {
-      mobileMenuBtn.addEventListener('click', () => {
+      console.log('✅ Mobile menu elements found, attaching click handler...');
+      
+      mobileMenuBtn.addEventListener('click', (e) => {
+        console.log('🖱️ Hamburger clicked!');
+        e.preventDefault();
+        e.stopPropagation();
+        
         const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        console.log('Current state:', isExpanded ? 'open' : 'closed');
         
         // Toggle menu visibility
         mobileMenu.classList.toggle('hidden');
+        console.log('Menu classes after toggle:', mobileMenu.className);
         
         // Toggle aria-expanded
         mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
@@ -1000,6 +1017,13 @@
             menuIconClose.classList.add('hidden');
           }
         }
+      });
+      
+      console.log('✅ Mobile menu initialized successfully');
+    } else {
+      console.error('❌ Mobile menu elements not found!', {
+        button: !!mobileMenuBtn,
+        menu: !!mobileMenu
       });
     }
   </script>
