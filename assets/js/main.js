@@ -1,33 +1,49 @@
 // Tumaini Comprehensive School - Main Interactivity Script
 
-// Mobile Navigation Toggle
+// Mobile Navigation Toggle (Professional Off-Canvas Drawer)
 function initMobileNavigation() {
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIconOpen = document.getElementById('menu-icon-open');
   const menuIconClose = document.getElementById('menu-icon-close');
+  const backdrop = document.getElementById('mobile-menu-backdrop');
+  const closeBtn = document.getElementById('mobile-menu-close-btn');
 
   if (!mobileMenuBtn || !mobileMenu) return;
   if (mobileMenuBtn.dataset.navInitialized === 'true') return;
   mobileMenuBtn.dataset.navInitialized = 'true';
 
-  // Ensure clean initial state
-  mobileMenu.classList.add('hidden');
-  mobileMenu.removeAttribute('style');
-  mobileMenu.classList.remove('mobile-menu-closed');
-  if (menuIconOpen) menuIconOpen.classList.remove('hidden');
-  if (menuIconClose) menuIconClose.classList.add('hidden');
-  mobileMenuBtn.setAttribute('aria-expanded', 'false');
+  const isDrawer = mobileMenu.classList.contains('translate-x-full') || mobileMenu.tagName.toLowerCase() === 'aside';
 
   const closeMobileMenu = () => {
-    mobileMenu.classList.add('hidden');
+    if (isDrawer) {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      if (backdrop) {
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+    } else {
+      mobileMenu.classList.add('hidden');
+    }
+    document.body.classList.remove('overflow-hidden');
     if (menuIconOpen) menuIconOpen.classList.remove('hidden');
     if (menuIconClose) menuIconClose.classList.add('hidden');
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
   };
 
   const openMobileMenu = () => {
-    mobileMenu.classList.remove('hidden');
+    if (isDrawer) {
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      if (backdrop) {
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    } else {
+      mobileMenu.classList.remove('hidden');
+    }
+    document.body.classList.add('overflow-hidden');
     if (menuIconOpen) menuIconOpen.classList.add('hidden');
     if (menuIconClose) menuIconClose.classList.remove('hidden');
     mobileMenuBtn.setAttribute('aria-expanded', 'true');
@@ -36,26 +52,51 @@ function initMobileNavigation() {
   mobileMenuBtn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const isClosed = mobileMenu.classList.contains('hidden');
-    if (isClosed) {
-      openMobileMenu();
-    } else {
+    const isOpen = isDrawer 
+      ? mobileMenu.classList.contains('translate-x-0')
+      : !mobileMenu.classList.contains('hidden');
+    if (isOpen) {
       closeMobileMenu();
+    } else {
+      openMobileMenu();
     }
   });
 
-  // Close menu when clicking outside
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMobileMenu();
+    });
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  }
+
+  // Close menu when clicking outside if backdrop doesn't capture it
   document.addEventListener('click', (e) => {
     if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-      if (!mobileMenu.classList.contains('hidden')) {
+      const isOpen = isDrawer 
+        ? mobileMenu.classList.contains('translate-x-0')
+        : !mobileMenu.classList.contains('hidden');
+      if (isOpen) {
         closeMobileMenu();
       }
     }
   });
 
+  // Close menu when pressing Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMobileMenu();
+    }
+  });
+
   // Close menu when resizing to desktop (lg = 1024px)
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1024 && !mobileMenu.classList.contains('hidden')) {
+    if (window.innerWidth >= 1024) {
       closeMobileMenu();
     }
   });
