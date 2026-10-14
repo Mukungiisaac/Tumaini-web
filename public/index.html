@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
@@ -107,26 +107,67 @@
         </div>
       </div>
     </div>
+    <!-- Mobile Navigation Backdrop Overlay -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" aria-hidden="true"></div>
 
-    <!-- Mobile menu panel -->
-    <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3">
-      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700">
-        <a href="index.html" class="px-3 py-2 rounded-md bg-brand-mint text-brand-dark font-semibold">Home</a>
-        <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">About Us</a>
-        <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Admissions</a>
-        <a href="childrens-home.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Children's Home</a>
-        <a href="news.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">News</a>
-        <a href="gallery.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Gallery</a>
-        <a href="get-involved.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Get Involved</a>
-        <a href="contact.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Contact</a>
-      </nav>
-      <div class="pt-2">
-        <a href="get-involved.html"
-          class="w-full flex items-center justify-center px-4 py-3 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors">
-          Donate Now
-        </a>
+    <!-- Professional Mobile Navigation Sidebar / Off-Canvas Drawer -->
+    <aside id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-[80vw] max-w-[320px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-in-out lg:hidden" aria-label="Mobile Navigation">
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-slate-50/60">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-brand-dark text-brand-gold flex items-center justify-center font-bold text-sm">
+            T
+          </div>
+          <div>
+            <span class="block text-sm font-bold text-brand-dark leading-tight">Tumaini</span>
+            <span class="block text-[10px] font-medium text-slate-500">Comprehensive School</span>
+          </div>
+        </div>
+        <button id="mobile-menu-close-btn" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus:outline-none" aria-label="Close navigation menu">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-    </div>
+
+      <!-- Drawer Navigation Links -->
+      <nav class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5 text-sm font-medium text-slate-700">
+        <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-brand-mint text-brand-dark font-semibold transition-colors">
+          <svg class="w-4 h-4 text-brand-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>Home</span>
+        </a>        <a href="about.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>About Us</span>
+        </a>        <a href="admissions.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Admissions</span>
+        </a>        <a href="childrens-home.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap='round' stroke-linejoin='round' d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'/></svg>
+          <span>Children's Home</span>
+        </a>        <a href="news.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+          <span>News</span>
+        </a>        <a href="gallery.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Gallery</span>
+        </a>        <a href="get-involved.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span>Get Involved</span>
+        </a>        <a href="contact.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>Contact</span>
+        </a>
+      </nav>
+
+      <!-- Drawer Footer -->
+      <div class="p-3.5 border-t border-slate-100 bg-slate-50/60 space-y-2">
+        <a href="get-involved.html" class="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-lg bg-brand-dark text-white font-semibold text-sm hover:bg-brand-darker transition-colors shadow-sm text-center">
+          <span>Donate Now</span>
+          <svg class="w-4 h-4 text-brand-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
+        </a>
+        <p class="text-[11px] text-slate-400 text-center font-medium">Nurturing potential since 2004</p>
+      </div>
+    </aside>
   </header>
 
   <!-- MAIN CONTENT -->
