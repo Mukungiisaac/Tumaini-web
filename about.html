@@ -118,7 +118,7 @@
         <!-- Background Image with Overlay -->
         <img 
           src="assets/images/about-hero.jpg" 
-          alt="Tumaini School Campus Architecture and Grounds" 
+          alt="Tumaini School School Architecture and Grounds" 
           class="absolute inset-0 w-full h-full object-cover object-center"
         >
         <div class="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/85 to-brand-dark/70"></div>
@@ -229,7 +229,7 @@
               A Legacy of Growth
             </h2>
             <p class="text-slate-600 mt-4 text-base sm:text-lg leading-relaxed">
-              Our journey began with a simple belief: that every child in Kenya deserves an education that challenges the mind and nurtures the soul. Over the years, our campus has grown from a single classroom into a comprehensive environment that includes residential facilities, modern labs, and vast green spaces.
+              Our journey began with a simple belief: that every child in Kenya deserves an education that challenges the mind and nurtures the soul. Over the years, our school has grown from a single classroom into a comprehensive environment that includes residential facilities, modern labs, and vast green spaces.
             </p>
           </div>
 
@@ -271,12 +271,12 @@
           </div>
         </div>
 
-        <!-- Right Column: Campus Aerial Photo + Badge -->
+        <!-- Right Column: School Aerial Photo + Badge -->
         <div class="lg:col-span-6 relative">
           <div class="rounded-3xl overflow-hidden shadow-xl">
             <img 
-              src="assets/images/about-campus.jpg" 
-              alt="Aerial view of Tumaini campus buildings and grounds" 
+              src="assets/images/about-school.jpg" 
+              alt="Aerial view of Tumaini school buildings and grounds" 
               class="w-full h-auto object-cover"
             >
           </div>
@@ -463,7 +463,7 @@
           </svg>
         </a>
         <a href="contact.html" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-slate-300 text-slate-700 font-medium text-sm sm:text-base hover:bg-slate-50 transition-colors">
-          Visit Our Campus
+          Visit Our School
         </a>
       </div>
     </section>
@@ -746,20 +746,20 @@
             }
           }
 
-          // Campus image
-          if (data.campus_image) {
-            const campusImg = timelineSection.querySelector('.lg\\:col-span-6.relative img');
-            if (campusImg) campusImg.src = data.campus_image;
+          // School image
+          if (data.school_image) {
+            const schoolImg = timelineSection.querySelector('.lg\\:col-span-6.relative img');
+            if (schoolImg) schoolImg.src = data.school_image;
           }
 
-          // Campus badge
-          if (data.campus_badge_number) {
+          // School badge
+          if (data.school_badge_number) {
             const badgeNumber = timelineSection.querySelector('.text-2xl.font-extrabold.text-white');
-            if (badgeNumber) badgeNumber.textContent = data.campus_badge_number;
+            if (badgeNumber) badgeNumber.textContent = data.school_badge_number;
           }
-          if (data.campus_badge_text) {
+          if (data.school_badge_text) {
             const badgeText = timelineSection.querySelector('.text-xs.text-gray-200');
-            if (badgeText) badgeText.textContent = data.campus_badge_text;
+            if (badgeText) badgeText.textContent = data.school_badge_text;
           }
 
           console.log('⏱️ Updated timeline section');
