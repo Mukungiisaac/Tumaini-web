@@ -93,7 +93,7 @@
 
           <!-- Mobile menu hamburger button -->
           <button id="mobile-menu-btn" type="button"
-            class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none"
             aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
             <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor">
@@ -955,51 +955,30 @@
 
   <!-- Mobile Menu Toggle Script -->
   <script>
-    // Mobile menu toggle functionality
-    console.log('🔍 Mobile menu script loading...');
-    
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIconOpen = document.getElementById('menu-icon-open');
     const menuIconClose = document.getElementById('menu-icon-close');
 
-    console.log('Mobile menu elements:', {
-      button: mobileMenuBtn,
-      menu: mobileMenu,
-      iconOpen: menuIconOpen,
-      iconClose: menuIconClose
-    });
-
     if (mobileMenuBtn && mobileMenu) {
-      console.log('✅ Mobile menu elements found, attaching click handler...');
-      
-      mobileMenuBtn.addEventListener('click', (e) => {
-        console.log('🖱️ Hamburger clicked!');
-        e.preventDefault();
-        e.stopPropagation();
+      mobileMenuBtn.addEventListener('click', function(e) {
+        const isOpen = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
         
-        const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-        console.log('Current state:', isExpanded ? 'open' : 'closed');
-        
-        // Toggle menu visibility with inline styles
-        if (isExpanded) {
+        if (isOpen) {
           // Close menu
           mobileMenu.style.maxHeight = '0';
           mobileMenu.style.opacity = '0';
           mobileMenu.style.paddingTop = '0';
           mobileMenu.style.paddingBottom = '0';
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
         } else {
           // Open menu
           mobileMenu.style.maxHeight = '600px';
           mobileMenu.style.opacity = '1';
           mobileMenu.style.paddingTop = '0.75rem';
           mobileMenu.style.paddingBottom = '1.5rem';
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
         }
-        
-        console.log('Menu styles after toggle:', mobileMenu.style.cssText);
-        
-        // Toggle aria-expanded
-        mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
         
         // Toggle icons
         if (menuIconOpen && menuIconClose) {
@@ -1008,9 +987,9 @@
         }
       });
 
-      // Close mobile menu when clicking outside
-      document.addEventListener('click', (event) => {
-        if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+      // Close when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
           mobileMenu.style.maxHeight = '0';
           mobileMenu.style.opacity = '0';
           mobileMenu.style.paddingTop = '0';
@@ -1023,9 +1002,9 @@
         }
       });
 
-      // Close mobile menu when resizing to desktop
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) { // lg breakpoint
+      // Close on desktop resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1024) {
           mobileMenu.style.maxHeight = '0';
           mobileMenu.style.opacity = '0';
           mobileMenuBtn.setAttribute('aria-expanded', 'false');
@@ -1034,13 +1013,6 @@
             menuIconClose.classList.add('hidden');
           }
         }
-      });
-      
-      console.log('✅ Mobile menu initialized successfully');
-    } else {
-      console.error('❌ Mobile menu elements not found!', {
-        button: !!mobileMenuBtn,
-        menu: !!mobileMenu
       });
     }
   </script>
