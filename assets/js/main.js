@@ -1,39 +1,82 @@
 // Tumaini Comprehensive School - Main Interactivity Script
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Mobile Navigation Toggle
+// Mobile Navigation Toggle
+function initMobileNavigation() {
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIconOpen = document.getElementById('menu-icon-open');
   const menuIconClose = document.getElementById('menu-icon-close');
 
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
-      const isOpen = !mobileMenu.classList.contains('hidden');
-      if (isOpen) {
-        mobileMenu.classList.add('hidden');
-        menuIconOpen.classList.remove('hidden');
-        menuIconClose.classList.add('hidden');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-      } else {
-        mobileMenu.classList.remove('hidden');
-        menuIconOpen.classList.add('hidden');
-        menuIconClose.classList.remove('hidden');
-        mobileMenuBtn.setAttribute('aria-expanded', 'true');
-      }
-    });
+  if (!mobileMenuBtn || !mobileMenu) return;
+  if (mobileMenuBtn.dataset.navInitialized === 'true') return;
+  mobileMenuBtn.dataset.navInitialized = 'true';
 
-    // Close menu when clicking on any mobile nav link
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        menuIconOpen.classList.remove('hidden');
-        menuIconClose.classList.add('hidden');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-      });
+  // Ensure clean initial state
+  mobileMenu.classList.add('hidden');
+  mobileMenu.removeAttribute('style');
+  mobileMenu.classList.remove('mobile-menu-closed');
+  if (menuIconOpen) menuIconOpen.classList.remove('hidden');
+  if (menuIconClose) menuIconClose.classList.add('hidden');
+  mobileMenuBtn.setAttribute('aria-expanded', 'false');
+
+  const closeMobileMenu = () => {
+    mobileMenu.classList.add('hidden');
+    if (menuIconOpen) menuIconOpen.classList.remove('hidden');
+    if (menuIconClose) menuIconClose.classList.add('hidden');
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+  };
+
+  const openMobileMenu = () => {
+    mobileMenu.classList.remove('hidden');
+    if (menuIconOpen) menuIconOpen.classList.add('hidden');
+    if (menuIconClose) menuIconClose.classList.remove('hidden');
+    mobileMenuBtn.setAttribute('aria-expanded', 'true');
+  };
+
+  mobileMenuBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const isClosed = mobileMenu.classList.contains('hidden');
+    if (isClosed) {
+      openMobileMenu();
+    } else {
+      closeMobileMenu();
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+      if (!mobileMenu.classList.contains('hidden')) {
+        closeMobileMenu();
+      }
+    }
+  });
+
+  // Close menu when resizing to desktop (lg = 1024px)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024 && !mobileMenu.classList.contains('hidden')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close menu when clicking on any mobile nav link
+  const mobileLinks = mobileMenu.querySelectorAll('a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileMenu();
     });
-  }
+  });
+}
+
+// Initialize immediately or on DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileNavigation);
+} else {
+  initMobileNavigation();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
 
   // Header Elevation on Scroll
   const header = document.querySelector('header');

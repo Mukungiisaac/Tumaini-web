@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
@@ -58,12 +58,15 @@
 
         <!-- Logo -->
         <a href="index.html"
-          class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg p-1 flex-shrink-0">
+          class="flex items-center gap-3 group focus:outline-none rounded-lg p-1 flex-shrink-0">
           <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo"
             class="w-10 h-10 sm:w-11 sm:h-11 object-contain flex-shrink-0">
           <span
-            class="text-base sm:text-lg xl:text-xl font-bold text-slate-900 tracking-tight font-sans whitespace-nowrap">Tumaini
-            Children's Home &amp; School</span>
+            class="font-bold text-slate-900 tracking-tight font-sans whitespace-nowrap">
+            <!-- Short version on mobile, full version on larger screens -->
+            <span class="inline sm:hidden text-sm">Tumaini School</span>
+            <span class="hidden sm:inline text-base sm:text-lg xl:text-xl">Tumaini Children's Home &amp; School</span>
+          </span>
         </a>
 
         <!-- Desktop Navigation Links -->
@@ -85,13 +88,13 @@
         <!-- CTA & Mobile Menu Button -->
         <div class="flex items-center gap-3 flex-shrink-0">
           <a href="get-involved.html"
-            class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-dark whitespace-nowrap flex-shrink-0">
+            class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-dark whitespace-nowrap">
             Donate Now
           </a>
 
           <!-- Mobile menu hamburger button -->
           <button id="mobile-menu-btn" type="button"
-            class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+            class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none"
             aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
             <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor">

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
@@ -109,17 +109,16 @@
     </div>
 
     <!-- Mobile menu panel -->
-    <div id="mobile-menu" class="mobile-menu-closed lg:hidden border-b border-gray-200 px-4 pt-3 pb-6 space-y-3 transition-all duration-200 ease-in-out"
-         style="max-height: 0; opacity: 0; visibility: visible; overflow: hidden; background-color: #FFD700; position: relative; z-index: 50;">
-      <nav class="flex flex-col space-y-2 text-base font-medium" style="visibility: visible; display: flex;">
-        <a href="index.html" class="px-3 py-2 rounded-md bg-brand-mint font-semibold" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">Home</a>
-        <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">About Us</a>
-        <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">Admissions</a>
-        <a href="childrens-home.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">Children's Home</a>
-        <a href="news.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">News</a>
-        <a href="gallery.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">Gallery</a>
-        <a href="get-involved.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">Get Involved</a>
-        <a href="contact.html" class="px-3 py-2 rounded-md hover:bg-slate-50 transition-colors" style="color: #000000; display: block; font-size: 18px; font-weight: bold;">Contact</a>
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3">
+      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700">
+        <a href="index.html" class="px-3 py-2 rounded-md bg-brand-mint text-brand-dark font-semibold">Home</a>
+        <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">About Us</a>
+        <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Admissions</a>
+        <a href="childrens-home.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Children's Home</a>
+        <a href="news.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">News</a>
+        <a href="gallery.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Gallery</a>
+        <a href="get-involved.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Get Involved</a>
+        <a href="contact.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Contact</a>
       </nav>
       <div class="pt-2">
         <a href="get-involved.html"
@@ -950,74 +949,5 @@
       }
     })();
   </script>
-</body></html>
->
-
-  <!-- Mobile Menu Toggle Script -->
-  <script>
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIconOpen = document.getElementById('menu-icon-open');
-    const menuIconClose = document.getElementById('menu-icon-close');
-
-    if (mobileMenuBtn && mobileMenu) {
-      mobileMenuBtn.addEventListener('click', function(e) {
-        const isOpen = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
-        
-        if (isOpen) {
-          // Close menu
-          mobileMenu.style.maxHeight = '0';
-          mobileMenu.style.opacity = '0';
-          mobileMenu.style.paddingTop = '0';
-          mobileMenu.style.paddingBottom = '0';
-          mobileMenu.style.overflow = 'hidden';
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        } else {
-          // Open menu
-          mobileMenu.style.maxHeight = '800px';
-          mobileMenu.style.opacity = '1';
-          mobileMenu.style.paddingTop = '0.75rem';
-          mobileMenu.style.paddingBottom = '1.5rem';
-          mobileMenu.style.overflow = 'visible';
-          mobileMenuBtn.setAttribute('aria-expanded', 'true');
-        }
-        
-        // Toggle icons
-        if (menuIconOpen && menuIconClose) {
-          menuIconOpen.classList.toggle('hidden');
-          menuIconClose.classList.toggle('hidden');
-        }
-      });
-
-      // Close when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-          mobileMenu.style.maxHeight = '0';
-          mobileMenu.style.opacity = '0';
-          mobileMenu.style.paddingTop = '0';
-          mobileMenu.style.paddingBottom = '0';
-          mobileMenu.style.overflow = 'hidden';
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          mobileMenu.style.paddingBottom = '0';
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          if (menuIconOpen && menuIconClose) {
-            menuIconOpen.classList.remove('hidden');
-            menuIconClose.classList.add('hidden');
-          }
-        }
-      });
-
-      // Close on desktop resize
-      window.addEventListener('resize', function() {
-        if (window.innerWidth >= 1024) {
-          mobileMenu.style.maxHeight = '0';
-          mobileMenu.style.opacity = '0';
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          if (menuIconOpen && menuIconClose) {
-            menuIconOpen.classList.remove('hidden');
-            menuIconClose.classList.add('hidden');
-          }
-        }
-      });
-    }
-  </script>
+</body>
+</html>
