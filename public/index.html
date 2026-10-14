@@ -109,9 +109,9 @@
     </div>
 
     <!-- Mobile menu panel -->
-    <div id="mobile-menu" class="mobile-menu-closed lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3 transition-all duration-200 ease-in-out overflow-hidden"
-         style="max-height: 0; opacity: 0;">
-      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700">
+    <div id="mobile-menu" class="mobile-menu-closed lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3 transition-all duration-200 ease-in-out"
+         style="max-height: 0; opacity: 0; visibility: visible; overflow: hidden;">
+      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700" style="visibility: visible; display: flex;">
         <a href="index.html" class="px-3 py-2 rounded-md bg-brand-mint text-brand-dark font-semibold">Home</a>
         <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">About Us</a>
         <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark transition-colors">Admissions</a>
@@ -970,13 +970,15 @@
           mobileMenu.style.opacity = '0';
           mobileMenu.style.paddingTop = '0';
           mobileMenu.style.paddingBottom = '0';
+          mobileMenu.style.overflow = 'hidden';
           mobileMenuBtn.setAttribute('aria-expanded', 'false');
         } else {
           // Open menu
-          mobileMenu.style.maxHeight = '600px';
+          mobileMenu.style.maxHeight = '800px';
           mobileMenu.style.opacity = '1';
           mobileMenu.style.paddingTop = '0.75rem';
           mobileMenu.style.paddingBottom = '1.5rem';
+          mobileMenu.style.overflow = 'visible';
           mobileMenuBtn.setAttribute('aria-expanded', 'true');
         }
         
@@ -993,6 +995,9 @@
           mobileMenu.style.maxHeight = '0';
           mobileMenu.style.opacity = '0';
           mobileMenu.style.paddingTop = '0';
+          mobileMenu.style.paddingBottom = '0';
+          mobileMenu.style.overflow = 'hidden';
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
           mobileMenu.style.paddingBottom = '0';
           mobileMenuBtn.setAttribute('aria-expanded', 'false');
           if (menuIconOpen && menuIconClose) {
