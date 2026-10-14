@@ -66,6 +66,12 @@
     #adminMain.content-with-rail {
       margin-left: 4.5rem !important;
     }
+    @media (max-width: 767px) {
+      #adminMain.content-with-sidebar,
+      #adminMain.content-with-rail {
+        margin-left: 0 !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-brand-surface">
@@ -362,6 +368,32 @@
     });
     sidebarClose.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
+
+    // Keep the editor usable on phones: start with the navigation off-canvas
+    // so it cannot cover the page content on the initial dashboard view.
+    let wasMobile = window.innerWidth < 768;
+    if (wasMobile) {
+      closeSidebar();
+    }
+
+    window.addEventListener('resize', () => {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile === wasMobile) return;
+
+      wasMobile = isMobile;
+      if (isMobile) {
+        closeSidebar();
+      } else {
+        sidebar.classList.remove('sidebar-hidden', 'sidebar-collapsed');
+        adminMain.classList.remove('content-with-rail');
+        adminMain.classList.add('content-with-sidebar');
+        sidebarOverlay.classList.add('hidden');
+        menuToggle.classList.add('hidden');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation');
+        sidebarClose.classList.remove('hidden');
+      }
+    });
 
     // Load dashboard data
     async function loadDashboard() {
