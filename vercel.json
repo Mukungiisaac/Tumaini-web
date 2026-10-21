@@ -7,6 +7,11 @@
       "source": "/childrens-home(.html)?",
       "destination": "/about.html",
       "permanent": true
+    },
+    {
+      "source": "/get-involved(.html)?",
+      "destination": "/school-life.html",
+      "permanent": true
     }
   ],
   "rewrites": [
