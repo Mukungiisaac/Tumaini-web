@@ -10,7 +10,7 @@ function newsCategorySlug(category) {
   const value = (category || 'General').toLowerCase();
   if (value.includes('academic')) return 'academics';
   if (value.includes('sport')) return 'sports';
-  if (value.includes('child')) return 'children-home';
+  if (value.includes('child') || value.includes('school-life') || value.includes('life')) return 'school-life';
   if (value.includes('community') || value.includes('general')) return 'community';
   if (value.includes('lead')) return 'leadership';
   return value.replace(/[^a-z0-9]+/g, '-');

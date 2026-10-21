@@ -2,6 +2,13 @@
   "version": 2,
   "cleanUrls": false,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/childrens-home(.html)?",
+      "destination": "/about.html",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/:path*",

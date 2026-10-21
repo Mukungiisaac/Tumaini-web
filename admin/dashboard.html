@@ -82,7 +82,7 @@
       <div class="p-6 border-b border-brand-border">
         <div class="flex items-center justify-between gap-3">
           <div class="sidebar-brand flex items-center gap-3">
-            <img src="../assets/images/logo.png" alt="Tumaini Children's Home & School Logo" class="w-10 h-10 object-contain flex-shrink-0">
+            <img src="../assets/images/logo.png" alt="Tumaini Comprehensive School Logo" class="w-10 h-10 object-contain flex-shrink-0">
             <div>
               <h2 class="sidebar-label font-bold text-slate-900">Tumaini CMS</h2>
               <p class="sidebar-label text-xs text-slate-500">Admin Panel</p>
@@ -121,12 +121,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <span class="sidebar-label">Admissions</span>
-        </a>
-        <a href="pages/children-home.html" class="sidebar-link px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-mint transition flex items-center gap-3">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 4l4 2m-2-2l4-2" />
-          </svg>
-          <span class="sidebar-label">Children's Home</span>
         </a>
         <a href="pages/news.html" class="sidebar-link px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-mint transition flex items-center gap-3">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -277,26 +271,21 @@
   </div>
 
   <script>
-    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
-    const authToken = localStorage.getItem('authToken');
+    const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '/admin/login.html';
-    }
+    // Auth check is handled by auth-helper.js (auto-loaded at bottom of page)
 
     // Display user info
-    document.getElementById('userName').textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username;
-    if (user.first_name) {
-      document.getElementById('userInitial').textContent = user.first_name[0].toUpperCase();
+    document.getElementById('userName').textContent = user.email || 'Admin';
+    if (user.email) {
+      document.getElementById('userInitial').textContent = user.email[0].toUpperCase();
     }
 
-    // Logout
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
-      window.location.href = '/admin/login.html';
+    // Logout - Updated to use Supabase Auth
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      // Auth.signOut() is provided by auth-helper.js
+      await Auth.signOut();
     });
 
     // Sidebar navigation
@@ -398,13 +387,16 @@
     // Load dashboard data
     async function loadDashboard() {
       try {
+        // Get auth token from Supabase session
+        const token = await Auth.getAuthToken();
+        
         // Fetch all data including drafts
         const [newsRes, galleryRes] = await Promise.all([
-          fetch(`${apiUrl}/api/news/all`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
+          fetch(`${apiUrl}/api/news?all=true`, {
+            headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch(`${apiUrl}/api/gallery/all`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
+          fetch(`${apiUrl}/api/gallery?type=images&all=true`, {
+            headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);
 
@@ -463,5 +455,9 @@
     // Refresh dashboard every 30 seconds
     setInterval(loadDashboard, 30000);
   </script>
+
+  <!-- Supabase Auth Helper -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/js/auth-helper.js"></script>
 </body>
 </html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Editor | Tumaini CMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+  
+  <div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Page Editor</h1>
+    
+    <!-- Your editor form goes here -->
+    <form id="editorForm">
+      <input type="text" id="sampleField" class="border rounded px-3 py-2" placeholder="Sample field">
+      
+      <button type="submit" class="px-6 py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 mt-4">
+        Save Changes
+      </button>
+    </form>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- REQUIRED: Supabase Auth (DO NOT REMOVE)     -->
+  <!-- ============================================ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/js/auth-helper.js"></script>
+  <script src="/admin/js/editor-init.js"></script>
+  
+  <!-- ============================================ -->
+  <!-- Your page-specific script                   -->
+  <!-- ============================================ -->
+  <script>
+    // API URL configuration
+    const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
+    
+    /**
+     * Initialize this editor page
+     * Called automatically by editor-init.js after auth is verified
+     */
+    window.initEditorPage = function() {
+      console.log('Initializing your editor...');
+      
+      // Load initial data
+      loadData();
+      
+      // Set up form submission
+      document.getElementById('editorForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await saveData();
+      });
+    };
+    
+    /**
+     * Load data from API
+     */
+    async function loadData() {
+      try {
+        // Use window.apiCall() for authenticated requests
+        const response = await window.apiCall('/api/your-endpoint');
+        const data = await response.json();
+        
+        // Populate form fields
+        document.getElementById('sampleField').value = data.sample_field || '';
+        
+        console.log('Data loaded successfully');
+      } catch (error) {
+        console.error('Error loading data:', error);
+      }
+    }
+    
+    /**
+     * Save data to API
+     */
+    async function saveData() {
+      try {
+        const formData = {
+          sample_field: document.getElementById('sampleField').value
+        };
+        
+        // Use window.apiCall() for authenticated requests
+        const response = await window.apiCall('/api/your-endpoint', {
+          method: 'PUT',
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          alert('✓ Saved successfully!');
+        } else {
+          throw new Error('Failed to save');
+        }
+      } catch (error) {
+        console.error('Error saving:', error);
+        alert('✗ Failed to save changes');
+      }
+    }
+    
+    /**
+     * Example: Upload image with authentication
+     */
+    async function handleImageUpload(fileInput) {
+      const file = fileInput.files[0];
+      if (!file) return;
+      
+      try {
+        // Use window.uploadFile() for authenticated file uploads
+        const result = await window.uploadFile(file);
+        console.log('Image uploaded:', result.path);
+        
+        // Update your form field with the image path
+        // document.getElementById('imageField').value = result.path;
+        
+      } catch (error) {
+        console.error('Upload failed:', error);
+        alert('Failed to upload image');
+      }
+    }
+  </script>
+</body>
+</html>

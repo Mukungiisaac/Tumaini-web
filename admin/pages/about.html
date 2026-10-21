@@ -263,12 +263,12 @@
               </div>
               <div class="col-span-2">
                 <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
-                <input type="text" id="timelineTitle2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Residential Wing">
+                <input type="text" id="timelineTitle2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Primary Campus Expansion">
               </div>
             </div>
             <div>
               <label class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
-              <textarea id="timelineDesc2" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="The Children's Home was established..."></textarea>
+              <textarea id="timelineDesc2" rows="2" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent" placeholder="Primary school campus facilities expanded to accommodate growing enrollment..."></textarea>
             </div>
           </div>
 
@@ -578,16 +578,17 @@
   </div>
 
   <script>
-    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
-    const authToken = localStorage.getItem('authToken');
-
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '../login.html';
-    }
-
-    // Load data after authentication check
-    loadAboutData();
+    const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
+    
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('=== About Admin Page Loading ===');
+      console.log('Running in iframe:', window.self !== window.top);
+      
+      // Auth is handled by auth-helper.js
+      // Just load the data
+      loadAboutData();
+    });
 
     // Tab switching
     function switchTab(tabName) {
@@ -606,14 +607,10 @@
       event.target.classList.add('active');
     }
 
-    // Load about data on page load
+    // Load about data
     async function loadAboutData() {
       try {
-        const response = await fetch(`${apiUrl}/api/about`, {
-          headers: {
-            'Authorization': `Bearer ${authToken}`
-          }
-        });
+        const response = await fetch(`${apiUrl}/api/content?type=about`);
         const data = await response.json();
 
         if (data) {
@@ -775,12 +772,8 @@
           cta_button2_text: document.getElementById('ctaButton2Text').value
         };
 
-        const response = await fetch(`${apiUrl}/api/about`, {
+        const response = await Auth.apiRequest('/api/content?type=about', {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-          },
           body: JSON.stringify(aboutData)
         });
 
@@ -817,10 +810,13 @@
       formData.append('image', file);
 
       try {
+        // Get auth token for file upload
+        const token = await Auth.getAuthToken();
+        
         const response = await fetch(`${apiUrl}/api/upload`, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${token}`
           },
           body: formData
         });
@@ -869,7 +865,12 @@
       toast.classList.remove('hidden');
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
+
   </script>
 
+
+  <!-- Supabase Auth Helper -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/js/auth-helper.js"></script>
 </body>
 </html>

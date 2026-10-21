@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tumaini Comprehensive School & Children's Home | Nurturing Potential, Building Futures</title>
+  <title>Tumaini Comprehensive School | Nurturing Potential, Building Futures</title>
   <meta name="description"
-    content="Tumaini Comprehensive School and Children's Home in Kenya provides holistic quality education, nurturing residential care, and community empowerment.">
+    content="Tumaini Comprehensive School in Kenya provides holistic quality education, academic rigor, CBC curriculum, and community empowerment.">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -56,16 +56,15 @@
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20 gap-4">
 
-        <!-- Logo -->
+        <!-- Logo - responsive text -->
         <a href="index.html"
-          class="flex items-center gap-3 group focus:outline-none rounded-lg p-1 flex-shrink-0">
-          <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo"
+          class="flex items-center gap-2 sm:gap-3 group focus:outline-none rounded-lg p-1 flex-1 lg:flex-initial min-w-0">
+          <img src="assets/images/logo.png" alt="Tumaini Comprehensive School Logo"
             class="w-10 h-10 sm:w-11 sm:h-11 object-contain flex-shrink-0">
-          <span
-            class="font-bold text-slate-900 tracking-tight font-sans whitespace-nowrap">
+          <span class="font-bold text-slate-900 tracking-tight font-sans truncate">
             <!-- Short version on mobile, full version on larger screens -->
             <span class="inline sm:hidden text-sm">Tumaini School</span>
-            <span class="hidden sm:inline text-base sm:text-lg xl:text-xl">Tumaini Children's Home &amp; School</span>
+            <span class="hidden sm:inline text-base sm:text-lg xl:text-xl">Tumaini Comprehensive School</span>
           </span>
         </a>
 
@@ -77,8 +76,6 @@
             class="text-brand-dark font-semibold transition-colors hover:text-brand-gold whitespace-nowrap">Home</a>
           <a href="about.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">About Us</a>
           <a href="admissions.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Admissions</a>
-          <a href="childrens-home.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Children's
-            Home</a>
           <a href="news.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">News</a>
           <a href="gallery.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Gallery</a>
           <a href="get-involved.html" class="hover:text-brand-dark transition-colors whitespace-nowrap">Get Involved</a>
@@ -108,27 +105,64 @@
         </div>
       </div>
     </div>
+    <!-- Mobile Navigation Backdrop Overlay -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" aria-hidden="true"></div>
 
-    <!-- Mobile menu panel -->
-    <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3">
-      <nav class="flex flex-col space-y-2 text-base font-medium text-slate-700">
-        <a href="index.html" class="px-3 py-2 rounded-md bg-brand-mint text-brand-dark font-semibold">Home</a>
-        <a href="about.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">About Us</a>
-        <a href="admissions.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Admissions</a>
-        <a href="childrens-home.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Children's
-          Home</a>
-        <a href="news.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">News</a>
-        <a href="gallery.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Gallery</a>
-        <a href="get-involved.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Get Involved</a>
-        <a href="contact.html" class="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand-dark">Contact</a>
-      </nav>
-      <div class="pt-2">
-        <a href="get-involved.html"
-          class="w-full flex items-center justify-center px-4 py-3 rounded-lg bg-brand-dark text-white font-medium text-sm hover:bg-brand-darker transition-colors">
-          Donate Now
-        </a>
+    <!-- Professional Mobile Navigation Sidebar / Off-Canvas Drawer -->
+    <aside id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-[80vw] max-w-[320px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-in-out lg:hidden" aria-label="Mobile Navigation">
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-slate-50/60">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-brand-dark text-brand-gold flex items-center justify-center font-bold text-sm">
+            T
+          </div>
+          <div>
+            <span class="block text-sm font-bold text-brand-dark leading-tight">Tumaini</span>
+            <span class="block text-[10px] font-medium text-slate-500">Comprehensive School</span>
+          </div>
+        </div>
+        <button id="mobile-menu-close-btn" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus:outline-none" aria-label="Close navigation menu">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-    </div>
+
+      <!-- Drawer Navigation Links -->
+      <nav class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5 text-sm font-medium text-slate-700">
+        <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-brand-mint text-brand-dark font-semibold transition-colors">
+          <svg class="w-4 h-4 text-brand-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>Home</span>
+        </a>        <a href="about.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>About Us</span>
+        </a>        <a href="admissions.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Admissions</span>
+        </a>        <a href="news.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+          <span>News</span>
+        </a>        <a href="gallery.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Gallery</span>
+        </a>        <a href="get-involved.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span>Get Involved</span>
+        </a>        <a href="contact.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 hover:text-brand-dark transition-colors">
+          <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>Contact</span>
+        </a>
+      </nav>
+
+      <!-- Drawer Footer -->
+      <div class="p-3.5 border-t border-slate-100 bg-slate-50/60 space-y-2">
+        <a href="get-involved.html" class="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-lg bg-brand-dark text-white font-semibold text-sm hover:bg-brand-darker transition-colors shadow-sm text-center">
+          <span>Donate Now</span>
+          <svg class="w-4 h-4 text-brand-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
+        </a>
+        <p class="text-[11px] text-slate-400 text-center font-medium">Nurturing potential since 2004</p>
+      </div>
+    </aside>
   </header>
 
   <!-- MAIN CONTENT -->
@@ -157,7 +191,7 @@
             <!-- Badge -->
             <div
               class="inline-flex items-center px-3.5 py-1 rounded-full bg-brand-gold text-[12px] font-bold tracking-wider text-slate-900 uppercase">
-              Excellence in Education & Care
+              Excellence in Comprehensive Education
             </div>
 
             <!-- Main Heading -->
@@ -167,8 +201,8 @@
 
             <!-- Lead Paragraph -->
             <p class="text-gray-200 text-base sm:text-lg leading-relaxed max-w-xl font-normal opacity-95">
-              Tumaini Comprehensive School and Children's Home provides a sanctuary of learning and a family of support
-              for Kenya's future leaders. We blend academic rigor with compassionate residential care.
+              Tumaini Comprehensive School provides a vibrant sanctuary of learning and academic excellence
+              for Kenya's future leaders. We blend academic rigor with character-building values and holistic mentorship.
             </p>
 
             <!-- Action Buttons -->
@@ -253,11 +287,11 @@
           <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-[#FEE2E2] text-rose-600 flex items-center justify-center">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-5.25 6.557q0 .178.02.355m10.46 0a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0012 8.443" />
             </svg>
           </div>
-          <div class="text-3xl font-extrabold text-slate-900 tracking-tight">70+</div>
-          <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1">Children in Residence</div>
+          <div class="text-3xl font-extrabold text-slate-900 tracking-tight">30+</div>
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1">Dedicated Educators &amp; Staff</div>
         </div>
 
         <!-- Stat Card 4 -->
@@ -319,36 +353,12 @@
             environment where every child feels valued, supported, and inspired to reach their full potential.
           </p>
 
-          <!-- Checkmarks List -->
-          <ul class="space-y-3.5 pt-2" role="list">
-            <li class="flex items-center gap-3">
-              <span
-                class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-brand-gold flex items-center justify-center font-bold text-xs">
-                âœ“
-              </span>
-              <span class="text-slate-700 font-medium text-base">Nationally recognized academic curriculum</span>
-            </li>
-            <li class="flex items-center gap-3">
-              <span
-                class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-brand-gold flex items-center justify-center font-bold text-xs">
-                âœ“
-              </span>
-              <span class="text-slate-700 font-medium text-base">Safe and modern residential housing facilities</span>
-            </li>
-            <li class="flex items-center gap-3">
-              <span
-                class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-brand-gold flex items-center justify-center font-bold text-xs">
-                âœ“
-              </span>
-              <span class="text-slate-700 font-medium text-base">Holistic character development and mentorship</span>
-            </li>
-            <li class="flex items-center gap-3">
-              <span
-                class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-brand-gold flex items-center justify-center font-bold text-xs">
-                âœ“
-              </span>
-              <span class="text-slate-700 font-medium text-base">Thriving sports and arts programs</span>
-            </li>
+          <!-- Bullet Point List -->
+          <ul class="space-y-2 pt-2 list-disc list-inside text-slate-700 font-medium text-base">
+            <li>Nationally recognized academic curriculum</li>
+            <li>Modern science, computer, and library learning facilities</li>
+            <li>Holistic character development and mentorship</li>
+            <li>Thriving sports, arts, and talent programs</li>
           </ul>
 
           <div class="pt-4">
@@ -402,13 +412,12 @@
             <div class="w-12 h-12 rounded-xl bg-amber-50 text-brand-gold flex items-center justify-center">
               <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900">Residential Care</h3>
+            <h3 class="text-xl font-bold text-slate-900">Holistic Pupil Development</h3>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-              A home away from home. Our residential facilities provide a safe, clean, and nurturing environment for
-              children to live and grow.
+              Beyond academics, we nurture moral virtues, leadership skills, creative arts, and physical wellness to shape confident, responsible future leaders.
             </p>
           </div>
 
@@ -443,7 +452,7 @@
             Latest from Our School
           </h2>
           <p class="text-slate-600 mt-2 text-base max-w-2xl">
-            Stay updated with the vibrant life at Tumainiâ€”from academic milestones to exciting sports events and
+            Stay updated with the vibrant life at Tumaini"”from academic milestones to exciting sports events and
             community projects.
           </p>
         </div>
@@ -468,7 +477,7 @@
             <div class="space-y-3">
               <div class="flex items-center gap-3 text-xs text-slate-500">
                 <span class="font-semibold text-brand-gold uppercase tracking-wider">Activities</span>
-                <span>â€¢</span>
+                <span>·</span>
                 <time datetime="2023-10-12">Oct 12, 2023</time>
               </div>
               <h3 class="text-lg font-bold text-slate-900 leading-snug">
@@ -500,7 +509,7 @@
             <div class="space-y-3">
               <div class="flex items-center gap-3 text-xs text-slate-500">
                 <span class="font-semibold text-brand-gold uppercase tracking-wider">Recreation</span>
-                <span>â€¢</span>
+                <span>·</span>
                 <time datetime="2023-09-28">Sep 28, 2023</time>
               </div>
               <h3 class="text-lg font-bold text-slate-900 leading-snug">
@@ -532,7 +541,7 @@
             <div class="space-y-3">
               <div class="flex items-center gap-3 text-xs text-slate-500">
                 <span class="font-semibold text-brand-gold uppercase tracking-wider">Leadership</span>
-                <span>â€¢</span>
+                <span>·</span>
                 <time datetime="2023-09-15">Sep 15, 2023</time>
               </div>
               <h3 class="text-lg font-bold text-slate-900 leading-snug">
@@ -628,16 +637,16 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-gray-100">
 
         <!-- Col 1: Brand Info -->
+        <!-- Col 1: Brand Info -->
         <div class="lg:col-span-4 space-y-4">
           <div class="flex items-center gap-3">
-            <img src="assets/images/logo.png" alt="Tumaini Children's Home & School Logo"
+            <img src="assets/images/logo.png" alt="Tumaini Comprehensive School Logo"
               class="w-9 h-9 object-contain flex-shrink-0">
-            <span class="text-base font-bold text-slate-900 whitespace-nowrap">Tumaini Children's Home &amp;
-              School</span>
+            <span class="text-base font-bold text-slate-900 whitespace-nowrap">Tumaini Comprehensive School</span>
           </div>
           <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm">
-            Providing quality education and a nurturing residential environment for children in Kenya. Committed to
-            academic excellence and community development.
+            Providing quality education and holistic character development for students in Kenya. Committed to
+            academic excellence, moral virtues, and community leadership.
           </p>
           <!-- Social Icons -->
           <div class="flex items-center space-x-3 pt-2 text-slate-500">
@@ -683,7 +692,8 @@
             <li><a href="about.html" class="hover:text-brand-dark transition-colors">About Us</a></li>
             <li><a href="about.html#academics" class="hover:text-brand-dark transition-colors">Academics</a></li>
             <li><a href="admissions.html" class="hover:text-brand-dark transition-colors">Admissions</a></li>
-            <li><a href="childrens-home.html" class="hover:text-brand-dark transition-colors">Children's Home</a></li>
+            <li><a href="news.html" class="hover:text-brand-dark transition-colors">News</a></li>
+            <li><a href="gallery.html" class="hover:text-brand-dark transition-colors">Gallery</a></li>
             <li><a href="get-involved.html" class="hover:text-brand-dark transition-colors">Get Involved</a></li>
           </ul>
         </div>
@@ -735,7 +745,7 @@
 
       <!-- Bottom Bar -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-        <p>Â© 2026 Tumaini Comprehensive School. All rights reserved.</p>
+        <p>&copy; 2026 Tumaini Comprehensive School. All rights reserved.</p>
         <div class="flex items-center space-x-6">
           <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
           <a href="#" class="hover:text-slate-600 transition-colors">Accessibility</a>
@@ -753,7 +763,7 @@
     // Load homepage content from CMS
     (async function loadHomepageFromCMS() {
       try {
-        const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
+        const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
         const response = await fetch(`${apiUrl}/api/homepage`);
         const data = await response.json();
 
@@ -818,11 +828,11 @@
             if (stat2Number && data.stat_pass_rate) stat2Number.textContent = data.stat_pass_rate;
             if (stat2Label && data.stat_pass_rate_label) stat2Label.textContent = data.stat_pass_rate_label;
             
-            // Stat 3: Children in Residence
+            // Stat 3: Dedicated Educators / Staff
             const stat3Number = statCards[2].querySelector('.text-3xl.font-extrabold');
             const stat3Label = statCards[2].querySelector('.text-xs.font-bold.uppercase');
-            if (stat3Number && data.stat_children_residence) stat3Number.textContent = data.stat_children_residence;
-            if (stat3Label && data.stat_children_label) stat3Label.textContent = data.stat_children_label;
+            if (stat3Number && data.stat_children_residence && !data.stat_children_label?.toLowerCase().includes('residence')) stat3Number.textContent = data.stat_children_residence;
+            if (stat3Label && data.stat_children_label && !data.stat_children_label?.toLowerCase().includes('residence')) stat3Label.textContent = data.stat_children_label;
             
             // Stat 4: Awards
             const stat4Number = statCards[3].querySelector('.text-3xl.font-extrabold');
@@ -848,7 +858,7 @@
             if (holisticTitle && data.holistic_title) holisticTitle.textContent = data.holistic_title;
             if (holisticDesc && data.holistic_description) holisticDesc.textContent = data.holistic_description;
             if (holisticFeatures[0] && data.holistic_feature_1) holisticFeatures[0].textContent = data.holistic_feature_1;
-            if (holisticFeatures[1] && data.holistic_feature_2) holisticFeatures[1].textContent = data.holistic_feature_2;
+            if (holisticFeatures[1] && data.holistic_feature_2 && !data.holistic_feature_2?.toLowerCase().includes('residential')) holisticFeatures[1].textContent = data.holistic_feature_2;
             if (holisticFeatures[2] && data.holistic_feature_3) holisticFeatures[2].textContent = data.holistic_feature_3;
             if (holisticFeatures[3] && data.holistic_feature_4) holisticFeatures[3].textContent = data.holistic_feature_4;
             if (holisticBtn && data.holistic_button_text) holisticBtn.textContent = data.holistic_button_text;
@@ -881,8 +891,8 @@
             if (pillarCards[1]) {
               const p2Title = pillarCards[1].querySelector('h3');
               const p2Desc = pillarCards[1].querySelector('p');
-              if (p2Title && data.pillar_2_title) p2Title.textContent = data.pillar_2_title;
-              if (p2Desc && data.pillar_2_description) p2Desc.textContent = data.pillar_2_description;
+              if (p2Title && data.pillar_2_title && !data.pillar_2_title?.toLowerCase().includes('residential')) p2Title.textContent = data.pillar_2_title;
+              if (p2Desc && data.pillar_2_description && !data.pillar_2_description?.toLowerCase().includes('residential')) p2Desc.textContent = data.pillar_2_description;
             }
 
             // Pillar 3
@@ -951,4 +961,5 @@
       }
     })();
   </script>
-</body></html>
+</body>
+</html>

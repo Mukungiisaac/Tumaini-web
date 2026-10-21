@@ -1,7 +1,7 @@
 {
   "name": "tumaini-cms",
   "version": "2.0.0",
-  "description": "Tumaini Comprehensive School & Children's Home CMS - Supabase + Vercel",
+  "description": "Tumaini Comprehensive School CMS - Supabase + Vercel",
   "scripts": {
     "serve": "http-server public -p 8080 -c-1",
     "build": "echo 'Building for Vercel...'",

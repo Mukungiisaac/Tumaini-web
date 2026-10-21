@@ -166,18 +166,13 @@
   </div>
 
   <script>
-    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
-    const authToken = localStorage.getItem('authToken');
-
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '../login.html';
-    }
+    const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
+        // Auth handled by editor-init.js
 
     // Load get involved data
     async function loadGetInvolved() {
       try {
-        const response = await fetch(`${apiUrl}/api/get-involved`);
+        const response = await fetch(`${apiUrl}/api/content?type=get-involved`);
         const data = await response.json();
 
         if (data) {
@@ -208,11 +203,11 @@
       };
 
       try {
-        const response = await fetch(`${apiUrl}/api/get-involved`, {
+        const response = await fetch(`${apiUrl}/api/content?type=get-involved`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify(data)
         });
@@ -257,5 +252,10 @@
     // Load data on page load
     window.addEventListener('load', loadGetInvolved);
   </script>
+
+  <!-- Supabase Auth Helper -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/js/auth-helper.js"></script>
+  <script src="/admin/js/editor-init.js"></script>
 </body>
 </html>

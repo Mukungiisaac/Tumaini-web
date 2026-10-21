@@ -337,20 +337,20 @@ const storiesDB = {
     `
   },
   'playtime-story': {
-    title: 'Playtime Joy: How Recreational Play Nurtures Emotional Healing',
-    category: "Children's Home",
+    title: 'Playtime Joy: How Recreational Play Nurtures Pupil Wellbeing',
+    category: 'School Life',
     date: 'February 18, 2026',
-    author: 'Caregiving & Child Development Team',
+    author: 'Student Welfare Team',
     image: 'assets/images/merry-go.jfif',
     body: `
       <p class="text-base text-slate-700 leading-relaxed">
-        At Tumaini Children's Home, we understand that childhood should be rich with laughter, exploration, and unrestrained joy. Many of the children entrusted to our care have overcome severe trauma, loss, and poverty.
+        At Tumaini Comprehensive School, we understand that childhood should be rich with laughter, exploration, and unrestrained joy. Physical play and recreational activities are integral to whole-child development.
       </p>
       <p class="text-sm text-slate-700 leading-relaxed">
-        Recreational play—especially on our newly revitalized merry-go-round, swing sets, and green fields—serves as an integral pillar of therapeutic healing. Physical movement, peer cooperation, and spontaneous laughter release healthy endorphins and create safe social bonds among resident siblings.
+        Recreational play—especially on our newly revitalized merry-go-round, swing sets, and green fields—serves as an integral pillar of healthy pupil growth. Physical movement, peer cooperation, and spontaneous laughter release healthy energy and create strong friendships among pupils.
       </p>
       <p class="text-sm text-slate-700 leading-relaxed">
-        Our dedicated house mothers and resident social workers actively participate during playtime, reinforcing an atmosphere of unconditional security, love, and belonging.
+        Our dedicated teachers and activity facilitators actively participate during playtime, reinforcing an atmosphere of encouragement, teamwork, and positive school community.
       </p>
     `
   },
@@ -370,7 +370,7 @@ const storiesDB = {
         </p>
       </div>
       <p class="text-sm text-slate-700 leading-relaxed">
-        Key priorities outlined for the upcoming year include enhanced teacher professional development in CBC assessment strategies, expanded nutrition programs for all day pupils, full integration of digital STEM tools, and continuous enhancement of child safeguarding policies across the residential home and school campus.
+        Key priorities outlined for the upcoming year include enhanced teacher professional development in CBC assessment strategies, expanded nutrition programs for all pupils, full integration of digital STEM tools, and continuous enhancement of learner safeguarding and child protection policies across our modern school campus.
       </p>
     `
   },
@@ -448,7 +448,7 @@ const storiesDB = {
   },
   'nutrition-story': {
     title: 'Farm-to-Plate: How Our School Organic Garden Powers 300+ Nutritious Meals Daily',
-    category: "Children's Home & Health",
+    category: 'Health & Nutrition',
     date: 'October 30, 2025',
     author: 'Health & Agriculture Committee',
     image: 'assets/images/food.jfif',
@@ -457,7 +457,7 @@ const storiesDB = {
         Nutritious, balanced food is indispensable for growing minds and bodies. At Tumaini, our on-campus organic agricultural garden and poultry unit now supply over 60% of the fresh vegetables and eggs used in our central dining hall.
       </p>
       <p class="text-sm text-slate-700 leading-relaxed">
-        Every meal is designed to meet dietary energy and micronutrient requirements, ensuring that resident children and day scholars receive hot, wholesome lunches every single school day.
+        Every meal is designed to meet dietary energy and micronutrient requirements, ensuring that our pupils receive hot, wholesome lunches every single school day.
       </p>
       <p class="text-sm text-slate-700 leading-relaxed">
         Learners also participate in the Young Farmers Club, acquiring practical skills in drip irrigation, compost production, and crop rotation.
@@ -465,17 +465,17 @@ const storiesDB = {
     `
   },
   'art-story': {
-    title: 'Art as a Voice: Children Express Resilience Through Expressive Arts Workshop',
-    category: "Children's Home",
+    title: 'Art as a Voice: Pupils Express Creativity Through Expressive Arts Workshop',
+    category: 'Arts & Clubs',
     date: 'October 14, 2025',
-    author: 'Counselling & Psychosocial Department',
+    author: 'Creative Arts & Guidance Department',
     image: 'assets/images/safeguarding-art.jpg',
     body: `
       <p class="text-base text-slate-700 leading-relaxed">
-        During midterm break, our resident children took part in an immersive two-day Expressive Arts & Trauma-Informed Care workshop led by guest art therapists and local artists.
+        During midterm break, our pupils took part in an immersive two-day Expressive Arts workshop led by guest art educators and local artists.
       </p>
       <p class="text-sm text-slate-700 leading-relaxed">
-        Using acrylics, clay modeling, and collage storytelling, pupils created moving artworks depicting their personal journeys of hope, friendship, and ambition. Several of the collaborative murals now adorn our community hall, bringing warmth and color to our shared living spaces.
+        Using acrylics, clay modeling, and collage storytelling, pupils created moving artworks depicting their personal journeys of hope, friendship, and ambition. Several of the collaborative murals now adorn our school hall, bringing warmth and color to our shared learning spaces.
       </p>
     `
   }
@@ -647,7 +647,7 @@ window.shareArticle = function(title, url) {
   if (navigator.share) {
     navigator.share({
       title: `${title} | Tumaini School`,
-      text: `Read about "${title}" at Tumaini Comprehensive School & Children's Home:`,
+      text: `Read about "${title}" at Tumaini Comprehensive School:`,
       url: url || window.location.href
     }).catch(() => {});
   } else {
@@ -693,8 +693,8 @@ const galleryPhotosDB = [
   {
     image: 'assets/images/merry-go.jfif',
     title: 'Playground Joy & Laughter',
-    desc: 'Recreational therapy and friendship building on our joyful campus playground.',
-    category: "Children's Home",
+    desc: 'Recreation, physical wellness, and camaraderie on our vibrant campus playground.',
+    category: 'Campus Life',
     location: 'Playground Field'
   },
   {
@@ -734,8 +734,8 @@ const galleryPhotosDB = [
   },
   {
     image: 'assets/images/safeguarding-art.jpg',
-    title: 'Expressive Arts & Healing',
-    desc: 'Resident children expressing hope and self-discovery through vibrant canvas painting.',
+    title: 'Expressive Arts & Creativity',
+    desc: 'Students expressing imagination and talent through vibrant visual arts and canvas painting.',
     category: 'Arts & Expression',
     location: 'Art Studio'
   },
@@ -762,10 +762,10 @@ const galleryPhotosDB = [
   },
   {
     image: 'assets/images/care-academic.jpg',
-    title: 'Evening Tutoring & Mentorship',
-    desc: 'House mothers and tutors providing individualized academic guidance each evening.',
-    category: "Children's Home",
-    location: 'Care Dormitory'
+    title: 'Supervised Remedial Study & Mentorship',
+    desc: 'Dedicated teachers providing individualized academic support and guidance.',
+    category: 'Campus Life',
+    location: 'Study Hall'
   },
   {
     image: 'assets/images/holistic-learning.jpg',
@@ -776,10 +776,10 @@ const galleryPhotosDB = [
   },
   {
     image: 'assets/images/children-hero.jpg',
-    title: 'Smiles of Hope & Brotherhood',
-    desc: 'Creating an uplifting sanctuary where every orphan finds a forever family.',
-    category: "Children's Home",
-    location: 'Home Courtyard'
+    title: 'Camaraderie & Student Brotherhood',
+    desc: 'Creating an uplifting, inclusive school culture where every learner is celebrated.',
+    category: 'Campus Life',
+    location: 'School Courtyard'
   },
   {
     image: 'assets/images/about-campus.jpg',

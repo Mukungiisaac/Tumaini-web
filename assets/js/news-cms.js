@@ -1,4 +1,4 @@
-const NEWS_API_URL = localStorage.getItem('apiUrl') || 'http://localhost:3001';
+const NEWS_API_URL = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
 
 function escapeNewsHtml(value) {
   const element = document.createElement('div');
@@ -10,7 +10,7 @@ function newsCategorySlug(category) {
   const value = (category || 'General').toLowerCase();
   if (value.includes('academic')) return 'academics';
   if (value.includes('sport')) return 'sports';
-  if (value.includes('child')) return 'children-home';
+  if (value.includes('child') || value.includes('school-life') || value.includes('life')) return 'school-life';
   if (value.includes('community') || value.includes('general')) return 'community';
   if (value.includes('lead')) return 'leadership';
   return value.replace(/[^a-z0-9]+/g, '-');

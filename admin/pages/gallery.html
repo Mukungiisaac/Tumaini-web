@@ -185,20 +185,16 @@
   </div>
 
   <script>
-    const apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3001';
-    const authToken = localStorage.getItem('authToken');
-    let currentEditId = null;
+    const apiUrl = localStorage.getItem('apiUrl') || (window.location.hostname === 'localhost' ? 'http://localhost:3001' : '');
+        let currentEditId = null;
     let deleteImageId = null;
 
-    // Check authentication
-    if (!authToken) {
-      window.location.href = '../login.html';
-    }
+    // Auth handled by editor-init.js
 
     // Load categories
     async function loadCategories() {
       try {
-        const response = await fetch(`${apiUrl}/api/gallery/categories/all`);
+        const response = await fetch(`${apiUrl}/api/gallery?type=categories/all`);
         const categories = await response.json();
 
         const selectEl = document.getElementById('imageCategory');
@@ -228,11 +224,11 @@
       }
 
       try {
-        const response = await fetch(`${apiUrl}/api/gallery/categories`, {
+        const response = await fetch(`${apiUrl}/api/gallery?type=categories`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify({ name })
         });
@@ -255,9 +251,9 @@
     // Load all images
     async function loadImages() {
       try {
-        const response = await fetch(`${apiUrl}/api/gallery/all`, {
+        const response = await fetch(`${apiUrl}/api/gallery?type=images&all=true`, {
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
 
@@ -335,7 +331,7 @@
       try {
         const response = await fetch(`${apiUrl}/api/gallery/${id}`, {
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
 
@@ -385,7 +381,7 @@
           method: method,
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           },
           body: JSON.stringify(data)
         });
@@ -423,7 +419,7 @@
         const response = await fetch(`${apiUrl}/api/gallery/${deleteImageId}`, {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${await Auth.getAuthToken()}`
           }
         });
 
@@ -473,5 +469,10 @@
       loadImages();
     });
   </script>
+
+  <!-- Supabase Auth Helper -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/js/auth-helper.js"></script>
+  <script src="/admin/js/editor-init.js"></script>
 </body>
 </html>
